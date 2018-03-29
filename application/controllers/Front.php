@@ -18,13 +18,12 @@ class Front extends MY_Controller {
 		
 		#get jumbotron row
 		$jumbo = $this->Front_model->getAllRows('jumbotron', $whereArray);
+// 		var_dump($jumbo);
 		#shorten array
 		foreach ($jumbo as $key) {
 			$jumbo2 = $key;
 		}
 // 		var_dump($jumbo2);											#content array
-// 		echo sizeof($jumbo2);
-		
 		$jumbo3 = array();
 		foreach ($jumbo2 as $key => $value) {
 			if ( strpos($key, 'ag') && !empty($value)) {
@@ -34,75 +33,32 @@ class Front extends MY_Controller {
 // 		var_dump($jumbo3);
 		# get pattern template
 		$patternId = $jumbo2['pattern'];
-		
 		$pattern = $this->Front_model->getAllRows('pattern','id', $patternId);
 		
 		#shorten array
 		foreach ($pattern as $value) {
 			$pattern2 = $value;
 		}
-		
-		foreach ($jumbo2 as $key => $value) {}
-		
 		foreach ($pattern2 as $key => $value) {
 			if ( strpos($key, 'ag') && !empty($value)) {
 				$pattern3[] = $value;
 			}
 		}
 // 		var_dump($pattern3);										#pattern array
-		echo sizeof($pattern3);
+// 		echo sizeof($pattern3);
 		# create array of key value paris of html tag with value 
 		$jumbotron = array();
 		
 		for ($i = 0; $i < sizeof($pattern3); $i++) {
-// 			foreach ($jumbo3 as $key => $value) {
-// 				if (strpos($key, 'ag') && !empty($value)) {
-					$jumbotron[$i] = $value;
-					echo $i;
-// 				}
-// 			}
-		}
-		
-// 		$jumbotron[$pattern3['0']]= $jumbo2['tag_1'];
-// 		$jumbotron[$pattern3['1']] = $jumbo2['tag_2'];
-		var_dump($jumbotron);
-		
-// 		foreach ($jumbo2 as $key => $value) {
-// 			if (strpos($key, 'ag') && !empty($value)) {
-// 				$jumbotron[$key] = 
-// 			}
-// 		}
-		
-// 		if (!empty($jumbo2['tag_1'])) {
-//  			$jumbotron = $jumbo2['tag_1'];
-// 			$jumbotron[$pattern3['0']]= $jumbo2['tag_1'];
-// 			$jumbotron[$pattern3['1']] = $jumbo2['tag_2'];
-// 			$jumbotron[$trail2['tag_3']] = $jumbo2['tag_3'];
-			
-//  			var_dump($jumbotron);
-			
-// 		}
-			
+					$jumbotron[$pattern3[$i]] = $jumbo3[$i];
+// 					echo "$i ";
+		}			
 		
 		$this->data['jumbotron'] = $jumbotron;
 		
 		
-		
-		
-		
-		
-// 		foreach ($this->data['pattern'] as $key => $value) {
-// 			if (!empty($value['tag_1'])) {
-// 				echo 'not empty ';
-// 				echo $value['tag_1'];
-// // 				$comboarray[] = array('$value['tag_1']' => '');
-// 			}
-// 			else {
-// 				echo 'empty';
-// 			}
-// 		}
-// 		var_dump($jumbo);
-// 		var_dump($this->data['pattern']);
+		#create form 
+		$this->data['form'] = 1;
 		
 		//load the page view
 		$this->data['subview'] = 'front/Index';
