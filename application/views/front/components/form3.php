@@ -1,4 +1,4 @@
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
 <div class="container">
 	<form>
 	  	<div class="form-group">
@@ -29,7 +29,7 @@
 	  	</div>
 	  	<div class="form-group">
 			<label>skill</label>
-			<div class="skill error hide"><p>wait, what is a ski?</p></div>
+			<div class="skill error hide"><p>wait, what is a skill?</p></div>
 	  		<div class="dropdown">
 	  			<select id="skill">
 	  				<option selected="pick skill level">pick skill level</option>
@@ -43,7 +43,7 @@
 	 	<div class="form-group">
 	 		<label>date</label>
 	  		<div class="input-group date" data-provide="datepicker">
-			    <input type="text" class="form-control" placeholder="mm/dd/yyyy">
+			<input type="text" id="datepicker">
 			    <div class="input-group-addon">
 			        <span class="glyphicon glyphicon-th"></span>
 			    </div>
@@ -85,24 +85,19 @@ $('form').submit(function(evt) {
 		$('.age.error').addClass('hide');
 	}
 	
-	var date = $('')
+	var currentDate = $( "#datepicker" ).datepicker( "getDate" );
+	
+	
 	console.log(sport);
 	console.log(lesson);
 	console.log(age);
 	console.log(skill);
+	console.log(currentDate);
 });
-
-/*$(document).ready(function(){
-	  var date_input=$('input[name="date"]'); //our date input has the name "date"
-	  console.log(date_input);
-	  var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-	  var options={
-	    format: 'mm/dd/yyyy',
-	    container: container,
-	    todayHighlight: true,
-	    autoclose: true,
-	  });*/
-
+	
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
 
 </script>
 
