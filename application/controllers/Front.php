@@ -63,5 +63,11 @@ class Front extends MY_Controller {
 		//load the page view
 		$this->data['subview'] = 'front/Index';
 		$this->load->view('front/_mainlayout', $this->data);
+		
+	}
+	
+	function schedule() {
+		
+		echo "schedule";
 	}
 }
