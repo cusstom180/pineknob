@@ -15,13 +15,13 @@
 		  		<div type="button" class="btn btn-default btn-1 lesson active" value="private">private</div>
 		  		<div type="button" class="btn btn-default btn-2 lesson" value="group" name="lesson">group</div>
 			</div>
-<!-- 			<input id="lesson" type="hidden" name="lesson" value=""> -->
+			<input id="lesson" type="hidden" name="lesson" value="">
 		</div>
 		<div class="form-group">
 			<label>age</label>
 			<div class="age error hide"><p>you know your age</p></div>
 	  		<div class="dropdown">
-	  			<select id="age" name="age">
+	  			<select id="age" name="age" value="">
 	  				<option selected="pick an age">pick an age</option>
 	  				<option value="child">child</option>
 	  				<option value="teen">teen</option>
@@ -33,7 +33,7 @@
 			<label>skill</label>
 			<div class="skill error hide"><p>wait, what is a skill?</p></div>
 	  		<div class="dropdown">
-	  			<select id="skill" name="skill">
+	  			<select id="skill" name="skill" value="">
 	  				<option selected="pick skill level">pick skill level</option>
 	  				<option value="never tried it">never tried it</option>
 	  				<option value="beginner">beginner</option>
@@ -62,14 +62,19 @@ $('.btn-group-vertical').on('click', '.btn', function() {
 	});
 
 $('form').submit(function(evt) {
-// 	evt.preventDefault();
+ 	evt.preventDefault();
 	var $sport = $('.btn.sport.active');
 	var sport = $sport.attr('value');
-	var lesson = $('.btn.lesson.active').attr('value');
+	var $lesson = $('.btn.lesson.active')
+	var lesson = $lesson.attr('value');
 	var age = $('#age').val();
+	var skill = $('skill').val();
 	var currentDate = $( "#datepicker" ).datepicker("getDate");
 
 	$('#sport').val(sport);
+	$('#lesson').val(lesson);
+	$('#age').val(age);
+	$('#skill').val(skill);
 	
 	if ((age == 'pick an age') || (skill == 'pick skill level') || (currentDate == null)) {
 		console.log('failed');
@@ -82,7 +87,7 @@ $('form').submit(function(evt) {
 		$('.age.error').addClass('hide');
 	}
 	
-	var skill = $('#skill').val();
+	//var skill = $('#skill').val();
 	
 	if (skill == 'pick skill level') {
 		$('.skill.error').removeClass('hide');
