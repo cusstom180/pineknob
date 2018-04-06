@@ -1,20 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.3
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 06, 2018 at 02:07 AM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 7.0.4
+-- Host: localhost:8889
+-- Generation Time: Apr 06, 2018 at 04:02 AM
+-- Server version: 5.6.35
+-- PHP Version: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `pine_knob`
@@ -141,7 +135,7 @@ CREATE TABLE `employee` (
 CREATE TABLE `jumbotron` (
   `id` int(100) NOT NULL,
   `slug` varchar(100) NOT NULL,
-  `pattern` int(100) NOT NULL,
+  `pattern_id` int(100) NOT NULL,
   `tag_1` varchar(250) NOT NULL,
   `tag_2` varchar(250) NOT NULL,
   `tag_3` varchar(250) NOT NULL,
@@ -153,7 +147,7 @@ CREATE TABLE `jumbotron` (
 -- Dumping data for table `jumbotron`
 --
 
-INSERT INTO `jumbotron` (`id`, `slug`, `pattern`, `tag_1`, `tag_2`, `tag_3`, `deploy`, `version`) VALUES
+INSERT INTO `jumbotron` (`id`, `slug`, `pattern_id`, `tag_1`, `tag_2`, `tag_3`, `deploy`, `version`) VALUES
 (1, 'index', 2, 'It is snowing. Enjoy the snow', 'jim bob is back', '', 0, 1),
 (2, 'index', 1, 'It is snowing. Enjoy the snow', '', '', 0, 1),
 (3, 'index', 6, 'let it snow', 'I want to ski', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet tempor turpis. Donec vestibulum felis non facilisis blandit. Proin porttitor faucibus dignissim. Curabitur volutpat augue metus.', 1, 1);
@@ -187,8 +181,10 @@ INSERT INTO `meta` (`id`, `slug`, `name`, `content`, `version`) VALUES
 
 CREATE TABLE `page` (
   `id` int(100) NOT NULL,
-  `slug` varchar(100) NOT NULL,
+  `slug_id` varchar(100) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `jumbotron_id` int(11) NOT NULL,
   `meta_id` int(100) NOT NULL,
   `banner_id` int(100) NOT NULL,
   `call_to_action` int(100) NOT NULL,
@@ -247,6 +243,17 @@ CREATE TABLE `service` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `slug`
+--
+
+CREATE TABLE `slug` (
+  `id` int(11) NOT NULL,
+  `slug` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `template`
 --
 
@@ -281,7 +288,7 @@ CREATE TABLE `temp_content` (
 --
 
 INSERT INTO `temp_content` (`1`, `tag_1`, `tag_2`, `tag_3`) VALUES
-(1, 'Pine Knob Ski School', 'EXPERIENCE A MOUNTAIN LIKE NO OTHER', 'Learn a new sport, improve your technique, or explore new possibilities. At Vail, you don''t just experience a mountain like no other, you learn how to truly explore it.');
+(1, 'Pine Knob Ski School', 'EXPERIENCE A MOUNTAIN LIKE NO OTHER', 'Learn a new sport, improve your technique, or explore new possibilities. At Vail, you don\'t just experience a mountain like no other, you learn how to truly explore it.');
 
 -- --------------------------------------------------------
 
@@ -313,38 +320,38 @@ INSERT INTO `title` (`id`, `slug`, `content`, `deploy`, `version`) VALUES
 --
 ALTER TABLE `appointment`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `client_id_idx` (`client_id`) USING BTREE,
-  ADD KEY `employee_id_idx` (`employee_id`) USING BTREE;
+  ADD KEY `app_client_id_idx` (`client_id`) USING BTREE,
+  ADD KEY `app_employee_id_idx` (`employee_id`) USING BTREE;
 
 --
 -- Indexes for table `appointment_booked`
 --
 ALTER TABLE `appointment_booked`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `appointment_id_idx` (`appointment_id`) USING BTREE,
-  ADD UNIQUE KEY `service_id_idx` (`service_id`) USING BTREE;
+  ADD UNIQUE KEY `apb_appointment_id_idx` (`appointment_id`) USING BTREE,
+  ADD UNIQUE KEY `apb_service_id_idx` (`service_id`) USING BTREE;
 
 --
 -- Indexes for table `appointment_service_provided`
 --
 ALTER TABLE `appointment_service_provided`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `apointment_id_idx` (`appointment_id`,`id`),
-  ADD KEY `service_id_idx` (`service_id`,`id`);
+  ADD UNIQUE KEY `asp_apointment_id_idx` (`appointment_id`,`id`),
+  ADD KEY `asp_service_id_idx` (`service_id`,`id`);
 
 --
 -- Indexes for table `banner`
 --
 ALTER TABLE `banner`
   ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD KEY `slug` (`slug`);
+  ADD KEY `ban_slug_idx` (`slug`);
 
 --
 -- Indexes for table `body`
 --
 ALTER TABLE `body`
   ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD KEY `slug` (`slug`);
+  ADD KEY `bdy_slug_idx` (`slug`);
 
 --
 -- Indexes for table `client`
@@ -362,25 +369,28 @@ ALTER TABLE `employee`
 -- Indexes for table `jumbotron`
 --
 ALTER TABLE `jumbotron`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jum_pattern_id_idx` (`pattern_id`) USING BTREE;
 
 --
 -- Indexes for table `meta`
 --
 ALTER TABLE `meta`
   ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD KEY `slug` (`slug`);
+  ADD KEY `mta_slug` (`slug`);
 
 --
 -- Indexes for table `page`
 --
 ALTER TABLE `page`
   ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD KEY `slug` (`slug`),
-  ADD KEY `meta` (`meta_id`),
-  ADD KEY `banner` (`banner_id`),
-  ADD KEY `call_to_action` (`call_to_action`),
-  ADD KEY `body` (`body_id`);
+  ADD KEY `pag_slug_idx` (`slug_id`),
+  ADD KEY `pag_meta_idx` (`meta_id`),
+  ADD KEY `pag_banner_idx` (`banner_id`),
+  ADD KEY `pag_call_to_action_idx` (`call_to_action`),
+  ADD KEY `pag_body_idx` (`body_id`),
+  ADD KEY `pag_title_id_idx` (`title_id`),
+  ADD KEY `pag_jumbotron_id_idx` (`jumbotron_id`) USING BTREE;
 
 --
 -- Indexes for table `pattern`
@@ -393,12 +403,18 @@ ALTER TABLE `pattern`
 --
 ALTER TABLE `schedule`
   ADD PRIMARY KEY (`id`,`employee_id`),
-  ADD KEY `employee_id` (`employee_id`);
+  ADD KEY `sch_employee_id_idx` (`employee_id`);
 
 --
 -- Indexes for table `service`
 --
 ALTER TABLE `service`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `slug`
+--
+ALTER TABLE `slug`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -412,7 +428,7 @@ ALTER TABLE `template`
 --
 ALTER TABLE `title`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `slug` (`slug`);
+  ADD KEY `tit_slug_idx` (`slug`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -449,6 +465,11 @@ ALTER TABLE `employee`
 ALTER TABLE `meta`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `slug`
+--
+ALTER TABLE `slug`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `template`
 --
 ALTER TABLE `template`
@@ -466,36 +487,42 @@ ALTER TABLE `title`
 -- Constraints for table `appointment`
 --
 ALTER TABLE `appointment`
-  ADD CONSTRAINT `client_id_fk` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`),
-  ADD CONSTRAINT `employee_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
+  ADD CONSTRAINT `app_client_id_fk` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`),
+  ADD CONSTRAINT `app_employee_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
 
 --
 -- Constraints for table `appointment_booked`
 --
 ALTER TABLE `appointment_booked`
-  ADD CONSTRAINT `appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
-  ADD CONSTRAINT `servvice_id_fk` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`);
+  ADD CONSTRAINT `apb_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
+  ADD CONSTRAINT `apb_servvice_id_fk` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`);
 
 --
 -- Constraints for table `appointment_service_provided`
 --
 ALTER TABLE `appointment_service_provided`
-  ADD CONSTRAINT `app_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
-  ADD CONSTRAINT `app_service_id_fk` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`);
+  ADD CONSTRAINT `asb_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
+  ADD CONSTRAINT `asb_service_id_fk` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`);
+
+--
+-- Constraints for table `jumbotron`
+--
+ALTER TABLE `jumbotron`
+  ADD CONSTRAINT `hum_pattern_id_fk` FOREIGN KEY (`pattern_id`) REFERENCES `pattern` (`id`);
 
 --
 -- Constraints for table `page`
 --
 ALTER TABLE `page`
-  ADD CONSTRAINT `banner_id_fk` FOREIGN KEY (`banner_id`) REFERENCES `banner` (`id`),
-  ADD CONSTRAINT `meta_id_fk` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`);
+  ADD CONSTRAINT `pag_banner_id_fk` FOREIGN KEY (`banner_id`) REFERENCES `banner` (`id`),
+  ADD CONSTRAINT `pag_body_id_fk` FOREIGN KEY (`body_id`) REFERENCES `body` (`id`),
+  ADD CONSTRAINT `pag_jumbrotron_id_fk` FOREIGN KEY (`jumbotron_id`) REFERENCES `jumbotron` (`id`),
+  ADD CONSTRAINT `pag_meta_id_fk` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`),
+  ADD CONSTRAINT `pag_page_id_fk` FOREIGN KEY (`body_id`) REFERENCES `page` (`id`),
+  ADD CONSTRAINT `pag_title_id_fk` FOREIGN KEY (`title_id`) REFERENCES `title` (`id`);
 
 --
 -- Constraints for table `schedule`
 --
 ALTER TABLE `schedule`
-  ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  ADD CONSTRAINT `sch_schedule_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
