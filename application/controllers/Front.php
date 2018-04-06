@@ -68,6 +68,19 @@ class Front extends MY_Controller {
 	
 	function schedule() {
 		
-		echo "schedule";
+		$sport = null !== $this->input->post('sport') ? $this->input->post('sport', TRUE) : NULL;
+		$lesson = null !== $this->input->post('lesson') ? $this->input->post('lesson', TRUE) : NULL;
+		$age = null !== $this->input->post('age') ? $this->input->post('age', TRUE) : NULL;
+		$skill = null !== $this->input->post('skill') ? $this->input->post('skill', TRUE) : NULL;
+		$date = null !== $this->input->post('date') ? $this->input->post('date', TRUE) : NULL;
+		echo "$sport ";
+		echo "$lesson ";
+		echo "$age ";
+		echo "$skill ";
+		echo "$date ";
+		
+		
+		
+		
 	}
 }
