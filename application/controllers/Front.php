@@ -32,7 +32,7 @@ class Front extends MY_Controller {
 		}
 // 		var_dump($jumbo3);
 		# get pattern template
-		$patternId = $jumbo2['pattern'];
+		$patternId = $jumbo2['pattern_id'];
 		$pattern = $this->Front_model->getAllRows('pattern','id', $patternId);
 		
 		#shorten array
@@ -71,16 +71,33 @@ class Front extends MY_Controller {
 		$sport = null !== $this->input->post('sport') ? $this->input->post('sport', TRUE) : NULL;
 		$lesson = null !== $this->input->post('lesson') ? $this->input->post('lesson', TRUE) : NULL;
 		$age = null !== $this->input->post('age') ? $this->input->post('age', TRUE) : NULL;
+		$duration = null !== $this->input->post('duration') ? $this->input->post('duration', TRUE) : NULL;
 		$skill = null !== $this->input->post('skill') ? $this->input->post('skill', TRUE) : NULL;
-		$date = null !== $this->input->post('date') ? $this->input->post('date', TRUE) : NULL;
+		$old_date = null !== $this->input->post('date') ? $this->input->post('date', TRUE) : NULL;
+		$date = date('d-m-Y');
+		$client = null !== $this->input->post('client') ? $this->input->post('client', TRUE) : NULL;
+		$date3 = date('Y-m-d',strtotime($_POST['date']));
 		echo "$sport ";
 		echo "$lesson ";
 		echo "$age ";
+		echo "$duration ";
 		echo "$skill ";
+		echo "$old_date ";
 		echo "$date ";
+		echo "$date3 ";
 		
-		
-		
-		
+		$insert = array(
+				'sport_id' => $sport,
+				'lesson_id' => $lesson,
+				'age_id' => $age,
+				'duration_id' => $duration,
+				'skill_id' => $skill,
+				'date' => $date,
+				'client_id' => $client
+				
+		);
+		var_dump($insert);
+		$work = $this->db->insert('appointment', $insert);
+		echo $work;
 	}
 }

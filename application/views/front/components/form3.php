@@ -4,18 +4,26 @@
 	  	<div class="form-group">
 			<label>sport</label>
 	  		<div class="btn-group-vertical btn-group-sm" role="group">
-		  		<div type="button" class="btn btn-default btn-1 sport active" value="ski">Ski</div>
-		  		<div type="button" class="btn btn-default btn-2 sport" value="Snowboard">Snowboard</div>
+		  		<div type="button" class="btn btn-default btn-1 sport active" value="1">Ski</div>
+		  		<div type="button" class="btn btn-default btn-2 sport" value="2">Snowboard</div>
 			</div>
  			<input id="sport" type="hidden" name="sport" value="1">
 		</div>
 		<div class="form-group">
 			<label>lesson</label>
 	  		<div class="btn-group-vertical btn-group-sm" role="group">
-		  		<div type="button" class="btn btn-default btn-1 lesson active" value="private">private</div>
-		  		<div type="button" class="btn btn-default btn-2 lesson" value="group" name="lesson">group</div>
+		  		<div type="button" class="btn btn-default btn-1 lesson active" value="1">private</div>
+		  		<div type="button" class="btn btn-default btn-2 lesson" value="2">group</div>
 			</div>
 			<input id="lesson" type="hidden" name="lesson" value="">
+		</div>
+		<div class="form-group">
+			<label>duration</label>
+	  		<div class="btn-group-vertical btn-group-sm" role="group">
+		  		<div type="button" class="btn btn-default btn-1 duration active" value="1">one hour</div>
+		  		<div type="button" class="btn btn-default btn-2 duration" value="2">two hour</div>
+			</div>
+			<input id="duration" type="hidden" name="duration" value="">
 		</div>
 		<div class="form-group">
 			<label>age</label>
@@ -23,9 +31,9 @@
 	  		<div class="dropdown">
 	  			<select id="age">
 	  				<option selected="pick an age">pick an age</option>
-	  				<option value="child">child</option>
-	  				<option value="teen">teen</option>
-	  				<option value="adult">adult</option>
+	  				<option value="1">child</option>
+	  				<option value="2">teen</option>
+	  				<option value="3">adult</option>
 	  			</select>
 	  		</div>
 	  		<input id="age2" type="hidden" name="age" value="">
@@ -36,10 +44,10 @@
 	  		<div class="dropdown">
 	  			<select id="skill2">
 	  				<option selected="pick skill level">pick skill level</option>
-	  				<option value="never tried it">never tried it</option>
-	  				<option value="beginner">beginner</option>
-	  				<option value="intermediate">intermediate</option>
-	  				<option value="advanced">advanced</option>
+	  				<option value="0">never tried it</option>
+	  				<option value="1">beginner</option>
+	  				<option value="2">intermediate</option>
+	  				<option value="3">advanced</option>
 	  			</select>
 	  		</div>
 	  		<input id="skill" type="hidden" name="skill" value="">
@@ -57,6 +65,10 @@
 	  	<div class="form-group">
 	  		<button type="submit" id="submit" class="btn btn-default">Submit</button>
 	  	</div>
+	  	<div>
+			<input id="client" type="hidden" name="client" value="1">
+			<input id="employee" type="hidden" name="employee" value="1">
+		</div>
 	</form>
 </div>
 <script>
@@ -65,7 +77,7 @@ $('.btn-group-vertical').on('click', '.btn', function() {
 	});
 
 $( "#datepicker" ).datepicker({
-  	dateFormat: "mm-dd-yy",
+  	dateFormat: "yy-mm-dd",
 	altField: "#date2"
  	});
 
@@ -75,12 +87,15 @@ $('form').submit(function(evt) {
 	var sport = $sport.attr('value');
 	var $lesson = $('.btn.lesson.active')
 	var lesson = $lesson.attr('value');
+	var $duration = $('.btn.duration.active')
+	var duration = $duration.attr('value');
 	var age = $('#age').val();
 	var skill = $('#skill2').val();
 	var currentDate = $('#date2').val();
 	
 	$('#sport').val(sport);
 	$('#lesson').val(lesson);
+	$('#duration').val(duration);
 	$('#age2').val(age);
 	$('#skill').val(skill);
 	$('#datepicker').val(currentDate);
@@ -108,6 +123,7 @@ $('form').submit(function(evt) {
 	console.log(sport);
 	console.log(lesson);
 	console.log(age);
+	console.log(duration);
 	console.log(skill);
 	console.log(currentDate);
 
