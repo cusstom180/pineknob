@@ -68,6 +68,12 @@ class Front extends MY_Controller {
 	
 	function schedule() {
 		
+		$this->data['page'] = $this->Front_model->callingBack();
+		$this->data['title'] = $this->Front_model->getAllRows('title', 'slug', $this->data['page']);
+		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
+		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
+		$this->data['alert'] = $this->Front_model->getAllRows('banner', $whereArray);
+		
 		$sport = null !== $this->input->post('sport') ? $this->input->post('sport', TRUE) : NULL;
 		$lesson = null !== $this->input->post('lesson') ? $this->input->post('lesson', TRUE) : NULL;
 		$age = null !== $this->input->post('age') ? $this->input->post('age', TRUE) : NULL;

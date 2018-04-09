@@ -135,5 +135,5 @@ $('form').submit(function(evt) {
 
  
 </script>
+<?php } ?>
 
-<!-- <input type="text" class="form-control" placeholder="MM/DD/YYY" id="date" name="date"> -->
