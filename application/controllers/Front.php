@@ -86,18 +86,33 @@ class Front extends MY_Controller {
 		echo "$date ";
 		echo "$date3 ";
 		
-		$insert = array(
-				'sport_id' => $sport,
-				'lesson_id' => $lesson,
-				'age_id' => $age,
-				'duration_id' => $duration,
-				'skill_id' => $skill,
-				'date' => $date,
-				'client_id' => $client
-				
+		$this->data['form'] = array(
+		    'sport_id' => $sport,
+		    'lesson_id' => $lesson,
+			'age_id' => $age,
+			'duration_id' => $duration,
+			'skill_id' => $skill,
+			'date' => $date,
+			'client_id' => $client
 		);
-		var_dump($insert);
-		$work = $this->db->insert('appointment', $insert);
-		echo $work;
+		
+		//load the page view
+		$this->data['subview'] = 'front/components/form2';
+		$this->load->view('front/_mainlayout', $this->data);
+		
+// 		it inserted into db
+// 		$insert = array(
+// 				'sport_id' => $sport,
+// 				'lesson_id' => $lesson,
+// 				'age_id' => $age,
+// 				'duration_id' => $duration,
+// 				'skill_id' => $skill,
+// 				'date' => $date,
+// 				'client_id' => $client
+				
+// 		);
+// 		var_dump($insert);
+// 		$work = $this->db->insert('appointment', $insert);
+// 		echo $work;
 	}
 }
