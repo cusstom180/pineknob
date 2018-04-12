@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2018 at 09:39 PM
+-- Generation Time: Apr 13, 2018 at 01:21 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.4
 
@@ -70,9 +70,9 @@ CREATE TABLE `appointment` (
 --
 
 INSERT INTO `appointment` (`id`, `sport_id`, `lesson_id`, `age_id`, `employee_id`, `duration_id`, `skill_id`, `date`, `price`, `client_id`, `discount_cde`, `net_price`, `cancel`, `cancel_reason`, `add_date`, `add_user`) VALUES
-(8, 1, 1, 2, 1, 1, 1, '0000-00-00', 0, 0, '', 0, 0, '', '2018-04-06 22:52:58', ''),
-(25, 1, 1, 2, 1, 1, 2, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 03:07:53', ''),
-(26, 1, 1, 2, 1, 1, 2, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 03:08:12', '');
+(8, 1, 1, 2, 0, 1, 0, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-09 19:24:17', ''),
+(25, 1, 1, 2, 0, 1, 3, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 07:07:53', ''),
+(26, 1, 1, 2, 0, 1, 3, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 07:08:12', '');
 
 -- --------------------------------------------------------
 
@@ -182,7 +182,8 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone`, `email`) VALUES
-(1, 'unknown', 'unknown', '1234567890', 'name@name.com');
+(1, 'unknown', 'unknown', '1234567890', 'name@name.com'),
+(2, 'Brian', 'Naperkoski', '2486065893', 'cusstom180@yahoo.com');
 
 -- --------------------------------------------------------
 
@@ -223,7 +224,38 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `first_name`, `last_name`, `phone`, `email`) VALUES
-(2, 'unknown', 'unknown', '1234567890', 'name@name.com');
+(1, 'unknown', 'unknown', '1234567890', 'name@name.com'),
+(3, 'lisa', 'naperkoski', '2481234567', 'mom@yahoo.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_day_sch`
+--
+
+CREATE TABLE `employee_day_sch` (
+  `id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `day` date NOT NULL,
+  `slot_1` time NOT NULL,
+  `slot_2` time NOT NULL,
+  `slot_3` time NOT NULL,
+  `slot_4` time NOT NULL,
+  `slot_5` time NOT NULL,
+  `slot_6` time NOT NULL,
+  `slot_7` time NOT NULL,
+  `slot_8` time NOT NULL,
+  `slot_9` time NOT NULL,
+  `slot_10` time NOT NULL,
+  `slot_11` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employee_day_sch`
+--
+
+INSERT INTO `employee_day_sch` (`id`, `employee_id`, `day`, `slot_1`, `slot_2`, `slot_3`, `slot_4`, `slot_5`, `slot_6`, `slot_7`, `slot_8`, `slot_9`, `slot_10`, `slot_11`) VALUES
+(1, 3, '2018-04-30', '09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00', '18:00:00', '19:00:00');
 
 -- --------------------------------------------------------
 
@@ -382,10 +414,10 @@ CREATE TABLE `skill` (
 --
 
 INSERT INTO `skill` (`id`, `name`) VALUES
-(2, 'beginner'),
-(3, 'intermediate'),
-(4, 'advanced'),
-(1, 'never ever');
+(1, 'beginner'),
+(2, 'intermediate'),
+(3, 'advanced'),
+(7, 'never ever');
 
 -- --------------------------------------------------------
 
@@ -561,6 +593,12 @@ ALTER TABLE `employee`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `employee_day_sch`
+--
+ALTER TABLE `employee_day_sch`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jumbotron`
 --
 ALTER TABLE `jumbotron`
@@ -646,6 +684,8 @@ ALTER TABLE `title`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
 -- AUTO_INCREMENT for table `age`
 --
 ALTER TABLE `age`
@@ -661,6 +701,16 @@ ALTER TABLE `appointment`
 ALTER TABLE `appointment_booked`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `appointment_day`
+--
+ALTER TABLE `appointment_day`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `appointment_slot`
+--
+ALTER TABLE `appointment_slot`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `banner`
 --
 ALTER TABLE `banner`
@@ -669,22 +719,27 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `duration`
 --
 ALTER TABLE `duration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `employee_day_sch`
+--
+ALTER TABLE `employee_day_sch`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `lesson`
 --
 ALTER TABLE `lesson`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `meta`
 --
@@ -694,7 +749,7 @@ ALTER TABLE `meta`
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `slug`
 --
@@ -718,49 +773,22 @@ ALTER TABLE `title`
 --
 -- Constraints for dumped tables
 --
---- Constraints for table `appointment`
----
+
+--
+-- Constraints for table `appointment`
+--
 ALTER TABLE `appointment`
   ADD CONSTRAINT `app_age_id_fk` FOREIGN KEY (`age_id`) REFERENCES `age` (`id`),
-  ADD CONSTRAINT `app_client_id_fk` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`),
   ADD CONSTRAINT `app_duration_id_fk` FOREIGN KEY (`duration_id`) REFERENCES `duration` (`id`),
-  ADD CONSTRAINT `app_employee_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
   ADD CONSTRAINT `app_lesson_id_fk` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`),
-  ADD CONSTRAINT `app_skill_id_fk` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`),
- ADD CONSTRAINT `app_sport_id_fk` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`);
+  ADD CONSTRAINT `app_sport_id_fk` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`);
 
 --
 -- Constraints for table `appointment_booked`
 --
 ALTER TABLE `appointment_booked`
-  ADD CONSTRAINT `apb_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
-  ADD CONSTRAINT `apb_servvice_id_fk` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`);
-  
--- Constraints for table `appointment_service_provided`
---
-ALTER TABLE `appointment_service_provided`
-  ADD CONSTRAINT `asb_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
-  ADD CONSTRAINT `asb_service_id_fk` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`);
+  ADD CONSTRAINT `apb_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`);
 
---
--- Constraints for table `jumbotron`
---
-ALTER TABLE `jumbotron`
-  ADD CONSTRAINT `jum_pattern_id_fk` FOREIGN KEY (`pattern_id`) REFERENCES `pattern` (`id`);
-
---
--- Constraints for table `page`
---
-ALTER TABLE `page`
-  ADD CONSTRAINT `pag_banner_id_fk` FOREIGN KEY (`banner_id`) REFERENCES `banner` (`id`),
-  ADD CONSTRAINT `pag_body_id_fk` FOREIGN KEY (`body_id`) REFERENCES `body` (`id`),
-  ADD CONSTRAINT `pag_jumbrotron_id_fk` FOREIGN KEY (`jumbotron_id`) REFERENCES `jumbotron` (`id`),
-  ADD CONSTRAINT `pag_meta_id_fk` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`),
-  ADD CONSTRAINT `pag_slug_id_fk` FOREIGN KEY (`slug_id`) REFERENCES `slug` (`id`),
-  ADD CONSTRAINT `pag_title_id_fk` FOREIGN KEY (`title_id`) REFERENCES `title` (`id`);
-
---
--- Constraints for table `schedule`
---
-ALTER TABLE `schedule`
-  ADD CONSTRAINT `sch_schedule_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
