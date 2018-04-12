@@ -3,5 +3,5 @@ if (isset($jumbotron)) {
 	$this->load->view('front/components/jumbotron');
 }
 if (isset($form)) {
-	$this->load->view('front/components/form3');
+	$this->load->view('front/components/form');
 }

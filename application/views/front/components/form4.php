@@ -1,4 +1,4 @@
-<?php if (is_array($this->data['form'])) { ?>
+
 <div class="container">
 	<form method="post" action="<?= base_url('index/schedule2')?>">
 		<div class="form-group">
@@ -12,39 +12,40 @@
 		<div class="form-group">
 			<label>instructor</label>
 	  		<div class="dropdown">
-	  			<select id="instructor">
+	  			<select id="instructor2">
 	  				<option selected=""></option>
 	  				<?php foreach ($instructor as $value) { ?>
 	  				<option value="<?= $value['id'];?>"><?php echo $value['first_name'] . " " . $value['last_name'];?></option>
 	  				<?php  } ?>
 	  			</select>
 	  		</div>
-	  		<input id="instructor2" type="hidden" name="instructor" value="">
+	  		<input id="instructor" type="hidden" name="instructor" value="">
 	  	</div>
 		<div class="form-group">
 			<label>time</label>
 	  		<div class="dropdown">
-	  			<select id="instructor">
+	  			<select id="time2">
 	  				<option selected=""></option>
 	  				
 	  				<option value=""></option>
 	  				
 	  			</select>
 	  		</div>
-	  		<input id="instructor2" type="hidden" name="instructor" value="">
+	  		<input id="time" type="hidden" name="time" value="">
 	  	</div>
 	  	<div class="form-group">
-	  		<button type="button" id="button" class="btn btn-default">look for times</button>
+	  		<button type="submit" id="submit" class="btn btn-default">Submit</button>
 	  	</div>
 	  	<div>
 	  		<?php foreach ($form as $key => $value) { ?>
 	  		<input id="<?= $key; ?>" type="hidden" name="<?= $key; ?>" value="<?= $value; ?>">
 	  		<?php } ?>
 		</div>
+		<div id="ajax"></div>
 	</form>
 </div>
 
-<div id="ajax"></div>
+
 
 <script>
 $('.btn-group-vertical').on('click', '.btn', function() {
@@ -52,24 +53,27 @@ $('.btn-group-vertical').on('click', '.btn', function() {
 	});
 
 
-$('form').submit(function(evt) {
- 	evt.preventDefault();
-	var $duration = $('.btn.duration.active')
-	var duration = $duration.attr('value');
-	var instructor = $('#instructor').val();
+$( "form" ).on( "submit", function( event ) {
+	  event.preventDefault();
+	  var $duration = $('.btn.duration.active')
+	  var duration = $duration.attr('value');
+	  var instructor = $('#instructor2').val();
+	  
+	  $('#duration').val(duration);
+	  $('#instructor').val(instructor);
+		
+	  var form = $(this);
+      $.ajax({
+          url: "<?= base_url('index/schedule2')?>", // Get the action URL to send AJAX to
+          type: "POST",
+          data: form.serialize(), // get all form variables
+          success: function(result){
+              $('#ajax').html(result);
+          }
+      });
+	});
 
-	console.log(duration);
-	console.log(instructor);
-
- 	});
- 
-$('#button').click(function (){
-	$.ajax({url: "<?= base_url('index/schedule2');?>",
-		success: function(result){
-			$('#ajax').html(result);},
-			dataType:"json"})
-});
 
 </script>
-<?php } ?>
+
 

@@ -18,25 +18,17 @@
 			<input id="lesson" type="hidden" name="lesson" value="">
 		</div>
 		<div class="form-group">
-			<label>duration</label>
-	  		<div class="btn-group-vertical btn-group-sm" role="group">
-		  		<div type="button" class="btn btn-default btn-1 duration active" value="1">one hour</div>
-		  		<div type="button" class="btn btn-default btn-2 duration" value="2">two hour</div>
-			</div>
-			<input id="duration" type="hidden" name="duration" value="">
-		</div>
-		<div class="form-group">
 			<label>age</label>
-			<div class="age error hide"><p>you know your age</p></div>
+			<div class="age2 error hide"><p>you know your age</p></div>
 	  		<div class="dropdown">
-	  			<select id="age">
+	  			<select id="age2">
 	  				<option selected="pick an age">pick an age</option>
 	  				<option value="1">child</option>
 	  				<option value="2">teen</option>
 	  				<option value="3">adult</option>
 	  			</select>
 	  		</div>
-	  		<input id="age2" type="hidden" name="age" value="">
+	  		<input id="age" type="hidden" name="age" value="">
 	  	</div>
 	  	<div class="form-group">
 			<label>skill</label>
@@ -65,10 +57,6 @@
 	  	<div class="form-group">
 	  		<button type="submit" id="submit" class="btn btn-default">Submit</button>
 	  	</div>
-	  	<div>
-			<input id="client" type="hidden" name="client" value="1">
-			<input id="employee" type="hidden" name="employee" value="1">
-		</div>
 	</form>
 </div>
 <script>
@@ -87,16 +75,13 @@ $('form').submit(function(evt) {
 	var sport = $sport.attr('value');
 	var $lesson = $('.btn.lesson.active')
 	var lesson = $lesson.attr('value');
-	var $duration = $('.btn.duration.active')
-	var duration = $duration.attr('value');
-	var age = $('#age').val();
+	var age = $('#age2').val();
 	var skill = $('#skill2').val();
 	var currentDate = $('#date2').val();
 	
 	$('#sport').val(sport);
 	$('#lesson').val(lesson);
-	$('#duration').val(duration);
-	$('#age2').val(age);
+	$('#age').val(age);
 	$('#skill').val(skill);
 	$('#datepicker').val(currentDate);
 	
@@ -120,12 +105,6 @@ $('form').submit(function(evt) {
 		$('.age.error').addClass('hide');
 	}
 	
-	console.log(sport);
-	console.log(lesson);
-	console.log(age);
-	console.log(duration);
-	console.log(skill);
-	console.log(currentDate);
 
  	});
  
