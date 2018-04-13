@@ -1,6 +1,6 @@
 
 <div class="container">
-	<form method="post" action="<?= base_url('index/schedule')?>">
+	<form method="post" action="<?= base_url('front/schedule')?>">
 	  	<div class="form-group">
 			<label>sport</label>
 	  		<div class="btn-group-vertical btn-group-sm" role="group">

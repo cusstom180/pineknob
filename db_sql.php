@@ -1,20 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.3
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 09, 2018 at 09:39 PM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 7.0.4
+-- Host: localhost:8889
+-- Generation Time: Apr 13, 2018 at 02:17 PM
+-- Server version: 5.6.35
+-- PHP Version: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `pine_knob`
@@ -29,7 +23,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `age` (
   `id` int(11) NOT NULL,
   `age` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `age`
@@ -63,14 +57,14 @@ CREATE TABLE `appointment` (
   `cancel_reason` varchar(250) NOT NULL,
   `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `add_user` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `appointment`
 --
 
 INSERT INTO `appointment` (`id`, `sport_id`, `lesson_id`, `age_id`, `employee_id`, `duration_id`, `skill_id`, `date`, `price`, `client_id`, `discount_cde`, `net_price`, `cancel`, `cancel_reason`, `add_date`, `add_user`) VALUES
-(8, 1, 1, 2, 1, 1, 1, '0000-00-00', 0, 0, '', 0, 0, '', '2018-04-06 22:52:58', ''),
+(8, 1, 1, 2, 1, 1, 1, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-12 23:39:29', ''),
 (25, 1, 1, 2, 1, 1, 2, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 03:07:53', ''),
 (26, 1, 1, 2, 1, 1, 2, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 03:08:12', '');
 
@@ -87,7 +81,7 @@ CREATE TABLE `appointment_booked` (
   `day` varchar(10) NOT NULL,
   `time` time NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -100,7 +94,7 @@ CREATE TABLE `appointment_day` (
   `day` varchar(11) NOT NULL,
   `start` time NOT NULL,
   `end` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -113,7 +107,7 @@ CREATE TABLE `appointment_service_provided` (
   `appointment_id` int(11) NOT NULL,
   `service_id` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -125,7 +119,7 @@ CREATE TABLE `appointment_slot` (
   `id` int(11) NOT NULL,
   `slot` time NOT NULL,
   `deploy` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -139,7 +133,7 @@ CREATE TABLE `banner` (
   `content` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `revision` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `banner`
@@ -161,7 +155,7 @@ CREATE TABLE `body` (
   `content` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -175,7 +169,7 @@ CREATE TABLE `client` (
   `last_name` varchar(100) NOT NULL,
   `phone` varchar(10) NOT NULL,
   `email` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `client`
@@ -194,7 +188,7 @@ CREATE TABLE `duration` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `minute` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `duration`
@@ -216,14 +210,46 @@ CREATE TABLE `employee` (
   `last_name` varchar(100) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `employee`
 --
 
 INSERT INTO `employee` (`id`, `first_name`, `last_name`, `phone`, `email`) VALUES
-(2, 'unknown', 'unknown', '1234567890', 'name@name.com');
+(1, 'unknown', 'unknown', '1234567890', 'name@name.com'),
+(3, 'brian', 'naperkoski', '2486065893', 'cusstom180@'),
+(4, 'lisa', 'naperkoski', '24812345678', 'mom@mom.yahoo.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_day_sch`
+--
+
+CREATE TABLE `employee_day_sch` (
+  `id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `day` date NOT NULL,
+  `slot_1` time NOT NULL,
+  `slot_2` time NOT NULL,
+  `slot_3` time NOT NULL,
+  `slot_4` time NOT NULL,
+  `slot_5` time NOT NULL,
+  `slot_6` time NOT NULL,
+  `slot_7` time NOT NULL,
+  `slot_8` time NOT NULL,
+  `slot_9` time NOT NULL,
+  `slot_10` time NOT NULL,
+  `slot_11` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `employee_day_sch`
+--
+
+INSERT INTO `employee_day_sch` (`id`, `employee_id`, `day`, `slot_1`, `slot_2`, `slot_3`, `slot_4`, `slot_5`, `slot_6`, `slot_7`, `slot_8`, `slot_9`, `slot_10`, `slot_11`) VALUES
+(1, 3, '2018-04-30', '09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00', '18:00:00', '19:00:00');
 
 -- --------------------------------------------------------
 
@@ -240,7 +266,7 @@ CREATE TABLE `jumbotron` (
   `tag_3` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `jumbotron`
@@ -260,7 +286,7 @@ INSERT INTO `jumbotron` (`id`, `slug`, `pattern_id`, `tag_1`, `tag_2`, `tag_3`, 
 CREATE TABLE `lesson` (
   `id` int(11) NOT NULL,
   `type` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `lesson`
@@ -282,7 +308,7 @@ CREATE TABLE `meta` (
   `name` varchar(100) NOT NULL,
   `content` varchar(150) NOT NULL,
   `version` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `meta`
@@ -308,7 +334,7 @@ CREATE TABLE `page` (
   `call_to_action` int(100) NOT NULL,
   `body_id` int(100) NOT NULL,
   `version` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -321,7 +347,7 @@ CREATE TABLE `pattern` (
   `tag_1` varchar(10) NOT NULL,
   `tag_2` varchar(10) NOT NULL,
   `tag_3` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `pattern`
@@ -343,7 +369,7 @@ CREATE TABLE `schedule` (
   `employee_id` int(11) NOT NULL,
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -356,7 +382,7 @@ CREATE TABLE `service` (
   `service_name` varchar(100) NOT NULL,
   `duration` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `service`
@@ -375,17 +401,17 @@ INSERT INTO `service` (`id`, `service_name`, `duration`, `price`) VALUES
 CREATE TABLE `skill` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `skill`
 --
 
 INSERT INTO `skill` (`id`, `name`) VALUES
+(1, 'never ever'),
 (2, 'beginner'),
 (3, 'intermediate'),
-(4, 'advanced'),
-(1, 'never ever');
+(4, 'advanced');
 
 -- --------------------------------------------------------
 
@@ -396,7 +422,7 @@ INSERT INTO `skill` (`id`, `name`) VALUES
 CREATE TABLE `slug` (
   `id` int(11) NOT NULL,
   `slug` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -407,7 +433,7 @@ CREATE TABLE `slug` (
 CREATE TABLE `sport` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sport`
@@ -427,7 +453,7 @@ CREATE TABLE `template` (
   `id` int(11) NOT NULL,
   `slug` varchar(100) NOT NULL,
   `pattern` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `template`
@@ -447,14 +473,14 @@ CREATE TABLE `temp_content` (
   `tag_1` varchar(250) NOT NULL,
   `tag_2` varchar(250) NOT NULL,
   `tag_3` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `temp_content`
 --
 
 INSERT INTO `temp_content` (`1`, `tag_1`, `tag_2`, `tag_3`) VALUES
-(1, 'Pine Knob Ski School', 'EXPERIENCE A MOUNTAIN LIKE NO OTHER', 'Learn a new sport, improve your technique, or explore new possibilities. At Vail, you don''t just experience a mountain like no other, you learn how to truly explore it.');
+(1, 'Pine Knob Ski School', 'EXPERIENCE A MOUNTAIN LIKE NO OTHER', 'Learn a new sport, improve your technique, or explore new possibilities. At Vail, you don\'t just experience a mountain like no other, you learn how to truly explore it.');
 
 -- --------------------------------------------------------
 
@@ -468,7 +494,7 @@ CREATE TABLE `title` (
   `content` varchar(200) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `title`
@@ -561,6 +587,12 @@ ALTER TABLE `employee`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `employee_day_sch`
+--
+ALTER TABLE `employee_day_sch`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jumbotron`
 --
 ALTER TABLE `jumbotron`
@@ -646,6 +678,8 @@ ALTER TABLE `title`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
 -- AUTO_INCREMENT for table `age`
 --
 ALTER TABLE `age`
@@ -674,17 +708,22 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT for table `duration`
 --
 ALTER TABLE `duration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `employee_day_sch`
+--
+ALTER TABLE `employee_day_sch`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `lesson`
 --
 ALTER TABLE `lesson`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `meta`
 --
@@ -718,8 +757,10 @@ ALTER TABLE `title`
 --
 -- Constraints for dumped tables
 --
---- Constraints for table `appointment`
----
+
+--
+-- Constraints for table `appointment`
+--
 ALTER TABLE `appointment`
   ADD CONSTRAINT `app_age_id_fk` FOREIGN KEY (`age_id`) REFERENCES `age` (`id`),
   ADD CONSTRAINT `app_client_id_fk` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`),
@@ -727,7 +768,7 @@ ALTER TABLE `appointment`
   ADD CONSTRAINT `app_employee_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
   ADD CONSTRAINT `app_lesson_id_fk` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`),
   ADD CONSTRAINT `app_skill_id_fk` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`),
- ADD CONSTRAINT `app_sport_id_fk` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`);
+  ADD CONSTRAINT `app_sport_id_fk` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`);
 
 --
 -- Constraints for table `appointment_booked`
@@ -735,32 +776,3 @@ ALTER TABLE `appointment`
 ALTER TABLE `appointment_booked`
   ADD CONSTRAINT `apb_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
   ADD CONSTRAINT `apb_servvice_id_fk` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`);
-  
--- Constraints for table `appointment_service_provided`
---
-ALTER TABLE `appointment_service_provided`
-  ADD CONSTRAINT `asb_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
-  ADD CONSTRAINT `asb_service_id_fk` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`);
-
---
--- Constraints for table `jumbotron`
---
-ALTER TABLE `jumbotron`
-  ADD CONSTRAINT `jum_pattern_id_fk` FOREIGN KEY (`pattern_id`) REFERENCES `pattern` (`id`);
-
---
--- Constraints for table `page`
---
-ALTER TABLE `page`
-  ADD CONSTRAINT `pag_banner_id_fk` FOREIGN KEY (`banner_id`) REFERENCES `banner` (`id`),
-  ADD CONSTRAINT `pag_body_id_fk` FOREIGN KEY (`body_id`) REFERENCES `body` (`id`),
-  ADD CONSTRAINT `pag_jumbrotron_id_fk` FOREIGN KEY (`jumbotron_id`) REFERENCES `jumbotron` (`id`),
-  ADD CONSTRAINT `pag_meta_id_fk` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`),
-  ADD CONSTRAINT `pag_slug_id_fk` FOREIGN KEY (`slug_id`) REFERENCES `slug` (`id`),
-  ADD CONSTRAINT `pag_title_id_fk` FOREIGN KEY (`title_id`) REFERENCES `title` (`id`);
-
---
--- Constraints for table `schedule`
---
-ALTER TABLE `schedule`
-  ADD CONSTRAINT `sch_schedule_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);

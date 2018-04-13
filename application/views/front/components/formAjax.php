@@ -25,14 +25,14 @@
 	<div class="form-group">
 		<label>time</label>
 	  	<div class="dropdown">
-	  		<select id="instructor2">
+	  		<select id="time2">
 	  			<option selected=""></option>
 	  				
 	  			<option value=""></option>
 	  				
 	  		</select>
 	  	</div>
-		<input id="instructor" type="hidden" name="instructor" value="">
+		<input id="time" type="hidden" name="time" value="">
 	</div>
 <?php  } ?>
 	  	<div>
@@ -51,26 +51,26 @@ $('.btn-group-vertical').on('click', '.btn', function() {
 	});
 
 
-$( "form" ).on( "submit", function( event ) {
-	  event.preventDefault();
-	  var $duration = $('.btn.duration.active')
-	  var duration = $duration.attr('value');
-	  var instructor = $('#instructor2').val();
+$('form').submit(function(evt) {
+	evt.preventDefault();
+	var form = $(this); 
+	var $duration = $('.btn.duration.active')
+	var duration = $duration.attr('value');
+	var instructor = $('#instructor2').val();
+	$('#duration').val(duration);
+	$('#instructor').val(instructor);
 	  
-	  $('#duration').val(duration);
-	  $('#instructor').val(instructor);
-		
-	  var form = $(this);
-	  console.log(form.serialize());
-      $.ajax({
-        url: "<?php echo base_url('call/callfrom')?>", // Get the action URL to send AJAX to
+	
+	console.log(form.serialize());
+	$.ajax({
+        url: "<?php echo base_url('call/callForm')?>", // Get the action URL to send AJAX to
           type: "POST",
           data: form.serialize(), // get all form variables
           success: function(result){
               $('#ajax').html(result);
           }
       });
-  	});
+	});
 
 
 </script>
