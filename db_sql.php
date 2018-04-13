@@ -2,10 +2,17 @@
 -- version 4.7.3
 -- https://www.phpmyadmin.net/
 --
+<<<<<<< HEAD
 -- Host: localhost:8889
 -- Generation Time: Apr 13, 2018 at 02:17 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.8
+=======
+-- Host: 127.0.0.1
+-- Generation Time: Apr 13, 2018 at 01:21 AM
+-- Server version: 10.1.10-MariaDB
+-- PHP Version: 7.0.4
+>>>>>>> f8f42b39085674f6b6120df5602b996b5640422f
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -64,9 +71,15 @@ CREATE TABLE `appointment` (
 --
 
 INSERT INTO `appointment` (`id`, `sport_id`, `lesson_id`, `age_id`, `employee_id`, `duration_id`, `skill_id`, `date`, `price`, `client_id`, `discount_cde`, `net_price`, `cancel`, `cancel_reason`, `add_date`, `add_user`) VALUES
+<<<<<<< HEAD
 (8, 1, 1, 2, 1, 1, 1, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-12 23:39:29', ''),
 (25, 1, 1, 2, 1, 1, 2, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 03:07:53', ''),
 (26, 1, 1, 2, 1, 1, 2, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 03:08:12', '');
+=======
+(8, 1, 1, 2, 0, 1, 0, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-09 19:24:17', ''),
+(25, 1, 1, 2, 0, 1, 3, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 07:07:53', ''),
+(26, 1, 1, 2, 0, 1, 3, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 07:08:12', '');
+>>>>>>> f8f42b39085674f6b6120df5602b996b5640422f
 
 -- --------------------------------------------------------
 
@@ -176,7 +189,8 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone`, `email`) VALUES
-(1, 'unknown', 'unknown', '1234567890', 'name@name.com');
+(1, 'unknown', 'unknown', '1234567890', 'name@name.com'),
+(2, 'Brian', 'Naperkoski', '2486065893', 'cusstom180@yahoo.com');
 
 -- --------------------------------------------------------
 
@@ -218,8 +232,12 @@ CREATE TABLE `employee` (
 
 INSERT INTO `employee` (`id`, `first_name`, `last_name`, `phone`, `email`) VALUES
 (1, 'unknown', 'unknown', '1234567890', 'name@name.com'),
+<<<<<<< HEAD
 (3, 'brian', 'naperkoski', '2486065893', 'cusstom180@'),
 (4, 'lisa', 'naperkoski', '24812345678', 'mom@mom.yahoo.com');
+=======
+(3, 'lisa', 'naperkoski', '2481234567', 'mom@yahoo.com');
+>>>>>>> f8f42b39085674f6b6120df5602b996b5640422f
 
 -- --------------------------------------------------------
 
@@ -242,7 +260,11 @@ CREATE TABLE `employee_day_sch` (
   `slot_9` time NOT NULL,
   `slot_10` time NOT NULL,
   `slot_11` time NOT NULL
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+=======
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+>>>>>>> f8f42b39085674f6b6120df5602b996b5640422f
 
 --
 -- Dumping data for table `employee_day_sch`
@@ -408,10 +430,17 @@ CREATE TABLE `skill` (
 --
 
 INSERT INTO `skill` (`id`, `name`) VALUES
+<<<<<<< HEAD
 (1, 'never ever'),
 (2, 'beginner'),
 (3, 'intermediate'),
 (4, 'advanced');
+=======
+(1, 'beginner'),
+(2, 'intermediate'),
+(3, 'advanced'),
+(7, 'never ever');
+>>>>>>> f8f42b39085674f6b6120df5602b996b5640422f
 
 -- --------------------------------------------------------
 
@@ -695,6 +724,16 @@ ALTER TABLE `appointment`
 ALTER TABLE `appointment_booked`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `appointment_day`
+--
+ALTER TABLE `appointment_day`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `appointment_slot`
+--
+ALTER TABLE `appointment_slot`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `banner`
 --
 ALTER TABLE `banner`
@@ -703,7 +742,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `duration`
 --
@@ -713,7 +752,11 @@ ALTER TABLE `duration`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
+<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+=======
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+>>>>>>> f8f42b39085674f6b6120df5602b996b5640422f
 --
 -- AUTO_INCREMENT for table `employee_day_sch`
 --
@@ -733,7 +776,7 @@ ALTER TABLE `meta`
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `slug`
 --
@@ -763,16 +806,25 @@ ALTER TABLE `title`
 --
 ALTER TABLE `appointment`
   ADD CONSTRAINT `app_age_id_fk` FOREIGN KEY (`age_id`) REFERENCES `age` (`id`),
-  ADD CONSTRAINT `app_client_id_fk` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`),
   ADD CONSTRAINT `app_duration_id_fk` FOREIGN KEY (`duration_id`) REFERENCES `duration` (`id`),
-  ADD CONSTRAINT `app_employee_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
   ADD CONSTRAINT `app_lesson_id_fk` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`),
+<<<<<<< HEAD
   ADD CONSTRAINT `app_skill_id_fk` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`),
+=======
+>>>>>>> f8f42b39085674f6b6120df5602b996b5640422f
   ADD CONSTRAINT `app_sport_id_fk` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`);
 
 --
 -- Constraints for table `appointment_booked`
 --
 ALTER TABLE `appointment_booked`
+<<<<<<< HEAD
   ADD CONSTRAINT `apb_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
   ADD CONSTRAINT `apb_servvice_id_fk` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`);
+=======
+  ADD CONSTRAINT `apb_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+>>>>>>> f8f42b39085674f6b6120df5602b996b5640422f
