@@ -81,7 +81,7 @@ class Front extends MY_Controller {
 		foreach ($_POST as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
-		var_dump($this->data['form']);
+// 		var_dump($this->data['form']);
 		
 		//load the page view
 		$this->data['subview'] = 'front/components/formAjax';

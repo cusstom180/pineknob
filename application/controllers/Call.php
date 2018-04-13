@@ -11,12 +11,19 @@ class Call extends MY_Controller {
 	
 		echo'hi';
 	}
+	
+	function callDropdown() {
+		
+		$instructor = null !== $this->input->post('instructor') ? $this->input->post('instructor', TRUE) : NULL;
+		echo '<div class="form-group">' . $instructor . '</div>';
+	}
+	
 	function callForm() {
 		
 	    foreach ($_POST as $key => $value) {
 	        $this->data['form'][$key] = $value;
 	    }
-	    var_dump($this->data['form']);
+// 	    var_dump($this->data['form']);
 	    if (isset($this->data['form']['instructor'])) {
 	        $time = $this->Front_model->getAllRows('employee_day_sch', 'employee_id', $this->data['form']['instructor']);
 	       foreach ($time as $value) {
@@ -25,7 +32,7 @@ class Call extends MY_Controller {
 	    }
 	    
 // 	    var_dump($this->data['form']);
-	    var_dump($this->data['time']);
+// 	    var_dump($this->data['time']);
 	    $this->load->view('front/components/pickAForm', $this->data);
 	    
 	}

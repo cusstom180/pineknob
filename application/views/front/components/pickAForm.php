@@ -6,8 +6,7 @@
 	  			<option selected=""></option>
 	  			<?php foreach ($time as $key => $value) { 
 	  	            if (strpos($key, 'lot_')) { 
-	  	                echo $value;
-	  	                $value = date('g:i a' ); ?>
+	  	                $value = date('h:i A',strtotime($value)); ?>
 	  	                <option value="<?= $value; ?>"><?= $value; ?></option>
 	  	            <?php } ?>
 	  			<?php }?>	

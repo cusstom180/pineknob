@@ -40,7 +40,7 @@
 	    		<input id="<?= $key; ?>" type="hidden" name="<?= $key; ?>" value="<?= $value; ?>"> 
 	  		<?php  } ?>
 		</div>
-	  	<div class="form-group">
+	  	<div id="last" class="form-group">
 	  		<button type="submit" id="submit" class="btn btn-default">Submit</button>
 	  	</div>
 	</form>
@@ -57,17 +57,19 @@ $('form').submit(function(evt) {
 	var $duration = $('.btn.duration.active')
 	var duration = $duration.attr('value');
 	var instructor = $('#instructor2').val();
+	var time = $('#time2').val();
 	$('#duration').val(duration);
 	$('#instructor').val(instructor);
+	$('#time').val(time);
 	  
 	
 	console.log(form.serialize());
 	$.ajax({
-        url: "<?php echo base_url('call/callForm')?>", // Get the action URL to send AJAX to
+        url: "<?php echo base_url('call/calldropdown')?>", // Get the action URL to send AJAX to
           type: "POST",
           data: form.serialize(), // get all form variables
           success: function(result){
-              $('#ajax').html(result);
+              $(result).insertBefore('#last');
           }
       });
 	});
