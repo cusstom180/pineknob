@@ -76,12 +76,20 @@ class Front extends MY_Controller {
 		$this->data['form'] = array();
 		
 		// get instructor names
-		$this->data['instructor'] = $this->Front_model->getAll('employee');
+		//$this->data['instructor'] = $this->Front_model->getAll('employee');
 		
 		foreach ($_POST as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
 // 		var_dump($this->data['form']);
+		
+		// search for working instructors
+		$intArray = array(
+				'date' => $this->data['form']['date'],
+				'working' => '1'
+		);
+		$this->data['instructor'] = $this->Front_model->getAllworkingEmpl('employee_day_sch', $intArray);
+// 		var_dump($this->data['instructor']);
 		
 		//load the page view
 		$this->data['subview'] = 'front/components/formAjax';
