@@ -1,6 +1,6 @@
 
 <div class="container">
-	<form method="post" action="<?= base_url('front/schedule')?>">
+	<form id="firstform" method="post" action="<?= base_url('front/schedule')?>">
 	  	<div class="form-group">
 	  		<div class="sport error hide"><p>wait, what is a skill?</p></div>
 			<label>sport</label>
@@ -62,58 +62,3 @@
 	  	</div>
 	</form>
 </div>
-<script>
-$('.btn-group-vertical').on('click', '.btn', function() {
-	  $(this).addClass('active').siblings().removeClass('active');
-	  var $change = $(this).attr('value');
-// 	  console.log($change);
-	  $(this).siblings('input').attr('value', $change);
-	//   console.log($(this).siblings('input'));
-	});
-	
-$( "#datepicker" ).datepicker({
-  	dateFormat: "yy-mm-dd",
-	altField: "#date"
- 	});
-
-//collect dropdown value on change and assign
-$('.dropdown select').change(function() {
-// console.log($(this));
-var $status = $(this).val();
-// console.log($status);
-// console.log($('.dropdown input'));
-// $(this).val($status);
-$(this).siblings('input').val($status);
-});
-
-
-$('form').submit(function(evt) {
- 	
-	var array = {
-		sport: $('#sport').val(),
-		lesson: $('#lesson').val(),
-		age: $('#age').val(),
-		skill: $('#skill').val(),
-		date: $('#date').val()
-	};
-
-	console.log(array);
-	var error = 0;
-	for (var key in array) {
-		console.log('.' + key + '.error');
-		if (array[key] == '') {
-			$('.' + key + '.error').removeClass('hide');
-			error++;
-			console.log(error);
-			evt.preventDefault();
-		} else {
-			$('.' + key + '.error').addClass('hide');
-			}
-		}
-
- 	});
-
- 
-
- 
-</script>

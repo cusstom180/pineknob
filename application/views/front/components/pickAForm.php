@@ -1,36 +1,20 @@
-<?php if (FALSE) {  ?>
+<?php // if an instructor has been selected display time slots
+	if (isset($timeSlot) && !null) { ?>
 	<div class="form-group">
+	<div class="time error hide"><p>pick a time</p></div>
 		<label>time</label>
 	  	<div class="dropdown">
 	  		<select id="time2">
 	  			<option selected=""></option>
-	  			<?php foreach ($time as $key => $value) { 
+	  			<?php foreach ($timeSlot as $key => $value) { 
 	  	            if (strpos($key, 'lot_')) { 
-	  	                $value = date('h:i A',strtotime($value)); ?>
-	  	                <option value="<?= $value; ?>"><?= $value; ?></option>
+	  	                $fvalue = date('h:i A',strtotime($value)); ?>
+	  	                <option value="<?= $value; ?>"><?= $fvalue; ?></option>
 	  	            <?php } ?>
 	  			<?php }?>	
 	  		</select>
+	  		<input id="time" type="hidden" name="time" value="">
 	  	</div>
-		<input id="time" type="hidden" name="time" value="">
-	</div>
-<?php  } ?>
-<?php // var_dump($apptTime);?>
-<?php if (isset($apptTime)) { ?>
-	<div class="form-group">
-		<label>time</label>
-	  	<div class="dropdown">
-	  		<select id="time2">
-	  			<option selected=""></option>
-	  			<?php foreach ($apptTime as $key => $value) { 
-	  	            if (strpos($key, 'lot_')) { 
-	  	                $value = date('h:i A',strtotime($value)); ?>
-	  	                <option value="<?= $value; ?>"><?= $value; ?></option>
-	  	            <?php } ?>
-	  			<?php }?>	
-	  		</select>
-	  	</div>
-		<input id="time" type="hidden" name="time" value="">
 	</div>
 <?php } else { ?>
 	<div class="form-group">
@@ -44,13 +28,13 @@
 			        <span class="glyphicon glyphicon-th"></span>
 			    </div>
 			</div>
-			<input id="date2" type="hidden" name="date" value="">
-		<input id="time" type="hidden" name="time" value="">
+			<input id="date2" type="hidden" name="date2" value="">
 	</div>
 	<script type="text/javascript">
 	$( "#datepicker" ).datepicker({
 	  	dateFormat: "yy-mm-dd",
-		altField: "#time"
+		altField: "#date2"
 	 	});
+
 	</script>
 <?php } ?>

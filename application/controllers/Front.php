@@ -97,6 +97,13 @@ class Front extends MY_Controller {
 		
 	}
 	
+	function checkout() {
+		foreach ($_POST as $key => $value) {
+			$this->data['form'][$key] = $value;
+		}
+		var_dump($this->data['form']) ;
+	}
+	
 	function schedule2() {
 		
 // 		var_dump($_POST);

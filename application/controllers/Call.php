@@ -13,20 +13,24 @@ class Call extends MY_Controller {
 	}
 	
 	function callDropdown() {
-		
+		# collect post varaibles
 		foreach ($_POST as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
-		var_dump($this->data['form']);
+		
+		#if time is posted 
+		#check if an instructor has been selected
+// 		var_dump($this->data['form']);
 		if (isset($this->data['form']['instructor'])) {
 			$array = array(
 					 'employee_id' => $this->data['form']['instructor'],
 					'day' => $this->data['form']['date']
-			);
-			
-			$this->data['apptTime'] = $this->service_calls->getOneRow('employee_day_time_sch', $array);
-			var_dump($this->data['apptTime']);
+					);
+			#get time slots in DB
+			$this->data['timeSlot'] = $this->service_calls->getOneRow('employee_day_time_sch', $array);
+// 			var_dump($this->data['timeSlot']);
 // 			echo $this->db->last_query();
+			
 		}
 		
 		$this->load->view('front/components/pickAForm', $this->data);
