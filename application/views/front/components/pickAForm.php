@@ -16,6 +16,9 @@
 	  		<input id="time" type="hidden" name="time" value="">
 	  	</div>
 	</div>
+	<script type="text/javascript">
+	$('#last button').attr('type', 'submit');
+	</script>
 <?php } else { ?>
 	<div class="form-group">
 		<p>this instructor is not scheduled to work this day</p>
@@ -30,11 +33,5 @@
 			</div>
 			<input id="date2" type="hidden" name="date2" value="">
 	</div>
-	<script type="text/javascript">
-	$( "#datepicker" ).datepicker({
-	  	dateFormat: "yy-mm-dd",
-		altField: "#date2"
-	 	});
-
-	</script>
+	
 <?php } ?>

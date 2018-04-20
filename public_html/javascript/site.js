@@ -35,8 +35,8 @@ $(document).ready(function() {
 	
 	});
 	
-	//check form empty values in form
-	$('form').click(function(evt) {
+	//check form empty values in firstform
+	$('#firstform').submit(function(evt) {
 		var form = $(this); 
 		var error = 0; 
 		var dataArray = form.serializeArray(),
@@ -57,11 +57,11 @@ $(document).ready(function() {
 		 			}
 		}
 	});
-	
+	//
 	//check type value of button
 	$('#last button').click(function(evt) {
 		var buttoncheck = $(this).attr('type');
-//		console.log(buttoncheck);
+		console.log(buttoncheck);
 		
 		if (buttoncheck == 'button') {
 			//triggered when button is type=button
@@ -89,7 +89,7 @@ $(document).ready(function() {
 				console.log(form.serialize());
 				if (error == 0) {
 					$.ajax({
-				        url: "http://localhost/pineknob/call/calldropdown", // Get the action URL to send AJAX to
+				        url: "http://localhost:8888/pineknob/call/calldropdown", // Get the action URL to send AJAX to
 				          type: "POST",
 				          data: form.serialize(), // get all form variables
 				          success: function(result){
@@ -115,15 +115,29 @@ $(document).ready(function() {
 						console.log('it is null')
 						$('.' + dataArray[i].name + '.error').removeClass('hide');
 						error++;
+						break;
 			//			console.log(error);
 					  } else {
 				 			$('.' + dataArray[i].name  + '.error').addClass('hide');
-				 			form.submit();
+				 			
 				 			}
+				}
+				console.log(error);
+				var checkArray = noneEmpty(dataObj);
+				console.log(checkArray);
+				if (error === 0) {
+					form.submit();
+					console.log('in the booper');
 				}
 				
 		}
 	});
 	
+	function noneEmpty(arr) {
+		  for(var i=0; i<arr.length; i++) {
+		    if(arr[i] === "") return false;
+		  }
+		  return true;
+		}
 	
 });

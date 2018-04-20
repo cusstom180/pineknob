@@ -67,28 +67,20 @@ class Front extends MY_Controller {
 	}
 	
 	function schedule() {
-		
+		//get page meta data
 		$this->data['page'] = $this->Front_model->callingBack();
 		$this->data['title'] = $this->Front_model->getAllRows('title', 'slug', $this->data['page']);
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 		$this->data['alert'] = $this->Front_model->getAllRows('banner', $whereArray);
 		$this->data['form'] = array();
-		
-		// get instructor names
-		//$this->data['instructor'] = $this->Front_model->getAll('employee');
-		
+		//create array from post
 		foreach ($_POST as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
 // 		var_dump($this->data['form']);
-		
-		// search for working instructors
-		$intArray = array(
-				'date' => $this->data['form']['date'],
-				'working' => '1'
-		);
-		$this->data['instructor'] = $this->Front_model->getAllworkingEmpl('employee_day_sch', $intArray);
+		//get all available employees who can work that day
+		$this->data['instructor'] = $this->Front_model->getAllworkingEmpl('employee_day_sch', $this->data['form']['date']);
 // 		var_dump($this->data['instructor']);
 		
 		//load the page view

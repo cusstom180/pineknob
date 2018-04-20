@@ -12,9 +12,16 @@ class Front_model extends MY_Model {
     	return $query;
     }
     
-    public function getAllworkingEmpl($tableName, $aray) {
+    //function to call all employees that are scheduled to work a specific day
+    public function getAllworkingEmpl($tableName, $date) {
+        
+        // search for working instructors
+        $intArray = array(
+            'date' => $date,
+            'working' => '1'
+        );
     	 
-    	$query = $this->db->where($aray);
+        $query = $this->db->where($intArray);
     	$result = $query->get($tableName)->result_array();
 //     	var_dump($result);
     	$teacher = array();
