@@ -1,4 +1,22 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 20, 2018 at 09:49 PM
+-- Server version: 10.1.10-MariaDB
+-- PHP Version: 7.0.4
 
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
 -- Database: `pine_knob`
 --
 
@@ -11,7 +29,7 @@
 CREATE TABLE `age` (
   `id` int(11) NOT NULL,
   `age` varchar(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `age`
@@ -37,6 +55,7 @@ CREATE TABLE `appointment` (
   `duration_id` int(11) NOT NULL,
   `skill_id` int(11) NOT NULL,
   `date` date NOT NULL,
+  `time` time NOT NULL,
   `price` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   `discount_cde` varchar(10) NOT NULL,
@@ -45,16 +64,15 @@ CREATE TABLE `appointment` (
   `cancel_reason` varchar(250) NOT NULL,
   `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `add_user` varchar(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointment`
 --
 
-INSERT INTO `appointment` (`id`, `sport_id`, `lesson_id`, `age_id`, `employee_id`, `duration_id`, `skill_id`, `date`, `price`, `client_id`, `discount_cde`, `net_price`, `cancel`, `cancel_reason`, `add_date`, `add_user`) VALUES
-(8, 1, 1, 2, 0, 1, 0, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-09 19:24:17', ''),
-(25, 1, 1, 2, 0, 1, 3, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 07:07:53', ''),
-(26, 1, 1, 2, 0, 1, 3, '0000-00-00', 0, 1, '', 0, 0, '', '2018-04-07 07:08:12', '');
+INSERT INTO `appointment` (`id`, `sport_id`, `lesson_id`, `age_id`, `employee_id`, `duration_id`, `skill_id`, `date`, `time`, `price`, `client_id`, `discount_cde`, `net_price`, `cancel`, `cancel_reason`, `add_date`, `add_user`) VALUES
+(29, 1, 1, 2, 1, 1, 1, '2018-04-30', '10:00:00', 0, 0, '', 0, 0, '', '2018-04-20 19:36:00', ''),
+(30, 1, 1, 2, 1, 1, 1, '2018-04-30', '10:00:00', 0, 0, '', 0, 0, '', '2018-04-20 19:40:29', '');
 
 -- --------------------------------------------------------
 
@@ -69,7 +87,7 @@ CREATE TABLE `appointment_booked` (
   `day` varchar(10) NOT NULL,
   `time` time NOT NULL,
   `price` int(11) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -82,7 +100,7 @@ CREATE TABLE `appointment_day` (
   `day` varchar(11) NOT NULL,
   `start` time NOT NULL,
   `end` time NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -95,7 +113,7 @@ CREATE TABLE `appointment_service_provided` (
   `appointment_id` int(11) NOT NULL,
   `service_id` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -107,7 +125,7 @@ CREATE TABLE `appointment_slot` (
   `id` int(11) NOT NULL,
   `slot` time NOT NULL,
   `deploy` tinyint(1) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -121,7 +139,7 @@ CREATE TABLE `banner` (
   `content` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `revision` int(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `banner`
@@ -143,7 +161,7 @@ CREATE TABLE `body` (
   `content` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -157,7 +175,7 @@ CREATE TABLE `client` (
   `last_name` varchar(100) NOT NULL,
   `phone` varchar(10) NOT NULL,
   `email` varchar(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `client`
@@ -165,7 +183,7 @@ CREATE TABLE `client` (
 
 INSERT INTO `client` (`id`, `first_name`, `last_name`, `phone`, `email`) VALUES
 (1, 'unknown', 'unknown', '1234567890', 'name@name.com'),
-(2, 'Jami', 'Jordan', '2486065893', 'cusstom180@yahoo.com');
+(2, 'Brian', 'Naperkoski', '2486065893', 'cusstom180@yahoo.com');
 
 -- --------------------------------------------------------
 
@@ -177,15 +195,15 @@ CREATE TABLE `duration` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `minute` int(11) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `duration`
 --
 
 INSERT INTO `duration` (`id`, `name`, `minute`) VALUES
-(1, 'two hour', 120),
-(2, 'one hour', 60);
+(1, 'one hour', 60),
+(2, 'two hour', 120);
 
 -- --------------------------------------------------------
 
@@ -199,16 +217,16 @@ CREATE TABLE `employee` (
   `last_name` varchar(100) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee`
 --
 
 INSERT INTO `employee` (`id`, `first_name`, `last_name`, `phone`, `email`) VALUES
-(1, 'unknown', 'unknown', '1234567890', 'name@name.com'),
-(2, 'lisa', 'naperkoski', '2481234567', 'mom@yahoo.com'),
-(3, 'brian', 'naperkoski', '2486065893', 'cusstom180@yahoo.com');
+(1, 'first', 'available', '1234567890', 'name@name.com'),
+(3, 'lisa', 'naperkoski', '2481234567', 'mom@yahoo.com'),
+(4, 'brian', 'naperkoski', '2486065893', 'cusstom180@yahoo.com');
 
 -- --------------------------------------------------------
 
@@ -221,7 +239,7 @@ CREATE TABLE `employee_day_sch` (
   `employee_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `working` tinyint(1) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee_day_sch`
@@ -229,7 +247,7 @@ CREATE TABLE `employee_day_sch` (
 
 INSERT INTO `employee_day_sch` (`id`, `employee_id`, `date`, `working`) VALUES
 (1, 1, '2018-04-30', 1),
-(2, 3, '2018-04-30', 1),
+(2, 3, '2018-04-30', 1);
 
 -- --------------------------------------------------------
 
@@ -241,26 +259,26 @@ CREATE TABLE `employee_day_time_sch` (
   `id` int(11) NOT NULL,
   `employee_id` int(11) NOT NULL,
   `day` date NOT NULL,
-  `slot_1` time NOT NULL,
-  `slot_2` time NOT NULL,
-  `slot_3` time NOT NULL,
-  `slot_4` time NOT NULL,
-  `slot_5` time NOT NULL,
-  `slot_6` time NOT NULL,
-  `slot_7` time NOT NULL,
-  `slot_8` time NOT NULL,
-  `slot_9` time NOT NULL,
-  `slot_10` time NOT NULL,
-  `slot_11` time NOT NULL
-) ;
+  `slot_1` time DEFAULT NULL,
+  `slot_2` time DEFAULT NULL,
+  `slot_3` time DEFAULT NULL,
+  `slot_4` time DEFAULT NULL,
+  `slot_5` time DEFAULT NULL,
+  `slot_6` time DEFAULT NULL,
+  `slot_7` time DEFAULT NULL,
+  `slot_8` time DEFAULT NULL,
+  `slot_9` time DEFAULT NULL,
+  `slot_10` time DEFAULT NULL,
+  `slot_11` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee_day_time_sch`
 --
 
 INSERT INTO `employee_day_time_sch` (`id`, `employee_id`, `day`, `slot_1`, `slot_2`, `slot_3`, `slot_4`, `slot_5`, `slot_6`, `slot_7`, `slot_8`, `slot_9`, `slot_10`, `slot_11`) VALUES
-(1, 2, '2018-04-30', '09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00', '18:00:00', '19:00:00'),
-(2, 1, '2018-04-30', '09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00', '18:00:00', '19:00:00');
+(1, 3, '2018-04-30', '09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00', '18:00:00', NULL),
+(2, 1, '2018-04-30', '09:00:00', '10:00:00', '11:00:00', '12:00:00', NULL, '14:00:00', '15:00:00', '16:00:00', '17:00:00', '18:00:00', '19:00:00');
 
 -- --------------------------------------------------------
 
@@ -277,7 +295,7 @@ CREATE TABLE `jumbotron` (
   `tag_3` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(11) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `jumbotron`
@@ -297,15 +315,15 @@ INSERT INTO `jumbotron` (`id`, `slug`, `pattern_id`, `tag_1`, `tag_2`, `tag_3`, 
 CREATE TABLE `lesson` (
   `id` int(11) NOT NULL,
   `type` varchar(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `lesson`
 --
 
 INSERT INTO `lesson` (`id`, `type`) VALUES
-(1, 'snowboard'),
-(2, 'ski');
+(1, 'private'),
+(2, 'semi private');
 
 -- --------------------------------------------------------
 
@@ -319,7 +337,7 @@ CREATE TABLE `meta` (
   `name` varchar(100) NOT NULL,
   `content` varchar(150) NOT NULL,
   `version` int(11) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `meta`
@@ -345,7 +363,7 @@ CREATE TABLE `page` (
   `call_to_action` int(100) NOT NULL,
   `body_id` int(100) NOT NULL,
   `version` int(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -358,7 +376,7 @@ CREATE TABLE `pattern` (
   `tag_1` varchar(10) NOT NULL,
   `tag_2` varchar(10) NOT NULL,
   `tag_3` varchar(10) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pattern`
@@ -380,7 +398,7 @@ CREATE TABLE `schedule` (
   `employee_id` int(11) NOT NULL,
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -393,7 +411,7 @@ CREATE TABLE `service` (
   `service_name` varchar(100) NOT NULL,
   `duration` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service`
@@ -412,17 +430,17 @@ INSERT INTO `service` (`id`, `service_name`, `duration`, `price`) VALUES
 CREATE TABLE `skill` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `skill`
 --
 
 INSERT INTO `skill` (`id`, `name`) VALUES
+(1, 'never ever'),
 (2, 'beginner'),
 (3, 'intermediate'),
-(4, 'advanced'),
-(1, 'never ever');
+(4, 'advanced');
 
 -- --------------------------------------------------------
 
@@ -433,7 +451,7 @@ INSERT INTO `skill` (`id`, `name`) VALUES
 CREATE TABLE `slug` (
   `id` int(11) NOT NULL,
   `slug` varchar(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -444,7 +462,7 @@ CREATE TABLE `slug` (
 CREATE TABLE `sport` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sport`
@@ -464,7 +482,7 @@ CREATE TABLE `template` (
   `id` int(11) NOT NULL,
   `slug` varchar(100) NOT NULL,
   `pattern` int(11) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `template`
@@ -484,7 +502,7 @@ CREATE TABLE `temp_content` (
   `tag_1` varchar(250) NOT NULL,
   `tag_2` varchar(250) NOT NULL,
   `tag_3` varchar(500) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `temp_content`
@@ -505,7 +523,7 @@ CREATE TABLE `title` (
   `content` varchar(200) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(100) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `title`
@@ -705,7 +723,7 @@ ALTER TABLE `age`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `appointment_booked`
 --
@@ -804,6 +822,12 @@ ALTER TABLE `appointment`
 --
 ALTER TABLE `appointment_booked`
   ADD CONSTRAINT `apb_appointment_id_fk` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`);
+
+--
+-- Constraints for table `employee_day_sch`
+--
+ALTER TABLE `employee_day_sch`
+  ADD CONSTRAINT `eas_day_sch_fk` FOREIGN KEY (`id`) REFERENCES `employee_day_time_sch` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
