@@ -1,3 +1,7 @@
+
+<?php if (empty($instructor)) {
+	echo 'its empty';
+} else {?>
 <div class="container">
 	<form method="post" action="<?= base_url('front/checkout')?>">
 		<div class="form-group">
@@ -13,7 +17,6 @@
 			<label>instructor</label>
 	  		<div class="dropdown">
 	  			<select id="instructor">
-	  				<option value="1" selected="">first available</option>
 	  				<?php  foreach ($instructor as $array) {
 	  					foreach ($array as $value) {?>
 	  						<option value="<?= $value['id'];?>"><?php echo $value['first_name'] . " " . $value['last_name'];?></option>
@@ -30,9 +33,9 @@
 	  		<?php  } ?>
 		</div>
 	  	<div id="last" class="form-group">
-	  		<button type="button" id="next" class="btn btn-default">Submit</button>
+	  		<button type="button" id="next" class="btn btn-default">next</button>
 	  	</div>
 	</form>
 </div>
-
+<?php } ?>
 

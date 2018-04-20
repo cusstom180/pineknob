@@ -15,7 +15,7 @@
 			<label>lesson</label>
 	  		<div class="btn-group-vertical btn-group-sm" role="group">
 		  		<div type="button" class="btn btn-default btn-1 lesson" value="1">private</div>
-		  		<div type="button" class="btn btn-default btn-2 lesson" value="2">group</div>
+		  		<div type="button" class="btn btn-default btn-2 lesson" value="2">semi private</div>
 		  		<input id="lesson" type="hidden" name="lesson" value="">
 			</div>
 		</div>

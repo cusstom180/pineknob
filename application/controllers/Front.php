@@ -75,7 +75,7 @@ class Front extends MY_Controller {
 		$this->data['alert'] = $this->Front_model->getAllRows('banner', $whereArray);
 		$this->data['form'] = array();
 		//create array from post
-		foreach ($_POST as $key => $value) {
+		foreach ($this->input->post(null, TRUE) as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
 // 		var_dump($this->data['form']);
@@ -91,9 +91,31 @@ class Front extends MY_Controller {
 	
 	function checkout() {
 		foreach ($_POST as $key => $value) {
-			$this->data['form'][$key] = $value;
+			if($key === 'sport') {
+				$key = $key . '_id';
+			}
+			if($key === 'lesson') {
+				$key = $key . '_id';
+			}
+			if($key === 'age') {
+				$key = $key . '_id';
+			}
+			if($key === 'instructor') {
+				$key = 'employee_id';
+			}
+			if($key === 'duration') {
+				$key = $key . '_id';
+			}
+			if($key === 'skill') {
+				$key = $key . '_id';
+			}
+			$array[$key] = $value;
+			 
 		}
-		var_dump($this->data['form']) ;
+		var_dump($array) ;
+		
+		$insertSuccess = $this->db->insert('appointment', $array);
+		echo $insertSuccess;
 	}
 	
 	function schedule2() {
