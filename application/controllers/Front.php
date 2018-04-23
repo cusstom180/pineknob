@@ -75,18 +75,34 @@ class Front extends MY_Controller {
 		$this->data['alert'] = $this->Front_model->getAllRows('banner', $whereArray);
 		$this->data['form'] = array();
 		//create array from post
+		
+		$check = 0;
 		foreach ($this->input->post(null, TRUE) as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
-// 		var_dump($this->data['form']);
-		//get all available employees who can work that day
-		$this->data['instructor'] = $this->Front_model->getAllworkingEmpl('employee_day_sch', $this->data['form']['date']);
-// 		var_dump($this->data['instructor']);
 		
-		//load the page view
-		$this->data['subview'] = 'front/components/formAjax';
-		$this->load->view('front/_mainlayout', $this->data);
+		foreach ($this->data['form'] as $value) {
+			if (!$value) {
+				$check++;
+			}
+		}
 		
+		var_dump($this->data['form']);
+		echo $check;
+		
+		if ($check) {
+			$this->session->set_flashdata('form', $this->data['form']);
+			redirect(base_url(), 'index');
+		} 
+		else {
+			//get all available employees who can work that day
+			$this->data['instructor'] = $this->Front_model->getAllworkingEmpl('employee_day_sch', $this->data['form']['date']);
+	// 		var_dump($this->data['instructor']);
+			
+			//load the page view
+			$this->data['subview'] = 'front/components/formAjax';
+			$this->load->view('front/_mainlayout', $this->data);
+		}
 	}
 	
 	function checkout() {

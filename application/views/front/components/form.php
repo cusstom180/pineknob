@@ -1,22 +1,22 @@
-
+<?= var_dump($this->session->form);?>
 <div class="container">
 	<form id="firstform" method="post" action="<?= base_url('front/schedule')?>">
 	  	<div class="form-group">
 	  		<div class="sport error hide"><p>wait, what is a skill?</p></div>
 			<label>sport</label>
 	  		<div class="btn-group-vertical btn-group-sm" role="group">
-		  		<div type="button" class="btn btn-default btn-1 sport" value="1">Ski</div>
-		  		<div type="button" class="btn btn-default btn-2 sport" value="2">Snowboard</div>
-		  		<input id="sport" type="hidden" name="sport" value="">
+		  		<div type="button" class="btn btn-default btn-1 sport <?php if ($this->session->form['sport'] === '1') echo 'active';?>" value="1">Ski</div>
+		  		<div type="button" class="btn btn-default btn-2 sport <?php if ($this->session->form['sport'] === '2') echo 'active';?>" value="2">Snowboard</div>
+		  		<input id="sport" type="hidden" name="sport" value="<?php if ($this->session->form['sport']) echo $this->session->form['sport'];?>">
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="lesson error hide"><p>wait, what is a skill?</p></div>
 			<label>lesson</label>
 	  		<div class="btn-group-vertical btn-group-sm" role="group">
-		  		<div type="button" class="btn btn-default btn-1 lesson" value="1">private</div>
-		  		<div type="button" class="btn btn-default btn-2 lesson" value="2">semi private</div>
-		  		<input id="lesson" type="hidden" name="lesson" value="">
+		  		<div type="button" class="btn btn-default btn-1 lesson <?php if ($this->session->form['lesson'] === '1') echo 'active';?>" value="1">private</div>
+		  		<div type="button" class="btn btn-default btn-2 lesson <?php if ($this->session->form['lesson'] === '2') echo 'active';?>" value="2">semi private</div>
+		  		<input id="lesson" type="hidden" name="lesson" value="<?php if ($this->session->form['lesson']) echo $this->session->form['lesson'];?>">
 			</div>
 		</div>
 		<div class="form-group">

@@ -1,6 +1,7 @@
 
 <?php if (empty($instructor)) {
 	echo 'its empty';
+	
 } else {?>
 <div class="container">
 	<form method="post" action="<?= base_url('front/checkout')?>">

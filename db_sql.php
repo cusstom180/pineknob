@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `age` (
   `id` int(11) NOT NULL,
   `age` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `age`
@@ -58,7 +58,7 @@ CREATE TABLE `appointment` (
   `cancel_reason` varchar(250) NOT NULL,
   `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `add_user` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `appointment`
@@ -81,7 +81,7 @@ CREATE TABLE `appointment_booked` (
   `day` varchar(10) NOT NULL,
   `time` time NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,7 @@ CREATE TABLE `appointment_day` (
   `day` varchar(11) NOT NULL,
   `start` time NOT NULL,
   `end` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- --------------------------------------------------------
 
@@ -107,7 +107,7 @@ CREATE TABLE `appointment_service_provided` (
   `appointment_id` int(11) NOT NULL,
   `service_id` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- --------------------------------------------------------
 
@@ -119,7 +119,7 @@ CREATE TABLE `appointment_slot` (
   `id` int(11) NOT NULL,
   `slot` time NOT NULL,
   `deploy` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- --------------------------------------------------------
 
@@ -133,7 +133,7 @@ CREATE TABLE `banner` (
   `content` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `revision` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `banner`
@@ -155,7 +155,7 @@ CREATE TABLE `body` (
   `content` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- --------------------------------------------------------
 
@@ -167,7 +167,7 @@ CREATE TABLE `duration` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `minute` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `duration`
@@ -189,7 +189,7 @@ CREATE TABLE `employee` (
   `last_name` varchar(100) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `employee`
@@ -211,7 +211,7 @@ CREATE TABLE `employee_day_sch` (
   `employee_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `working` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `employee_day_sch`
@@ -242,7 +242,7 @@ CREATE TABLE `employee_day_time_sch` (
   `slot_9` time DEFAULT NULL,
   `slot_10` time DEFAULT NULL,
   `slot_11` time DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `employee_day_time_sch`
@@ -267,7 +267,7 @@ CREATE TABLE `jumbotron` (
   `tag_3` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `jumbotron`
@@ -287,7 +287,7 @@ INSERT INTO `jumbotron` (`id`, `slug`, `pattern_id`, `tag_1`, `tag_2`, `tag_3`, 
 CREATE TABLE `lesson` (
   `id` int(11) NOT NULL,
   `type` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `lesson`
@@ -309,7 +309,7 @@ CREATE TABLE `meta` (
   `name` varchar(100) NOT NULL,
   `content` varchar(150) NOT NULL,
   `version` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `meta`
@@ -335,7 +335,7 @@ CREATE TABLE `page` (
   `call_to_action` int(100) NOT NULL,
   `body_id` int(100) NOT NULL,
   `version` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- --------------------------------------------------------
 
@@ -348,7 +348,7 @@ CREATE TABLE `pattern` (
   `tag_1` varchar(10) NOT NULL,
   `tag_2` varchar(10) NOT NULL,
   `tag_3` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `pattern`
@@ -370,7 +370,7 @@ CREATE TABLE `schedule` (
   `employee_id` int(11) NOT NULL,
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- --------------------------------------------------------
 
@@ -383,7 +383,7 @@ CREATE TABLE `service` (
   `service_name` varchar(100) NOT NULL,
   `duration` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `service`
@@ -402,7 +402,7 @@ INSERT INTO `service` (`id`, `service_name`, `duration`, `price`) VALUES
 CREATE TABLE `skill` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `skill`
@@ -423,7 +423,7 @@ INSERT INTO `skill` (`id`, `name`) VALUES
 CREATE TABLE `slug` (
   `id` int(11) NOT NULL,
   `slug` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- --------------------------------------------------------
 
@@ -434,7 +434,7 @@ CREATE TABLE `slug` (
 CREATE TABLE `sport` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `sport`
@@ -454,7 +454,7 @@ CREATE TABLE `template` (
   `id` int(11) NOT NULL,
   `slug` varchar(100) NOT NULL,
   `pattern` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `template`
@@ -474,7 +474,7 @@ CREATE TABLE `temp_content` (
   `tag_1` varchar(250) NOT NULL,
   `tag_2` varchar(250) NOT NULL,
   `tag_3` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `temp_content`
@@ -495,7 +495,7 @@ CREATE TABLE `title` (
   `content` varchar(200) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Dumping data for table `title`
