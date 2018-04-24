@@ -76,19 +76,18 @@ class Front extends MY_Controller {
 		$this->data['form'] = array();
 		//create array from post
 		
-		$check = 0;
+// 		var_dump($_POST);
 		foreach ($this->input->post(null, TRUE) as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
-		
+		// check for empty form values
+		$check = 0;
 		foreach ($this->data['form'] as $value) {
 			if (!$value) {
 				$check++;
 			}
 		}
-		
-		var_dump($this->data['form']);
-		echo $check;
+// 		echo $check;
 		
 		if ($check) {
 			$this->session->set_flashdata('form', $this->data['form']);
@@ -128,6 +127,8 @@ class Front extends MY_Controller {
 			$array[$key] = $value;
 			 
 		}
+		
+		
 		var_dump($array) ;
 		
 		$insertSuccess = $this->db->insert('appointment', $array);

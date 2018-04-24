@@ -1,4 +1,6 @@
-
+<?php if ($this->session->form !== NULL) { 
+	var_dump($this->session->form); 
+}?>
 <?php // if an instructor has been selected display time slots
 	if (isset($timeSlot) && !null) { ?>
 	<div class="form-group time">

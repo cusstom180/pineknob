@@ -20,7 +20,7 @@
 	  			<select id="instructor">
 	  				<?php  foreach ($instructor as $array) {
 	  					foreach ($array as $value) {?>
-	  						<option value="<?= $value['id'];?>"><?php echo $value['first_name'] . " " . $value['last_name'];?></option>
+	  						<option value="<?= $value['employee_id'];?>"><?php echo $value['first_name'] . " " . $value['last_name'];?></option>
 	  				<?php }
 	  				
 	  				  } ?>

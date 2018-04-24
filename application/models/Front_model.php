@@ -26,7 +26,7 @@ class Front_model extends MY_Model {
 //     	var_dump($result);
     	$teacher = array();
     	foreach ($result as $key => $value) {
-    		$data = $this->getAllRows('employee', 'id', $value['employee_id']);
+    		$data = $this->getAllRows('employee', 'employee_id', $value['employee_id']);
     		array_push($teacher, $data);
 //     		var_dump($value);
     	}

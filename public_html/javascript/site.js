@@ -72,18 +72,18 @@ $(document).ready(function() {
 				    len = dataArray.length,
 				    dataObj = {};
 				
-				for (i=0; i<len; i++) {
-				  dataObj[dataArray[i].name] = dataArray[i].value;
-				  if (dataArray[i].value == "") {
-//						console.log(dataArray[i].name);
-//						console.log('it is null')
-						$('.' + dataArray[i].name + '.error').removeClass('hide');
-						error++;
-			//			console.log(error);
-					  } else {
-				 			$('.' + dataArray[i].name  + '.error').addClass('hide');
-				 			}
-				}
+//				for (i=0; i<len; i++) {
+//				  dataObj[dataArray[i].name] = dataArray[i].value;
+//				  if (dataArray[i].value == "") {
+////						console.log(dataArray[i].name);
+////						console.log('it is null')
+//						$('.' + dataArray[i].name + '.error').removeClass('hide');
+//						error++;
+//			//			console.log(error);
+//					  } else {
+//				 			$('.' + dataArray[i].name  + '.error').addClass('hide');
+//				 			}
+//				}
 				
 //				alert(dataObj['instructor']);
 				console.log(form.serialize());
@@ -108,20 +108,20 @@ $(document).ready(function() {
 				    len = dataArray.length,
 				    dataObj = {};
 				
-				for (i=0; i<len; i++) {
-				  dataObj[dataArray[i].name] = dataArray[i].value;
-				  if (dataArray[i].value == "") {
-						console.log(dataArray[i].name);
-						console.log('it is null')
-						$('.' + dataArray[i].name + '.error').removeClass('hide');
-						error++;
-						break;
-			//			console.log(error);
-					  } else {
-				 			$('.' + dataArray[i].name  + '.error').addClass('hide');
-				 			
-				 			}
-				}
+//				for (i=0; i<len; i++) {
+//				  dataObj[dataArray[i].name] = dataArray[i].value;
+//				  if (dataArray[i].value == "") {
+//						console.log(dataArray[i].name);
+//						console.log('it is null')
+//						$('.' + dataArray[i].name + '.error').removeClass('hide');
+//						error++;
+//						break;
+//			//			console.log(error);
+//					  } else {
+//				 			$('.' + dataArray[i].name  + '.error').addClass('hide');
+//				 			
+//				 			}
+//				}
 				console.log(error);
 				var checkArray = noneEmpty(dataObj);
 				console.log(checkArray);
