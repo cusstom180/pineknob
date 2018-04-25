@@ -76,7 +76,7 @@ class Front extends MY_Controller {
 		$this->data['form'] = array();
 		//create array from post
 		
-// 		var_dump($_POST);
+		var_dump($_POST);
 		foreach ($this->input->post(null, TRUE) as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}

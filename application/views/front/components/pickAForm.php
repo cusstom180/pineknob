@@ -21,7 +21,7 @@
 	</div>
 	<script type="text/javascript">
 	$('#last button').attr('type', 'submit').text('submit');
-
+	$('#last button').prop('disabled', 'disabled');
 	
 	$('#instructor').change(function() {
 		var instructor = $('#instructor').val();
@@ -34,6 +34,17 @@
 			$('.form-group.time').remove();
 			$('#last button').attr('type', 'button').text('next');
 			}
+	});
+
+	$('#time2').change(function() {
+		var time = $('#time2').val();
+		console.log(time);
+		if (time) {
+			console.log('its greater');
+			$('#last button').prop('disabled', false);
+		} else {
+			$('#last button').prop('disabled', 'disabled');
+		}
 	});
 	</script>
 <?php } else { ?>

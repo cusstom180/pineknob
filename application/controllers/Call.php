@@ -12,28 +12,46 @@ class Call extends MY_Controller {
 		echo'hi';
 	}
 	
-	function callDropdown() {
+	function callForm() {
 		# collect post varaibles
-		foreach ($_POST as $key => $value) {
+		foreach ($this->input->post(null, TRUE) as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
-		// check for empty form values
+		if (!empty($this->data['form']['instructor'])) {
+			$array = array(
+					'employee_id' => $this->data['form']['instructor'],
+					'day' => $this->data['form']['date']
+			);
+			#get time slots in DB
+			$this->data['timeSlot'] = $this->service_calls->getEmployeeTimeSlot('employee_day_time_sch', 'employee_day_sch', $this->data['form']['instructor'], $this->data['form']['date']);
+			$this->load->view('front/components/pickAForm', $this->data);
+		}
+		
+	}
+	
+	function callDropdown() {
+		# collect post varaibles
 		$check = 0;
-		foreach ($this->data['form'] as $value) {
+		foreach ($_POST as $key => $value) {
+			$this->data['form'][$key] = $value;
 			if (!$value) {
 				$check++;
 				echo ' hi ';
 			}
 		}
+		// check for empty form values
+		
+		
 // 		var_dump($this->data['form']);
 // 		echo $check;
 		if ($check) {
 			$this->session->set_flashdata('form', $this->data['form']);
+			
 		} else {
 		
 			#if time is posted 
 			#check if an instructor has been selected
-// 			var_dump($this->data['form']);
+			var_dump($this->data['form']);
 			if (isset($this->data['form']['instructor'])) {
 				$array = array(
 						 'employee_id' => $this->data['form']['instructor'],
@@ -41,15 +59,15 @@ class Call extends MY_Controller {
 						);
 				#get time slots in DB
 				$this->data['timeSlot'] = $this->service_calls->getEmployeeTimeSlot('employee_day_time_sch', 'employee_day_sch', $this->data['form']['instructor'], $this->data['form']['date']);
-				var_dump($this->data['timeSlot']);
-				echo $this->db->last_query();
+// 				var_dump($this->data['timeSlot']);
+// 				echo $this->db->last_query();
 			}	
 		}
-		
+// 		echo  json_encode($this->data['timeSlot']);
 		$this->load->view('front/components/pickAForm', $this->data);
 	}
 	
-	function callForm() {
+	function callFormTwo() {
 		
 	    foreach ($_POST as $key => $value) {
 	        $this->data['form'][$key] = $value;

@@ -89,11 +89,15 @@ $(document).ready(function() {
 				console.log(form.serialize());
 				if (error == 0) {
 					$.ajax({
-				        url: "http://localhost:8888/pineknob/call/calldropdown", // Get the action URL to send AJAX to
+				        url: "http://localhost/pineknob/call/callForm", // Get the action URL to send AJAX to
 				          type: "POST",
+//				          dataType: 'json',
 				          data: form.serialize(), // get all form variables
 				          success: function(result){
 				              $('#last').before(result);
+//				        	  var obj = jQuery.parseJSON(result); // if using jquery
+//
+//				              console.log(obj.message);
 				          }
 				      });
 				}
