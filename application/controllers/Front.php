@@ -135,7 +135,7 @@ class Front extends MY_Controller {
 		
 		var_dump($array) ;
 		
-		$insertSuccess = $this->db->insert('appointment', $array);
+// 		$insertSuccess = $this->db->insert('appointment', $array);
 		$array = array(
 				'lesson' => '$array['
 		);
