@@ -56,7 +56,6 @@ class Front extends MY_Controller {
 		
 		$this->data['jumbotron'] = $jumbotron;
 		
-		
 		#create form 
 		$this->data['form'] = 1;
 		
@@ -124,14 +123,24 @@ class Front extends MY_Controller {
 			if($key === 'skill') {
 				$key = $key . '_id';
 			}
-			$array[$key] = $value;
-			 
+			if($key === 'check1') {
+				$key = NULL;
+				$value = NULL;
+			} else {
+				$appointArray[$key] = $value;
+			}
 		}
-		
+		$appointArray['price'] = $this->Front_model->getRow('lesson', 'id', $appointArray['lesson_id']);
+		var_dump($appointArray['price']);
 		
 		var_dump($array) ;
 		
 		$insertSuccess = $this->db->insert('appointment', $array);
+		$array = array(
+				'lesson' => '$array['
+		);
+		$this->session->set_userdata($array);
+		var_dump($this->session);
 		echo $insertSuccess;
 	}
 	

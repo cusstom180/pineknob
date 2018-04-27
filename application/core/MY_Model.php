@@ -36,4 +36,21 @@ class MY_Model extends CI_Model {
     	return $func;
     }
     
+    public function getRow($tableName, $where = NULL, $str = NULL) {
+    	 
+    	if ($where === NULL) {
+    		$result = $this->db->get($tableName)->row_array();
+    	} else {
+    		if (is_array($where)) {
+    			$query = $this->db->where($where);
+    		} else {
+    			$query = $this->db->where($where, $str);
+    		}
+    
+    		$result = $query->get($tableName)->row_array();
+    	}
+    	 
+    	return $result;
+    }
+    
 }
