@@ -9,8 +9,8 @@
 	  	<div class="dropdown">
 	  		<select id="time2">
 	  			<option selected=""></option>
-	  			<?php foreach ($timeSlot as $key => $value) { 
-	  	            if (strpos($key, 'lot_') && $value == !NULL) { 
+	  			<?php foreach ($timeSlot as $key => $value) { var_dump($value);
+	  	            if (strpos($key, 'ime_') && $value == !NULL) { 
 	  	                $fvalue = date('h:i A',strtotime($value)); ?>
 	  	                <option value="<?= $value; ?>"><?= $fvalue; ?></option>
 	  	            <?php } ?>

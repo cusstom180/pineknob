@@ -18,12 +18,9 @@
 			<label>instructor</label>
 	  		<div class="dropdown">
 	  			<select id="instructor">
-	  				<?php  foreach ($instructor as $array) {
-	  					foreach ($array as $value) {?>
+	  				<?php  foreach ($instructor as $value) { ?>
 	  						<option value="<?= $value['employee_id'];?>"><?php echo $value['first_name'] . " " . $value['last_name'];?></option>
-	  				<?php }
-	  				
-	  				  } ?>
+	  				<?php } ?>
 	  			</select>
 	  			<input id="instructor" type="hidden" name="instructor" value="1">
 	  		</div>

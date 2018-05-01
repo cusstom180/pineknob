@@ -19,6 +19,23 @@ class Service_calls extends MY_Model {
     	return $result;
     }
     
+    public function getAllworkingEmplTime($tableName, $date, $employee_id) {
+    	 
+    	$this->db->select($tableName . '.employee_id');
+    	$this->db->select('slot.time_slot');
+    	$this->db->from($tableName);
+    	$this->db->join('slot', 'slot.id = ' . $tableName . '.slot_id');
+    	$this->db->join('date', 'date.id = ' . $tableName . '.date_id');
+    	$array = array(
+    			$tableName . '.employee_id' => $employee_id,
+    			'date.date' => $date,
+    	);
+    	$query = $this->db->where($array);
+    	$result = $query->get()->result_array();
+//     	var_dump($result);
+    	return $result;
+    }
+    
     public function getEmployeeTimeSlot($table1, $table2, $employee_id, $date) {
     	$this->db->select($table2 . '.employee_id');
     	$this->db->select($table1 . '.slot_1');

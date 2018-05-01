@@ -11,50 +11,35 @@ class Front extends MY_Controller {
 	function index() {
 		
 		$this->data['page'] = $this->Front_model->callingBack();
-		$this->data['title'] = $this->Front_model->getAllRows('title', 'slug', $this->data['page']);
+		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
-		$this->data['alert'] = $this->Front_model->getAllRows('banner', $whereArray);
+		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
 		
 		#get jumbotron row
-		$jumbo = $this->Front_model->getAllRows('jumbotron', $whereArray);
-// 		var_dump($jumbo);
-		#shorten array
-		foreach ($jumbo as $key) {
-			$jumbo2 = $key;
-		}
-// 		var_dump($jumbo2);											#content array
-		$jumbo3 = array();
-		foreach ($jumbo2 as $key => $value) {
+		$jumbotron = $this->Front_model->getRow('jumbotron', $whereArray);
+		foreach ($jumbotron as $key => $value) {						#create array to just capture the tag_ elements
 			if ( strpos($key, 'ag') && !empty($value)) {
-				$jumbo3[] = $value;
+				$jumbotronTag[] = $value;
 			}
 		}
-// 		var_dump($jumbo3);
+		
 		# get pattern template
-		$patternId = $jumbo2['pattern_id'];
-		$pattern = $this->Front_model->getAllRows('pattern','id', $patternId);
-		
-		#shorten array
-		foreach ($pattern as $value) {
-			$pattern2 = $value;
-		}
-		foreach ($pattern2 as $key => $value) {
+		$pattern = $this->Front_model->getRow('pattern','id', $jumbotron['pattern_id']);
+// 		var_dump($pattern);
+// 		$pattern2 = array();
+		foreach ($pattern as $key => $value) {						#create array to just capture the tag_ elements
 			if ( strpos($key, 'ag') && !empty($value)) {
-				$pattern3[] = $value;
+				$patternTag[] = $value;
 			}
 		}
-// 		var_dump($pattern3);										#pattern array
-// 		echo sizeof($pattern3);
 		# create array of key value paris of html tag with value 
-		$jumbotron = array();
+		$jumbotronArray = array();
 		
-		for ($i = 0; $i < sizeof($pattern3); $i++) {
-					$jumbotron[$pattern3[$i]] = $jumbo3[$i];
-// 					echo "$i ";
-		}			
-		
-		$this->data['jumbotron'] = $jumbotron;
+		for ($i = 0; $i < sizeof($patternTag); $i++) {
+					$jumbotronArray[$patternTag[$i]] = $jumbotronTag[$i];
+		}		
+		$this->data['jumbotron'] = $jumbotronArray;
 		
 		#create form 
 		$this->data['form'] = 1;
@@ -68,34 +53,31 @@ class Front extends MY_Controller {
 	function schedule() {
 		//get page meta data
 		$this->data['page'] = $this->Front_model->callingBack();
-		$this->data['title'] = $this->Front_model->getAllRows('title', 'slug', $this->data['page']);
+		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
-		$this->data['alert'] = $this->Front_model->getAllRows('banner', $whereArray);
-		$this->data['form'] = array();
-		//create array from post
+		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
 		
-		var_dump($_POST);
+		// check for submitted values for empty, if empty redirect back to index
+		//create array from post 
+		$this->data['form'] = array();
 		foreach ($this->input->post(null, TRUE) as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
-		// check for empty form values
+		// check for empty form values 
 		$check = 0;
 		foreach ($this->data['form'] as $value) {
 			if (!$value) {
 				$check++;
 			}
 		}
-// 		echo $check;
-		
 		if ($check) {
 			$this->session->set_flashdata('form', $this->data['form']);
 			redirect(base_url(), 'index');
 		} 
 		else {
 			//get all available employees who can work that day
-			$this->data['instructor'] = $this->Front_model->getAllworkingEmpl('employee_day_sch', $this->data['form']['date']);
-	// 		var_dump($this->data['instructor']);
+			$this->data['instructor'] = $this->Front_model->getAllworkingEmplList('employee_time_slot', $this->data['form']['date']);
 			
 			//load the page view
 			$this->data['subview'] = 'front/components/formAjax';

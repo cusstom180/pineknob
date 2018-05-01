@@ -18,12 +18,14 @@ class Call extends MY_Controller {
 			$this->data['form'][$key] = $value;
 		}
 		if (!empty($this->data['form']['instructor'])) {
-			$array = array(
-					'employee_id' => $this->data['form']['instructor'],
-					'day' => $this->data['form']['date']
-			);
+// 			$array = array(
+// 					'employee_id' => $this->data['form']['instructor'],
+// 					'day' => $this->data['form']['date']
+// 			);
+// 			echo $this->data['form']['instructor'];
 			#get time slots in DB
-			$this->data['timeSlot'] = $this->service_calls->getEmployeeTimeSlot('employee_day_time_sch', 'employee_day_sch', $this->data['form']['instructor'], $this->data['form']['date']);
+			$this->data['timeSlot'] = $this->service_calls->getAllworkingEmplTime('employee_time_slot', $this->data['form']['date'], $this->data['form']['instructor']);
+// 			echo $this->db->last_query();
 			$this->load->view('front/components/pickAForm', $this->data);
 		}
 		
@@ -63,6 +65,7 @@ class Call extends MY_Controller {
 // 				echo $this->db->last_query();
 			}	
 		}
+		
 // 		echo  json_encode($this->data['timeSlot']);
 		$this->load->view('front/components/pickAForm', $this->data);
 	}

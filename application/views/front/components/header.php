@@ -5,10 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php // echo link_tag('public_html/images/dv8_web_icon.png', 'icon', 'image/png'); ?>
-
-<?php foreach ($title as $key) { ?>
- <title><?php echo $key['content']; ?></title>
-<?php } ?>
+ <title><?php echo $title['content']; ?></title>
 <?php  foreach ($meta as $value) { ?>
 <meta name="<?php echo $value['name']; ?>" content="<?php echo $value['content'];?>" >
 <?php } ?>
