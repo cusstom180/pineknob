@@ -26,6 +26,7 @@ class Call extends MY_Controller {
 			#get time slots in DB
 			$this->data['timeSlot'] = $this->service_calls->getAllworkingEmplTime('employee_time_slot', $this->data['form']['date'], $this->data['form']['instructor']);
 // 			echo $this->db->last_query();
+			
 			$this->load->view('front/components/pickAForm', $this->data);
 		}
 		

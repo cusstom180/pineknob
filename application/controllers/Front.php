@@ -50,7 +50,7 @@ class Front extends MY_Controller {
 		
 	}
 	
-	function schedule() {
+	function shoppingcart() {
 		//get page meta data
 		$this->data['page'] = $this->Front_model->callingBack();
 		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
@@ -64,28 +64,84 @@ class Front extends MY_Controller {
 		foreach ($this->input->post(null, TRUE) as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
-		// check for empty form values 
+		var_dump($this->data['form']);
+		// check for required fields by comparing arrays
+		$requiredFields = array('sport', 'age', 'skill', 'date');
 		$check = 0;
-		foreach ($this->data['form'] as $value) {
-			if (!$value) {
+		foreach ($this->data['form'] as $key => $value) { 
+// 			echo "$key ";
+			if (in_array($key, $requiredFields) && $value !== '') {
+				echo $key;
 				$check++;
 			}
 		}
-		if ($check) {
+		// if check variable is less then the required array redirect back to index
+		if ($check === count($requiredFields)) {
+			//get product details
+			$this->data['description'] = $this->Front_model->getRow('lesson', 'id', $this->data['form']['lesson']);
+			var_dump($this->data['description']);
+			//load the page view
+			$this->data['subview'] = 'front/components/shoppingcart';
+			$this->load->view('front/_mainlayout', $this->data);
+		} else {
 			$this->session->set_flashdata('form', $this->data['form']);
 			redirect(base_url(), 'index');
-		} 
-		else {
-			//get all available employees who can work that day
-			$this->data['instructor'] = $this->Front_model->getAllworkingEmplList('employee_time_slot', $this->data['form']['date']);
-			
-			//load the page view
-			$this->data['subview'] = 'front/components/formAjax';
-			$this->load->view('front/_mainlayout', $this->data);
 		}
+// 		if ($check) {
+// 			$this->session->set_flashdata('form', $this->data['form']);
+// 			redirect(base_url(), 'index');
+// 		} 
+// 		else {
+// 			//get all available employees who can work that day
+// 			$this->data['instructor'] = $this->Front_model->getAllworkingEmplList('employee_time_slot', $this->data['form']['date']);
+			
+// 			//load the page view
+// 			$this->data['subview'] = 'front/components/formAjax';
+// 			$this->load->view('front/_mainlayout', $this->data);
+// 		}
 	}
 	
 	function checkout() {
+		
+		//get page meta data
+		$this->data['page'] = $this->Front_model->callingBack();
+		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
+		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
+		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
+		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
+		
+		// check for submitted values for empty, if empty redirect back to index
+		//create array from post
+		$this->data['form'] = array();
+		foreach ($this->input->post(null, TRUE) as $key => $value) {
+			$this->data['form'][$key] = $value;
+		}
+		var_dump($this->data['form']);
+		// check for required fields by comparing arrays
+		$requiredFields = array('sport', 'age', 'skill', 'date');
+		$check = 0;
+		foreach ($this->data['form'] as $key => $value) {
+			// 			echo "$key ";
+			if (in_array($key, $requiredFields) && $value !== '') {
+				echo $key;
+				$check++;
+			}
+		}
+		// if check variable is less then the required array redirect back to index
+		if ($check === count($requiredFields)) {
+			//load the page view
+			$this->data['subview'] = 'front/components/formAjax';
+			$this->load->view('front/_mainlayout', $this->data);
+		} else {
+			$this->session->set_flashdata('form', $this->data['form']);
+			redirect(base_url(), 'index');
+		}
+		
+	}
+	
+	function schedule2() {
+		
+		//old schedule
 		foreach ($_POST as $key => $value) {
 			if($key === 'sport') {
 				$key = $key . '_id';
@@ -117,16 +173,15 @@ class Front extends MY_Controller {
 		
 		var_dump($array) ;
 		
-// 		$insertSuccess = $this->db->insert('appointment', $array);
+		// 		$insertSuccess = $this->db->insert('appointment', $array);
 		$array = array(
 				'lesson' => '$array['
 		);
 		$this->session->set_userdata($array);
 		var_dump($this->session);
 		echo $insertSuccess;
-	}
-	
-	function schedule2() {
+		
+		//old schedule2
 		
 // 		var_dump($_POST);
 // 		$sport = null !== $this->input->post('sport_id') ? $this->input->post('sport_id', TRUE) : NULL;

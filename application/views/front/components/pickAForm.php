@@ -2,21 +2,19 @@
 	var_dump($this->session->form); 
 }?>
 <?php // if an instructor has been selected display time slots
-	if (isset($timeSlot) && !null) { ?>
+	if (isset($timeSlot) && !null) { //var_dump($form); ?>
 	<div class="form-group time">
 	<div class="time error hide"><p>pick a time</p></div>
 		<label>time</label>
 	  	<div class="dropdown">
 	  		<select id="time2">
 	  			<option selected=""></option>
-	  			<?php foreach ($timeSlot as $key => $value) { var_dump($value);
-	  	            if (strpos($key, 'ime_') && $value == !NULL) { 
+	  			<?php foreach ($timeSlot as $key => $value) { //var_dump($value);
 	  	                $fvalue = date('h:i A',strtotime($value)); ?>
 	  	                <option value="<?= $value; ?>"><?= $fvalue; ?></option>
-	  	            <?php } ?>
 	  			<?php }?>	
 	  		</select>
-	  		<input id="time" type="hidden" name="time" value="" data-code="<?= $timeSlot['employee_id']?>">
+	  		<input id="time" type="hidden" name="time" value="" data-code="<?= $form['instructor']?>">
 	  	</div>
 	</div>
 	<script type="text/javascript">
