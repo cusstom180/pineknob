@@ -38,7 +38,7 @@
 						<tr>
 							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
+							<td id="total" class="hidden-xs text-center"><strong>Total $1.99</strong></td>
 							<td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>
@@ -53,11 +53,13 @@
 
 	$('#subtotal').append(subtotal);
 
-	$('input[type="number"]').change(function() {
+	$('input[type="number"]').bind('keyup input', function() {
 		var price = $('#price').attr('data-price');
 		var quantity = $('input[type="number"]').val();
 		var subtotal = price * quantity;
+		var total = $('#total').val(subtotal);
 		$('#subtotal').text(subtotal);
+		
 	});
 
 </script>
