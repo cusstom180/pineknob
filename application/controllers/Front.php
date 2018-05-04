@@ -64,14 +64,14 @@ class Front extends MY_Controller {
 		foreach ($this->input->post(null, TRUE) as $key => $value) {
 			$this->data['form'][$key] = $value;
 		}
-		var_dump($this->data['form']);
+// 		var_dump($this->data['form']);
 		// check for required fields by comparing arrays
 		$requiredFields = array('sport', 'age', 'skill', 'date');
 		$check = 0;
 		foreach ($this->data['form'] as $key => $value) { 
 // 			echo "$key ";
 			if (in_array($key, $requiredFields) && $value !== '') {
-				echo $key;
+// 				echo $key;
 				$check++;
 			}
 		}
@@ -79,7 +79,11 @@ class Front extends MY_Controller {
 		if ($check === count($requiredFields)) {
 			//get product details
 			$this->data['description'] = $this->Front_model->getRow('lesson', 'id', $this->data['form']['lesson']);
-			var_dump($this->data['description']);
+// 			var_dump($this->data['form']);
+// 			$_SESSION['form'] = $this->data['form'];
+			$this->session->form = $this->data['form'];
+			
+			
 			//load the page view
 			$this->data['subview'] = 'front/components/shoppingcart';
 			$this->load->view('front/_mainlayout', $this->data);
@@ -167,6 +171,13 @@ class Front extends MY_Controller {
 			} else {
 				$appointArray[$key] = $value;
 			}
+		}
+		
+		$insertSuccess = $this->db->insert('appointment', $appointArray);
+		if ($insertSuccess) {
+		
+			$this->data['appID'] = $this->Front_model->getRow('appointment', 'session_id', $appointArray['session_id']);
+			// 				var_dump($appID);
 		}
 		$appointArray['price'] = $this->Front_model->getRow('lesson', 'id', $appointArray['lesson_id']);
 		var_dump($appointArray['price']);

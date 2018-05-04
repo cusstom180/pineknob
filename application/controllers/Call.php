@@ -12,6 +12,51 @@ class Call extends MY_Controller {
 		echo'hi';
 	}
 	
+	function cashout() {
+		
+		echo "it has been paid";
+		foreach ($this->input->get(null, TRUE) as $key => $value) {
+			$this->data[$key] = $value;
+		}
+		
+		if ($this->data['success']) {
+			var_dump($this->data);
+			var_dump($this->session->userdata());
+			foreach ($_SESSION['form'] as $key => $value) {
+				if($key === 'sport') {
+					$key = $key . '_id';
+				}
+				if($key === 'lesson') {
+					$key = $key . '_id';
+				}
+				if($key === 'age') {
+					$key = $key . '_id';
+				}
+				if($key === 'instructor') {
+					$key = 'employee_id';
+				}
+				if($key === 'duration') {
+					$key = $key . '_id';
+				}
+				if($key === 'skill') {
+					$key = $key . '_id';
+				}
+				if($key === 'check1') {
+					$key = NULL;
+					$value = NULL;
+				} else {
+					$appointArray[$key] = $value;
+				}
+			}
+			$appointArray['session_id'] = $_SESSION['__ci_last_regenerate'];
+			$insertSuccess = $this->db->insert('appointment', $appointArray);
+			
+		} else {
+			echo "something failed";
+			redirect(base_url(), 'front/shoppingcart');
+		}
+	}
+	
 	function callForm() {
 		# collect post varaibles
 		foreach ($this->input->post(null, TRUE) as $key => $value) {
