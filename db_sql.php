@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2018 at 08:55 PM
+-- Generation Time: May 04, 2018 at 09:52 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.4
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `age` (
   `id` int(11) NOT NULL,
   `age` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `age`
@@ -48,6 +48,7 @@ INSERT INTO `age` (`id`, `age`) VALUES
 
 CREATE TABLE `appointment` (
   `id` int(11) NOT NULL,
+  `session_id` varchar(100) NOT NULL,
   `sport_id` int(11) NOT NULL,
   `lesson_id` int(11) NOT NULL,
   `age_id` int(11) NOT NULL,
@@ -64,17 +65,26 @@ CREATE TABLE `appointment` (
   `cancel_reason` varchar(250) NOT NULL,
   `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `add_user` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `appointment`
 --
 
-INSERT INTO `appointment` (`id`, `sport_id`, `lesson_id`, `age_id`, `employee_id`, `duration_id`, `skill_id`, `date`, `time`, `price`, `client_id`, `discount_cde`, `net_price`, `cancel`, `cancel_reason`, `add_date`, `add_user`) VALUES
-(29, 1, 1, 2, 1, 1, 1, '2018-04-30', '10:00:00', 0, 0, '', 0, 0, '', '2018-04-20 23:36:00', ''),
-(30, 1, 1, 2, 1, 1, 1, '2018-04-30', '10:00:00', 0, 0, '', 0, 0, '', '2018-04-20 23:40:29', ''),
-(31, 1, 1, 3, 1, 1, 2, '2018-04-30', '12:00:00', 0, 0, '', 0, 0, '', '2018-04-26 16:50:52', ''),
-(32, 1, 1, 1, 1, 1, 2, '2018-04-30', '14:00:00', 0, 0, '', 0, 0, '', '2018-04-27 18:26:21', '');
+INSERT INTO `appointment` (`id`, `session_id`, `sport_id`, `lesson_id`, `age_id`, `employee_id`, `duration_id`, `skill_id`, `date`, `time`, `price`, `client_id`, `discount_cde`, `net_price`, `cancel`, `cancel_reason`, `add_date`, `add_user`) VALUES
+(29, '', 1, 1, 2, 1, 1, 1, '2018-04-30', '10:00:00', 0, 0, '', 0, 0, '', '2018-04-20 23:36:00', ''),
+(30, '', 1, 1, 2, 1, 1, 1, '2018-04-30', '10:00:00', 0, 0, '', 0, 0, '', '2018-04-20 23:40:29', ''),
+(31, '', 1, 1, 3, 1, 1, 2, '2018-04-30', '12:00:00', 0, 0, '', 0, 0, '', '2018-04-26 16:50:52', ''),
+(32, '', 1, 1, 1, 1, 1, 2, '2018-04-30', '14:00:00', 0, 0, '', 0, 0, '', '2018-04-27 18:26:21', ''),
+(34, '', 1, 1, 1, 0, 0, 2, '2018-05-31', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-04 16:25:37', ''),
+(35, '4vr2547bi2lkmite4rcc523mjsk579l9', 1, 1, 2, 0, 0, 2, '2018-05-31', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-04 16:41:51', ''),
+(36, '8b76f0povm1a7lk857lvg5j85e79bh0k', 1, 1, 2, 0, 0, 2, '2018-05-31', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-04 17:06:05', ''),
+(37, '7798fommjer7aeqti0kna7bftbhuu492', 1, 1, 2, 0, 0, 2, '2018-05-31', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-04 17:12:05', ''),
+(38, '7798fommjer7aeqti0kna7bftbhuu492', 1, 1, 2, 0, 0, 2, '2018-05-31', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-04 17:13:00', ''),
+(39, '', 2, 1, 2, 0, 0, 2, '2018-05-29', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-04 19:32:08', ''),
+(40, '1525462325', 2, 1, 2, 0, 0, 1, '2018-05-28', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-04 19:36:15', ''),
+(41, '1525462731', 1, 1, 1, 0, 0, 4, '2018-05-24', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-04 19:40:01', ''),
+(42, '1525462731', 1, 1, 1, 0, 0, 4, '2018-05-30', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-04 19:42:21', '');
 
 -- --------------------------------------------------------
 
@@ -89,7 +99,7 @@ CREATE TABLE `appointment_booked` (
   `day` varchar(10) NOT NULL,
   `time` time NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 -- --------------------------------------------------------
 
@@ -102,7 +112,7 @@ CREATE TABLE `appointment_day` (
   `day` varchar(11) NOT NULL,
   `start` time NOT NULL,
   `end` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 -- --------------------------------------------------------
 
@@ -115,7 +125,7 @@ CREATE TABLE `appointment_service_provided` (
   `appointment_id` int(11) NOT NULL,
   `service_id` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 -- --------------------------------------------------------
 
@@ -127,7 +137,7 @@ CREATE TABLE `appointment_slot` (
   `id` int(11) NOT NULL,
   `slot` time NOT NULL,
   `deploy` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 -- --------------------------------------------------------
 
@@ -141,7 +151,7 @@ CREATE TABLE `banner` (
   `content` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `revision` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `banner`
@@ -163,7 +173,7 @@ CREATE TABLE `body` (
   `content` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 -- --------------------------------------------------------
 
@@ -174,7 +184,7 @@ CREATE TABLE `body` (
 CREATE TABLE `date` (
   `id` int(11) NOT NULL,
   `date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `date`
@@ -194,7 +204,7 @@ CREATE TABLE `duration` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `minute` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `duration`
@@ -216,7 +226,7 @@ CREATE TABLE `employee` (
   `last_name` varchar(100) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `employee`
@@ -238,7 +248,7 @@ CREATE TABLE `employee_time_slot` (
   `employee_id` int(11) NOT NULL,
   `slot_id` int(11) NOT NULL,
   `date_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `employee_time_slot`
@@ -264,7 +274,7 @@ CREATE TABLE `jumbotron` (
   `tag_3` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `jumbotron`
@@ -287,7 +297,7 @@ CREATE TABLE `lesson` (
   `price` int(10) NOT NULL,
   `description` varchar(350) NOT NULL,
   `img` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `lesson`
@@ -309,7 +319,7 @@ CREATE TABLE `meta` (
   `name` varchar(100) NOT NULL,
   `content` varchar(150) NOT NULL,
   `version` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `meta`
@@ -335,7 +345,7 @@ CREATE TABLE `page` (
   `call_to_action` int(100) NOT NULL,
   `body_id` int(100) NOT NULL,
   `version` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 -- --------------------------------------------------------
 
@@ -348,7 +358,7 @@ CREATE TABLE `pattern` (
   `tag_1` varchar(10) NOT NULL,
   `tag_2` varchar(10) NOT NULL,
   `tag_3` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `pattern`
@@ -370,78 +380,14 @@ CREATE TABLE `pine_knob` (
   `ip_address` varchar(45) NOT NULL,
   `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `data` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `pine_knob`
 --
 
 INSERT INTO `pine_knob` (`id`, `ip_address`, `timestamp`, `data`) VALUES
-('068orr01olhqu7aip0rnuc81h92jv3qr', '::1', 1525118304, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353131383330343b),
-('0s9k59pedklvdht7nhchm3pca9f1kio9', '::1', 1525203431, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353230333433313b),
-('0vtadp95jnobfhlma7rmjidnsdfprrbi', '::1', 1525268510, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353236383531303b),
-('1dek6egtnd3sbtb342b8r0b1o48ajjtf', '::1', 1525270018, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237303031383b),
-('1deldn45r16cvnvrevfpp7ba8fmb5k2m', '::1', 1525191380, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353139313338303b),
-('1k60uapqk22994jk81p39d0527pqah63', '::1', 1525204108, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353230343036393b),
-('1nfo63lghmgm9udkbtb73710lfsmh41h', '::1', 1524858729, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532343835383732393b6c6573736f6e7c733a333a22736b69223b),
-('1qcaf83dobm4dpgsn42aupkp828nrv7j', '::1', 1525111628, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353131313632383b),
-('25oe5ee0g9gl4ba5q6sf70ebr266b6q3', '::1', 1525109437, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353130393433373b),
-('2bq7dtvq2dc4rj09ro7jmk79p7lhb9b9', '::1', 1525110622, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353131303632323b),
-('2h2huckdjjtb26a9ii81a50h1pu1n5oe', '::1', 1525268130, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353236383133303b),
-('2j4dn0ccaajshonmti3ctkhcoctb1h15', '::1', 1525116177, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353131363137373b),
-('33dcrp7kmj136k7i2ugi72eqcg9nrj7h', '::1', 1525107992, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353130373939323b),
-('3s6746u6on82u6go6vgii2lc6gddpsoe', '::1', 1525201269, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353230313236393b),
-('4gtr3l7l5e39sp666vrkp5lf9feqb12e', '::1', 1525189714, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353138393731343b),
-('59e31aomkbig68ahahb2jhje8rf7kqvb', '::1', 1525184569, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353138343536393b),
-('5mjmgk99j7ghdne8sg54v02vusm4fq2h', '::1', 1525287189, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353238373134393b),
-('62k7biip1gf88ghn2vqfoanqaog0eqfu', '::1', 1525272227, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237323232373b666f726d7c613a363a7b733a353a2273706f7274223b733a313a2231223b733a333a22616765223b733a313a2232223b733a353a22736b696c6c223b733a313a2232223b733a343a2264617465223b733a31303a22323031382d30352d3331223b733a363a226c6573736f6e223b733a303a22223b733a363a22636865636b31223b733a313a2231223b7d5f5f63695f766172737c613a313a7b733a343a22666f726d223b733a333a226f6c64223b7d),
-('6odrhkv80j53af5it1vkc4ofj4ethbs4', '::1', 1525282239, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353238323233393b),
-('78333rcg900kvo476bt4c8d4j2v5cfov', '::1', 1525111226, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353131313232363b),
-('78rpluj27vo0emjbuh91npgvoev2kh48', '::1', 1525271284, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237313238343b),
-('821fk1ek1k0kg029mkrj8kn37t7n1ss4', '::1', 1524858307, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532343835383330373b6c6573736f6e7c733a333a22736b69223b),
-('8nei121p7jbb9v4k48n91d9ku1jmm9nc', '::1', 1525275471, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237353437313b),
-('8oqanjgcvss7jv8o7oaesnvqjkqerv6h', '::1', 1525202380, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353230323338303b),
-('9ao1et7nc293mo3h7u2mquqfo1bslo0j', '::1', 1525191687, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353139313638373b),
-('9h4alsjnjsj5bgdm3pnk4fe4ipenhjks', '::1', 1525269176, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353236393137363b),
-('9sg7e0pvece368g8qv62l5a32iq601ek', '::1', 1525190581, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353139303538313b),
-('aa6jfd43gt5aga4a0b9lghuca0n5erut', '::1', 1525202690, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353230323639303b),
-('b0c0uffaoq0o1hcpu1ipl0v2uo9pp3nh', '::1', 1525204069, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353230343036393b),
-('bbedns17g8eepffl92oqddq6kv8ba7iu', '::1', 1525203756, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353230333735363b),
-('bcqjkk72p3g2v82qt4behka3fhrt2l6t', '::1', 1525270968, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237303936383b),
-('cm8on4pc61pdmd7jr7bavo6qe2bcna4p', '::1', 1525279083, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237393038333b),
-('cqrivpsni4g7tc0tdmai7fcu1taefok4', '::1', 1525190016, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353139303031363b),
-('cs2k8vnoi5voo23tk8gjvtb6fncshj1p', '::1', 1525273787, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237333738373b),
-('d51f6dvictjbr3sq4okmp0e5dst2vklp', '::1', 1525287149, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353238373134393b),
-('dio4e6n6lp8th7pcd2vmrlak76io4tnr', '::1', 1525280073, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353238303037333b),
-('e2mvuoon2ff3deqm1innrm48l6gn55oq', '::1', 1525267777, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353236373737373b),
-('eok458nr5lbmchnffe51lne5v0bg87uc', '::1', 1525189168, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353138393136383b),
-('f5f579or00vn4ooq630cc0ut576t79l4', '::1', 1525117709, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353131373730393b),
-('fomcef4st5ni20v5f43g27ag3ktdl1v8', '::1', 1525201937, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353230313933373b),
-('gh39jmju68bg3jrltvvs3677o96pvv10', '::1', 1525113176, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353131333137363b),
-('gtapi68jpo47v0i4lqm5uc9l4hm95qau', '::1', 1524853480, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532343835333438303b6c6573736f6e7c733a333a22736b69223b),
-('hk241s6v1fnmhpksbaqh13qpne3ntes5', '::1', 1525186197, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353138363139373b),
-('i49h8o2todbhbn0tts5fthnfdafpjaqd', '::1', 1525283675, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353238333637353b),
-('jmljjuf94iobb9cg1lk803n7n50jtjoq', '::1', 1525272675, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237323637353b),
-('jqiu5njn7q1dgiv6qq4as3ghs06fhhc5', '::1', 1525276899, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237363839393b),
-('k46lldvtf53ls7i6gedg17mvto159n09', '::1', 1525201593, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353230313539333b),
-('k5fmcinssundltsrn7oir93ns7ovcbap', '::1', 1525272979, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237323937393b),
-('k7pobrjpg884bnvit2ke8elmbcbgpu0n', '::1', 1525286763, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353238363736333b),
-('mm9rmde3n6t7af6rfgsdqt05q07s3ko1', '::1', 1524858872, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532343835383732393b6c6573736f6e7c733a333a22736b69223b),
-('nltg9d47ofi1l5daqnlu3hcrp7l06b4d', '::1', 1525190946, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353139303934363b),
-('ns939ud90rpko6s7q3cedom9mm7p7c20', '::1', 1525284361, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353238343336313b),
-('oblhsjvosaa3mcj6gcbjibhhjim809ou', '::1', 1525282891, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353238323839313b),
-('ol14rmna6hcick8aks0ds17tm99nl10c', '::1', 1525118304, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353131383330343b),
-('p12b0irbq5joe4mbagjfp4d9o16s7rlj', '::1', 1525279742, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353237393734323b),
-('pqrennt2vr6iea1m1bj3vm1i4oddc6jb', '::1', 1525191701, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353139313638373b),
-('qevqtia35d2v3mbqne1ivmlv7l23reee', '::1', 1525203096, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353230333039363b),
-('sclv8ivadjv9t092841is9r0ntv53n2e', '::1', 1525268858, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353236383835383b),
-('sj7hkod9hv9n33v11luq14o79l9bk3g7', '::1', 1525185341, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353138353334313b),
-('sp6gf6flrrt80qamddis0263t51u8t3o', '::1', 1525185865, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353138353836353b),
-('tnff3ok3r81mh4c4pq5pa6f47eui373o', '::1', 1525286107, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353238363130373b),
-('u04qc58era49ignnja95v5cfn3lhqc9h', '::1', 1525117368, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353131373336383b),
-('ufcuhdnk8sgpm61cmne9jmrtteh3j8g0', '::1', 1525286441, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353238363434313b),
-('ukrtdrfc03rg63fe3571lfuj0an8bjh7', '::1', 1525114558, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353131343535383b),
-('v43efrj495hc5e4n0o99k744e1arc5p3', '::1', 1524857837, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532343835373833373b6c6573736f6e7c733a333a22736b69223b);
+('t3s3acnbnugnlq1atl5ecpg2kjs4je00', '::1', 1525462941, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532353436323733313b666f726d7c613a363a7b733a353a2273706f7274223b733a313a2231223b733a333a22616765223b733a313a2231223b733a353a22736b696c6c223b733a313a2234223b733a343a2264617465223b733a31303a22323031382d30352d3330223b733a363a226c6573736f6e223b733a313a2231223b733a363a22636865636b31223b733a313a2231223b7d);
 
 -- --------------------------------------------------------
 
@@ -454,7 +400,7 @@ CREATE TABLE `schedule` (
   `employee_id` int(11) NOT NULL,
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 -- --------------------------------------------------------
 
@@ -468,7 +414,7 @@ CREATE TABLE `service` (
   `duration` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `description` varchar(350) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `service`
@@ -487,7 +433,7 @@ INSERT INTO `service` (`id`, `service_name`, `duration`, `price`, `description`)
 CREATE TABLE `skill` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `skill`
@@ -508,7 +454,7 @@ INSERT INTO `skill` (`id`, `name`) VALUES
 CREATE TABLE `slot` (
   `id` int(11) NOT NULL,
   `time_slot` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `slot`
@@ -536,7 +482,7 @@ INSERT INTO `slot` (`id`, `time_slot`) VALUES
 CREATE TABLE `slug` (
   `id` int(11) NOT NULL,
   `slug` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 -- --------------------------------------------------------
 
@@ -547,7 +493,7 @@ CREATE TABLE `slug` (
 CREATE TABLE `sport` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `sport`
@@ -567,7 +513,7 @@ CREATE TABLE `template` (
   `id` int(11) NOT NULL,
   `slug` varchar(100) NOT NULL,
   `pattern` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `template`
@@ -587,7 +533,7 @@ CREATE TABLE `temp_content` (
   `tag_1` varchar(250) NOT NULL,
   `tag_2` varchar(250) NOT NULL,
   `tag_3` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `temp_content`
@@ -608,7 +554,7 @@ CREATE TABLE `title` (
   `content` varchar(200) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ;
 
 --
 -- Dumping data for table `title`
@@ -818,7 +764,7 @@ ALTER TABLE `age`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `appointment_booked`
 --
@@ -908,7 +854,6 @@ ALTER TABLE `title`
 --
 ALTER TABLE `appointment`
   ADD CONSTRAINT `app_age_id_fk` FOREIGN KEY (`age_id`) REFERENCES `age` (`id`),
-  ADD CONSTRAINT `app_duration_id_fk` FOREIGN KEY (`duration_id`) REFERENCES `duration` (`id`),
   ADD CONSTRAINT `app_lesson_id_fk` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`),
   ADD CONSTRAINT `app_sport_id_fk` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`);
 
