@@ -51,6 +51,10 @@ class Call extends MY_Controller {
 			$appointArray['session_id'] = $_SESSION['__ci_last_regenerate'];
 			$insertSuccess = $this->db->insert('appointment', $appointArray);
 			
+			//load the page view
+			$this->data['subview'] = 'front/components/formAjax';
+			$this->load->view('front/_mainlayout', $this->data);
+			
 		} else {
 			echo "something failed";
 			redirect(base_url(), 'front/shoppingcart');
