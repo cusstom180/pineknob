@@ -24,8 +24,7 @@
 					</div>
 				</td>
 				<td id="price" data-price="<?= $description['price']?>"><?= $description['price']?>.00</td>
-				<td data-th="Quantity"><input type="number"
-					class="form-control text-center" min="0" value="1"></td>
+				<td data-th="Quantity"><input name="quanity" type="number" class="form-control text-center" min="0" value="1"></td>
 				<td id="subtotal" data-th="Subtotal" class="text-center"></td>
 				<td class="actions" data-th="">
 					<button class="btn btn-info btn-sm">

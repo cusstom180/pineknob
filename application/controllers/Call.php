@@ -13,17 +13,18 @@ class Call extends MY_Controller {
 	}
 	
 	function cashout() {
-		
+		$this->data['page'] = $this->service_calls->callingBack();
+		$this->data['title'] = $this->service_calls->getRow('title', 'slug', $this->data['page']);
+		$this->data['meta'] = $this->service_calls->getAllRows('meta', 'slug', $this->data['page']);
+		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
+		$this->data['alert'] = $this->service_calls->getRow('banner', $whereArray);
 	    
-	    $callbackVar = $this->service_calls->callingBack();
-	    
-	    echo " $callbackVar ";
 		foreach ($this->input->get(null, TRUE) as $key => $value) {
 			$this->data[$key] = $value;
 		}
 		
 		if ($this->data['success']) {
-			var_dump($this->data);
+// 			var_dump($this->data);
 			var_dump($this->session->userdata());
 			foreach ($_SESSION['form'] as $key => $value) {
 				if($key === 'sport') {
@@ -52,10 +53,11 @@ class Call extends MY_Controller {
 				}
 			}
 			$appointArray['session_id'] = $_SESSION['__ci_last_regenerate'];
+			
 			$insertSuccess = $this->db->insert('appointment', $appointArray);
 			
 			//load the page view
-			$this->data['subview'] = 'front/components/formAjax';
+			$this->data['subview'] = 'front/components/successcart';
 			$this->load->view('front/_mainlayout', $this->data);
 			
 		} else {
