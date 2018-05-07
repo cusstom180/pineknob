@@ -23,7 +23,7 @@
 						</div>
 					</div>
 				</td>
-				<td id="price" data-price=" <?= $description['price']?> "><?= $description['price']?></td>
+				<td id="price" data-price="<?= $description['price']?>"><?= $description['price']?>.00</td>
 				<td data-th="Quantity"><input type="number"
 					class="form-control text-center" min="0" value="1"></td>
 				<td id="subtotal" data-th="Subtotal" class="text-center"></td>
@@ -39,13 +39,14 @@
 		</tbody>
 		<tfoot>
 			<tr class="visible-xs">
-				<td class="total text-center"><strong>Total 1.99</strong></td>
+				<td class="total text-center"><strong><?= $description['price']?>.00 </strong></td>
 			</tr>
 			<tr>
 				<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i>
 						Continue Shopping</a></td>
 				<td colspan="2" class="hidden-xs"></td>
-				<td class="total hidden-xs text-center"><strong>Total $1.99</strong></td>
+					<td class="hidden-xs text-center"><strong>Total</strong></td>
+					<td class="total hidden-xs text-center"><?= $description['price']?>.00</td>
 				<td><button type="button" class="btn btn-primary btn-lg"
 						data-toggle="modal" data-target="#myModal">Launch demo modal</button>
 
@@ -85,10 +86,11 @@
 	var price = $('#price').attr('data-price');
 	var quantity = $('input[type="number"]').val();
 	var subtotal = price * quantity;
+	var subtotalF = subtotal.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 	var total = price;
 	console.log(quantity, subtotal);
 
-	$('#subtotal').append(subtotal);
+	$('#subtotal').text(subtotalF);
 
 	$('input[type="number"]').bind('keyup input', function() {
 		var price = $('#price').attr('data-price');

@@ -14,7 +14,10 @@ class Call extends MY_Controller {
 	
 	function cashout() {
 		
-		echo "it has been paid";
+	    
+	    $callbackVar = $this->service_calls->callingBack();
+	    
+	    echo " $callbackVar ";
 		foreach ($this->input->get(null, TRUE) as $key => $value) {
 			$this->data[$key] = $value;
 		}
