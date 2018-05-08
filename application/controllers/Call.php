@@ -22,10 +22,16 @@ class Call extends MY_Controller {
 		foreach ($this->input->get(null, TRUE) as $key => $value) {
 			$this->data[$key] = $value;
 		}
-		
+		if (isset($_SESSION['guest']) && $_SESSION['guest'] ) {
+			$appointArray['client_id'] = 69;
+		} else if (isset($_SESSION['user_id'])) {
+			$appointArray['client_id'] = $_SESSION['user_id'];
+			unset($_SESSION['guest']);
+		}
+		var_dump($_SESSION);
 		if ($this->data['success']) {
-// 			var_dump($this->data);
-			var_dump($this->session->userdata());
+// 			var_dump($_GET);
+// 			var_dump($this->session->userdata());
 			foreach ($_SESSION['form'] as $key => $value) {
 				if($key === 'sport') {
 					$key = $key . '_id';
@@ -53,7 +59,14 @@ class Call extends MY_Controller {
 				}
 			}
 			$appointArray['session_id'] = $_SESSION['__ci_last_regenerate'];
-			
+			if (isset($_SESSION['guest']) && $_SESSION['guest'] ) {
+				$appointArray['client_id'] = 69;
+			} else if (isset($_SESSION['user_id'])) { 
+				$appointArray['client_id'] = $_SESSION['user_id'];
+				unset($_SESSION['guest']);
+			}
+			var_dump($this->session->userdata());
+			var_dump($appointArray);
 			$insertSuccess = $this->db->insert('appointment', $appointArray);
 			
 			//load the page view
@@ -64,6 +77,11 @@ class Call extends MY_Controller {
 			echo "something failed";
 			redirect(base_url(), 'front/shoppingcart');
 		}
+	}
+	
+	public function guestuser() {
+		echo "guest user is zero";
+		$this->session->set_userdata('guest', TRUE);
 	}
 	
 	function callForm() {
