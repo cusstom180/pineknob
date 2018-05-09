@@ -34,15 +34,11 @@ if(!$user_id){
           </tr>
           <tr>
             <td>User Email</td>
-            <td><?php echo $this->session->userdata('user_email');  ?></td>
-          </tr>
-          <tr>
-            <td>User Age</td>
-            <td><?php echo $this->session->userdata('user_age');  ?></td>
+            <td><?php echo $this->session->userdata('email');  ?></td>
           </tr>
           <tr>
             <td>User Mobile</td>
-            <td><?php echo $this->session->userdata('user_mobile');  ?></td>
+            <td><?php echo $this->session->userdata('mobile');  ?></td>
           </tr>
       </table>
 

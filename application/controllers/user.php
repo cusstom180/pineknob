@@ -17,14 +17,14 @@ class User extends MY_Controller {
 	
 		$user=array(
 				'user_name'=>$this->input->post('user_name'),
-				'user_email'=>$this->input->post('user_email'),
-				'user_password'=>md5($this->input->post('user_password')),
-				'user_age'=>$this->input->post('user_age'),
-				'user_mobile'=>$this->input->post('user_mobile')
+				'email'=>$this->input->post('email'),
+				'password'=>md5($this->input->post('password')),
+				'age'=>$this->input->post('age'),
+				'mobile'=>$this->input->post('mobile')
 		);
 		print_r($user);
 	
-		$email_check=$this->user_model->email_check($user['user_email']);
+		$email_check=$this->user_model->email_check($user['email']);
 	
 		if($email_check){
 			$this->user_model->register_user($user);
@@ -51,19 +51,18 @@ class User extends MY_Controller {
 	function login_user(){
 		$user_login=array(
 	
-				'user_email'=>$this->input->post('user_email'),
-				'user_password'=>md5($this->input->post('user_password'))
+				'email'=>$this->input->post('email'),
+				'password'=>md5($this->input->post('password'))
 	
 		);
 	
-		$data=$this->user_model->login_user($user_login['user_email'],$user_login['user_password']);
+		$data=$this->user_model->login_user($user_login['email'],$user_login['password']);
 		if($data)
 		{
-			$this->session->set_userdata('user_id',$data['user_id']);
-			$this->session->set_userdata('user_email',$data['user_email']);
+			$this->session->set_userdata('id',$data['id']);
+			$this->session->set_userdata('email',$data['email']);
 			$this->session->set_userdata('user_name',$data['user_name']);
-			$this->session->set_userdata('user_age',$data['user_age']);
-			$this->session->set_userdata('user_mobile',$data['user_mobile']);
+			$this->session->set_userdata('mobile',$data['mobile']);
 			$this->session->set_userdata('login', TRUE);
 	
 			$this->load->view('user_profile.php');
