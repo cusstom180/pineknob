@@ -6,6 +6,7 @@ class Front extends MY_Controller {
 		parent::__construct();
 		$this->load->model('Front_model');
 		$this->data['nav'] = $this->Front_model->getAllRows('page');
+		$this->load->helper('url');
 	}
 	
 	function index() {
@@ -15,6 +16,8 @@ class Front extends MY_Controller {
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
+		$this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
+		var_dump($_SESSION['referer']);
 		
 		#get jumbotron row
 		$jumbotron = $this->Front_model->getRow('jumbotron', $whereArray);
@@ -25,7 +28,7 @@ class Front extends MY_Controller {
 		}
 		
 		# get pattern template
-		$pattern = $this->Front_model->getRow('pattern','id', $jumbotron['pattern_id']);
+		$pattern = $this->Front_model->getRow('pattern','pattern_id', $jumbotron['pattern_id']);
 // 		var_dump($pattern);
 // 		$pattern2 = array();
 		foreach ($pattern as $key => $value) {						#create array to just capture the tag_ elements
@@ -57,6 +60,8 @@ class Front extends MY_Controller {
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
+		$this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
+		var_dump($_SESSION['referer']);
 		
 		// check for submitted values for empty, if empty redirect back to index
 		//create array from post 
@@ -78,7 +83,7 @@ class Front extends MY_Controller {
 		// if check variable is less then the required array redirect back to index
 		if ($check === count($requiredFields)) {
 			//get product details
-			$this->data['description'] = $this->Front_model->getRow('lesson', 'id', $this->data['form']['lesson']);
+			$this->data['description'] = $this->Front_model->getRow('lesson', 'lesson_id', $this->data['form']['lesson']);
 // 			var_dump($this->data['form']);
 // 			$_SESSION['form'] = $this->data['form'];
 			$this->session->form = $this->data['form'];

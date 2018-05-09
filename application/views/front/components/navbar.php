@@ -45,8 +45,13 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="<?= base_url('user/login_view')?>"><?php echo (isset($_SESSION['user_name'])) ? 'hello ' . $_SESSION['user_name'] : 'login'?></a></li>
+      	<?php if (!isset($_SESSION['login'])) {
+      		include 'loginModal.php';
+      	}?>
+        <li><a data-toggle="modal" data-target="#loginModal"><?php echo (isset($_SESSION['user_name'])) ? 'hello ' . $_SESSION['user_name'] : 'login'?></a></li>
+        <?php if (isset($_SESSION['login'])) { ?>
         <li><a href="<?= base_url('user/user_logout')?>">logout</a></li>
+        <?php } ?>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

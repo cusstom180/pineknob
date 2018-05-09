@@ -16,9 +16,9 @@ class user_model extends MY_Model {
 	public function login_user($email,$pass){
 	
 		$this->db->select('*');
-		$this->db->from('user');
-		$this->db->where('user_email',$email);
-		$this->db->where('user_password',$pass);
+		$this->db->from('client');
+		$this->db->where('email',$email);
+		$this->db->where('password',$pass);
 	
 		if($query=$this->db->get())
 		{

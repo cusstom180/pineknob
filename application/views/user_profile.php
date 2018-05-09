@@ -1,7 +1,7 @@
 <?php
-$user_id=$this->session->userdata('user_id');
+$client_id=$this->session->userdata('client_id');
 
-if(!$user_id){
+if(!$client_id){
 
   redirect('user/login_view');
 }
