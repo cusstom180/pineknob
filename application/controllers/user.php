@@ -55,13 +55,15 @@ class User extends MY_Controller {
 				'password'=>md5($this->input->post('password'))
 	
 		);
-		var_dump($user_login);
+// 		var_dump($user_login);
 		$data=$this->user_model->login_user($user_login['email'],$user_login['password']);
 // 		var_dump(current_url());
-		$this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
-		var_dump($_SESSION['referer']);
-		if($data)
-		{
+		if (isset($_SERVER['HTTP_REFERER'])) {
+// 		    echo "session is empty";
+		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
+		}
+// 		var_dump($_SESSION['referer']);
+		if($data) {
 			$this->session->set_userdata('client_id',$data['client_id']);
 			$this->session->set_userdata('email',$data['email']);
 			$this->session->set_userdata('user_name',$data['user_name']);
@@ -69,7 +71,8 @@ class User extends MY_Controller {
 			$this->session->set_userdata('login', TRUE);
 	
 // 			$this->load->view('user_profile.php');
-// 			redirect($_SERVER['HTTP_REFERER']);
+			redirect($_SERVER['HTTP_REFERER']);
+// 			var_dump($_SESSION['referer']);
 		}
 		else{
 			$this->session->set_flashdata('error_msg', 'Error occured,Try again.');

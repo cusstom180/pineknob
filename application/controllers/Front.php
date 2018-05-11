@@ -16,8 +16,10 @@ class Front extends MY_Controller {
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
-		$this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
-		var_dump($_SESSION['referer']);
+		if (isset($_SERVER['HTTP_REFERER'])) {
+		    echo "session is empty";
+		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
+		}
 		
 		#get jumbotron row
 		$jumbotron = $this->Front_model->getRow('jumbotron', $whereArray);
@@ -60,8 +62,11 @@ class Front extends MY_Controller {
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
-		$this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
-		var_dump($_SESSION['referer']);
+		
+		if (isset($_SERVER['HTTP_REFERER'])) {
+		    echo "session is empty";
+		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
+		}
 		
 		// check for submitted values for empty, if empty redirect back to index
 		//create array from post 
@@ -118,6 +123,11 @@ class Front extends MY_Controller {
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
+		
+		if (isset($_SERVER['HTTP_REFERER'])) {
+		    echo "session is empty";
+		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
+		}
 		
 		// check for submitted values for empty, if empty redirect back to index
 		//create array from post
