@@ -6,7 +6,7 @@ class Front extends MY_Controller {
 		parent::__construct();
 		$this->load->model('Front_model');
 		$this->data['nav'] = $this->Front_model->getAllRows('page');
-		$this->load->helper('url');
+// 		$this->load->helper('url');
 	}
 	
 	function index() {
@@ -17,7 +17,7 @@ class Front extends MY_Controller {
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
 		if (isset($_SERVER['HTTP_REFERER'])) {
-		    echo "session is empty";
+		    echo "session is empty" .$_SERVER['HTTP_REFERER'];
 		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
 		}
 		
@@ -49,6 +49,8 @@ class Front extends MY_Controller {
 		#create form 
 		$this->data['form'] = 1;
 		
+		// see session data
+		print_r($this->session);
 		//load the page view
 		$this->data['subview'] = 'front/Index';
 		$this->load->view('front/_mainlayout', $this->data);
@@ -64,16 +66,18 @@ class Front extends MY_Controller {
 		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
 		
 		if (isset($_SERVER['HTTP_REFERER'])) {
-		    echo "session is empty";
+		    echo "session is " . $_SERVER['HTTP_REFERER'];
 		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
 		}
-		
+// 		var_dump($_SERVER);
 		// check for submitted values for empty, if empty redirect back to index
 		//create array from post 
 		$this->data['form'] = array();
 		foreach ($this->input->post(null, TRUE) as $key => $value) {
 			$this->data['form'][$key] = $value;
+// 			
 		}
+		$this->session->set_userdata($this->data['form']);
 // 		var_dump($this->data['form']);
 		// check for required fields by comparing arrays
 		$requiredFields = array('sport', 'age', 'skill', 'date');
@@ -85,19 +89,28 @@ class Front extends MY_Controller {
 				$check++;
 			}
 		}
+		
+		// check if client just tried to logon
+		if (isset($_SESSION['login']) && $_SESSION['referer'] == base_url()) {
+			$this->data['form'] = $this->session->form;
+			echo " login is set";
+		}
+		
 		// if check variable is less then the required array redirect back to index
-		if ($check === count($requiredFields)) {
+		if ($check === count($requiredFields) || $_SESSION['form']) {
 			//get product details
+			$this->session->form = $this->data['form'];
 			$this->data['description'] = $this->Front_model->getRow('lesson', 'lesson_id', $this->data['form']['lesson']);
 // 			var_dump($this->data['form']);
 // 			$_SESSION['form'] = $this->data['form'];
-			$this->session->form = $this->data['form'];
 			
 			
+			print_r($this->session);
 			//load the page view
 			$this->data['subview'] = 'front/components/shoppingcart';
 			$this->load->view('front/_mainlayout', $this->data);
-		} else {
+		} 
+		 else {
 			$this->session->set_flashdata('form', $this->data['form']);
 			redirect(base_url(), 'index');
 		}
@@ -277,6 +290,35 @@ class Front extends MY_Controller {
 		//load the page view
 		$this->data['subview'] = 'front/components/form5';
 		$this->load->view('front/_mainlayout', $this->data);
+		
+		
+		//old checkout functions
+		// check for submitted values for empty, if empty redirect back to index
+		//create array from post
+		$this->data['form'] = array();
+		foreach ($this->input->post(null, TRUE) as $key => $value) {
+			$this->data['form'][$key] = $value;
+		}
+		var_dump($this->data['form']);
+		// check for required fields by comparing arrays
+		$requiredFields = array('sport', 'age', 'skill', 'date');
+		$check = 0;
+		foreach ($this->data['form'] as $key => $value) {
+			// 			echo "$key ";
+			if (in_array($key, $requiredFields) && $value !== '') {
+				echo $key;
+				$check++;
+			}
+		}
+		// if check variable is less then the required array redirect back to index
+		if ($check === count($requiredFields)) {
+			//load the page view
+			$this->data['subview'] = 'front/components/formAjax';
+			$this->load->view('front/_mainlayout', $this->data);
+		} else {
+			$this->session->set_flashdata('form', $this->data['form']);
+			redirect(base_url(), 'index');
+		}
 		
 	}
 }

@@ -24,7 +24,7 @@ class User extends MY_Controller {
 				'mobile'=>$this->input->post('mobile')
 		);
 		print_r($user);
-	
+		
 		$email_check=$this->user_model->email_check($user['email']);
 	
 		if($email_check){
@@ -55,7 +55,8 @@ class User extends MY_Controller {
 				'password'=>md5($this->input->post('password'))
 	
 		);
-// 		var_dump($user_login);
+		
+// 		var_dump($_SERVER);
 		$data=$this->user_model->login_user($user_login['email'],$user_login['password']);
 // 		var_dump(current_url());
 		if (isset($_SERVER['HTTP_REFERER'])) {
@@ -67,11 +68,13 @@ class User extends MY_Controller {
 			$this->session->set_userdata('client_id',$data['client_id']);
 			$this->session->set_userdata('email',$data['email']);
 			$this->session->set_userdata('user_name',$data['user_name']);
-			$this->session->set_userdata('mobile',$data['mobile']);
+// 			$this->session->set_userdata('mobile',$data['mobile']);
 			$this->session->set_userdata('login', TRUE);
-	
+			if (isset($_SESSION['guest'])) {
+				unset($_SESSION['guest']);
+			}
 // 			$this->load->view('user_profile.php');
-			redirect($_SERVER['HTTP_REFERER']);
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
 // 			var_dump($_SESSION['referer']);
 		}
 		else{
