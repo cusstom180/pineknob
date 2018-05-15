@@ -70,8 +70,9 @@ class User extends MY_Controller {
 			$this->session->set_userdata('user_name',$data['user_name']);
 // 			$this->session->set_userdata('mobile',$data['mobile']);
 			$this->session->set_userdata('login', TRUE);
-			if (isset($_SESSION['guest'])) {
-				unset($_SESSION['guest']);
+			// NEED TO LOOK AT THIS---------------------------------------------------------------
+			if (isset($_SESSION['client'])) {
+				unset($_SESSION['client']);
 			}
 // 			$this->load->view('user_profile.php');
 			header('Location: ' . $_SERVER['HTTP_REFERER']);

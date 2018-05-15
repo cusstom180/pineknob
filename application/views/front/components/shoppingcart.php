@@ -70,7 +70,7 @@
 										<button type="submit" class="btn btn-default"
 											data-dismiss="modal">cancel</button>
 									</form>
-									<form action="<?= base_url('call/cashout');?>">
+									<form action="<?= base_url('front/checkout');?>">
 										<input type="hidden" name="pay" value="1"> <input
 											type="hidden" name="success" value="1">
 										<button type="submit" class="btn primary">pay</button>
