@@ -1,12 +1,10 @@
 <body>	
-	 <?php if ($alert != NULL) { 
-		foreach ($alert as $banner) {?>
+	 <?php if ($alert != NULL): ?>
 	<div class="alert alert-warning alert-dismissible" role="alert">
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  <p><?php echo $banner['content'];?></p>
+		  <p><?php echo $alert['content'];?></p>
 	</div>
-	<?php } ?>
-	<?php } ?>
+	<?php endif; ?>
 	<nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->

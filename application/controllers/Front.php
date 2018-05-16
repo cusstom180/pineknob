@@ -73,23 +73,25 @@ class Front extends MY_Controller {
 		//create array from post 
 		$this->data['form'] = array();
 		echo "post array = ";
-// 		var_dump($_POST);
+		var_dump($_POST);
 		$requiredFields = array('sport', 'age', 'skill', 'date');
 		$check = 0;
 		if ($_POST) {
-// 			echo "in if post check";
+			echo "in if post check";
 			foreach ($this->input->post(null, TRUE) as $key => $value) {
 				$this->data['form'][$key] = $value;
 				if (in_array($key, $requiredFields) && $value !== '') {
 					// 				echo $key;
 					$check++;
+					
 				}
+// 				$this->session->set_userdata($this->data['form']);
 			}
 			$this->session->set_userdata($this->data['form']);
 		}
 		
 		// if check variable is less then the required array redirect back to index
-		if ($check === count($requiredFields)) {
+		if ($check === count($requiredFields) || $_SESSION['login']) {
 			//get product details
 // 			var_dump($_SESSION['lesson']);
 // 			$this->session->form = $this->data['form'];
@@ -103,9 +105,10 @@ class Front extends MY_Controller {
 			$this->data['subview'] = 'front/components/shoppingcart';
 			$this->load->view('front/_mainlayout', $this->data);
 		} 
-		 else {
-			$this->session->set_flashdata('form', $this->data['form']);
-			redirect(base_url(), 'index');
+		else {
+			$this->session->set_flashdata('form', 'didnt work');
+			print_r($this->session->userdata);
+// 			redirect(base_url(), 'index');
 		}
 // 		if ($check) {
 // 			$this->session->set_flashdata('form', $this->data['form']);
@@ -141,13 +144,39 @@ class Front extends MY_Controller {
 					'sport_id' => $_SESSION['sport'],
 					'age_id' => $_SESSION['age'],
 					'skill_id' => $_SESSION['skill'],
-					'date_id' => $_SESSION['date'],
+					'date' => $_SESSION['date'],
 					'lesson_id' => $_SESSION['lesson'],
-					'client_id' => $_SESSION['client'],
+					'client_id' => $_SESSION['client_id'],
 						
 			);
+			$insertSuccess = $this->db->insert('appointment', $appointArray);
+				
+			//load the page view
+			$this->data['subview'] = 'front/components/successcart';
+			$this->load->view('front/_mainlayout', $this->data);
+		} else {
+			echo "something failed";
+			redirect(base_url(), 'front/shoppingcart');
 		}
 		
+	}
+	
+	function thunderbolt() {
+		//get page meta data
+		$this->data['page'] = $this->Front_model->callingBack();
+		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
+		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
+		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
+		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
+		
+		
+		//get all products from db
+		$this->data['products'] = $this->Front_model->getAll('products');
+		
+		
+		//load the page view
+		$this->data['subview'] = 'front/thunderbolt/cart';
+		$this->load->view('front/_mainlayout', $this->data);
 	}
 	
 	function schedule2() {

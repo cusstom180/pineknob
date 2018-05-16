@@ -71,12 +71,11 @@ class User extends MY_Controller {
 // 			$this->session->set_userdata('mobile',$data['mobile']);
 			$this->session->set_userdata('login', TRUE);
 			// NEED TO LOOK AT THIS---------------------------------------------------------------
-			if (isset($_SESSION['client'])) {
-				unset($_SESSION['client']);
-			}
+			
 // 			$this->load->view('user_profile.php');
-			header('Location: ' . $_SERVER['HTTP_REFERER']);
+// 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 // 			var_dump($_SESSION['referer']);
+			redirect($_SESSION['referer']);
 		}
 		else{
 			$this->session->set_flashdata('error_msg', 'Error occured,Try again.');
