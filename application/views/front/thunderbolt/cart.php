@@ -9,7 +9,7 @@
 				<input type="text" name="quantity" class="form-control" value="1"/>
 				<input type="hidden" name="name" value="<?= $value['name']?>"/>
 				<input type="hidden" name="price" value="<?= $value['price']?>"/>
-				<input type"submit" name="add_to_cart" class="btn btn-info" value="add to Cart">
+				<button type"submit" name="add_to_cart" class="btn btn-info" value="add to Cart">Add to Cart</button>
 			</div>
 		</form>
 	</div>

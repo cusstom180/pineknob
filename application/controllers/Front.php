@@ -162,6 +162,11 @@ class Front extends MY_Controller {
 	}
 	
 	function thunderbolt() {
+		function pre_r($array) {
+			echo "<pre>";
+			print_r($array);
+			echo "</pre>";
+		}
 		//get page meta data
 		$this->data['page'] = $this->Front_model->callingBack();
 		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
@@ -169,10 +174,34 @@ class Front extends MY_Controller {
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
 		
+// 		session_destroy();
 		
 		//get all products from db
 		$this->data['products'] = $this->Front_model->getAll('products');
 		
+		$product_ids = array();
+		if (filter_input(INPUT_POST, 'add_to_cart', FILTER_SANITIZE_STRING)) {
+			if (isset($_SESSION['shopping_cart'])) {
+				echo "in if statement";
+				$count = count($_SESSION['shopping_cart']);
+				// create sequential array for matching array keys to product id's
+				$product_ids = array_column($_SESSION['shopping_cart'], 'id');
+				
+				pre_r($product_ids);
+			}
+			else { // if shopping cart doesn't exist create first product with array key 0
+				//create a array using submitted from data, start form key 0 and fill it with values
+				$_SESSION['shopping_cart'][0] = array (
+					'id' => $_GET['id'],
+// 					'id' =>   filter_input(INPUT_GET, 'id'),
+					'name' => filter_input(INPUT_POST, 'name'),
+					'price' => filter_input(INPUT_POST, 'price'),
+					'quantity' => filter_input(INPUT_POST, 'quantity')
+				);
+				
+			}
+		}
+		pre_r($_SESSION['shopping_cart']);
 		
 		//load the page view
 		$this->data['subview'] = 'front/thunderbolt/cart';

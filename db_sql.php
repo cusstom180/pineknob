@@ -1,14 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.3
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:8889
--- Generation Time: May 11, 2018 at 03:58 AM
--- Server version: 5.6.35
--- PHP Version: 7.1.8
+-- Host: 127.0.0.1
+-- Generation Time: May 17, 2018 at 10:02 PM
+-- Server version: 10.1.10-MariaDB
+-- PHP Version: 7.0.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `pine_knob`
@@ -23,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `age` (
   `id` int(11) NOT NULL,
   `age` varchar(100) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `age`
@@ -59,7 +65,7 @@ CREATE TABLE `appointment` (
   `cancel_reason` varchar(250) NOT NULL,
   `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `add_user` varchar(100) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `appointment`
@@ -67,7 +73,16 @@ CREATE TABLE `appointment` (
 
 INSERT INTO `appointment` (`id`, `session_id`, `sport_id`, `lesson_id`, `age_id`, `employee_id`, `duration_id`, `skill_id`, `date`, `time`, `price`, `client_id`, `discount_cde`, `net_price`, `cancel`, `cancel_reason`, `add_date`, `add_user`) VALUES
 (57, '1525722076', 2, 1, 3, 0, 1, 4, '2018-05-31', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-07 19:41:36', ''),
-(80, '1525828264', 1, 1, 1, 0, 1, 2, '2018-05-30', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-09 01:14:06', '');
+(80, '1525828264', 1, 1, 1, 0, 1, 2, '2018-05-30', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-09 01:14:06', ''),
+(81, '1526063513', 1, 1, 2, 0, 1, 1, '2018-05-08', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-11 18:31:53', ''),
+(82, '1526067829', 1, 1, 1, 0, 1, 1, '2018-05-01', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-11 19:44:27', ''),
+(84, '1526406804', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-15 17:54:41', ''),
+(85, '1526406804', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-15 17:55:41', ''),
+(86, '1526406804', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-15 17:56:51', ''),
+(87, '1526407117', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-15 17:58:37', ''),
+(88, '', 1, 1, 2, 0, 1, 2, '2018-05-15', '00:00:00', 0, 1, '', 0, 0, '', '2018-05-16 14:54:22', ''),
+(89, '', 1, 1, 1, 0, 1, 3, '2018-05-11', '00:00:00', 0, 2, '', 0, 0, '', '2018-05-16 15:47:14', ''),
+(90, '', 1, 1, 3, 0, 1, 3, '2018-05-02', '00:00:00', 0, 2, '', 0, 0, '', '2018-05-16 17:03:51', '');
 
 -- --------------------------------------------------------
 
@@ -82,7 +97,7 @@ CREATE TABLE `appointment_booked` (
   `day` varchar(10) NOT NULL,
   `time` time NOT NULL,
   `price` int(11) NOT NULL
-) ;
+);
 
 -- --------------------------------------------------------
 
@@ -95,7 +110,7 @@ CREATE TABLE `appointment_day` (
   `day` varchar(11) NOT NULL,
   `start` time NOT NULL,
   `end` time NOT NULL
-) ;
+);
 
 -- --------------------------------------------------------
 
@@ -108,7 +123,7 @@ CREATE TABLE `appointment_service_provided` (
   `appointment_id` int(11) NOT NULL,
   `service_id` int(11) NOT NULL,
   `price` int(11) NOT NULL
-) ;
+);
 
 -- --------------------------------------------------------
 
@@ -120,7 +135,7 @@ CREATE TABLE `appointment_slot` (
   `id` int(11) NOT NULL,
   `slot` time NOT NULL,
   `deploy` tinyint(1) NOT NULL
-) ;
+);
 
 -- --------------------------------------------------------
 
@@ -134,7 +149,7 @@ CREATE TABLE `banner` (
   `content` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `revision` int(100) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `banner`
@@ -156,7 +171,7 @@ CREATE TABLE `body` (
   `content` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(100) NOT NULL
-) ;
+);
 
 -- --------------------------------------------------------
 
@@ -170,7 +185,7 @@ CREATE TABLE `client` (
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `mobile` int(11) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `client`
@@ -189,7 +204,7 @@ INSERT INTO `client` (`client_id`, `user_name`, `email`, `password`, `mobile`) V
 CREATE TABLE `date` (
   `id` int(11) NOT NULL,
   `date` date NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `date`
@@ -209,7 +224,7 @@ CREATE TABLE `duration` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `minute` int(11) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `duration`
@@ -231,7 +246,7 @@ CREATE TABLE `employee` (
   `last_name` varchar(100) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `employee`
@@ -253,7 +268,7 @@ CREATE TABLE `employee_time_slot` (
   `employee_id` int(11) NOT NULL,
   `slot_id` int(11) NOT NULL,
   `date_id` int(11) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `employee_time_slot`
@@ -279,7 +294,7 @@ CREATE TABLE `jumbotron` (
   `tag_3` varchar(250) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(11) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `jumbotron`
@@ -302,7 +317,7 @@ CREATE TABLE `lesson` (
   `price` int(10) NOT NULL,
   `description` varchar(350) NOT NULL,
   `img` varchar(100) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `lesson`
@@ -324,7 +339,7 @@ CREATE TABLE `meta` (
   `name` varchar(100) NOT NULL,
   `content` varchar(150) NOT NULL,
   `version` int(11) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `meta`
@@ -350,7 +365,7 @@ CREATE TABLE `page` (
   `call_to_action` int(100) NOT NULL,
   `body_id` int(100) NOT NULL,
   `version` int(100) NOT NULL
-) ;
+);
 
 -- --------------------------------------------------------
 
@@ -363,7 +378,7 @@ CREATE TABLE `pattern` (
   `tag_1` varchar(10) NOT NULL,
   `tag_2` varchar(10) NOT NULL,
   `tag_3` varchar(10) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `pattern`
@@ -385,13 +400,42 @@ CREATE TABLE `pine_knob` (
   `ip_address` varchar(45) NOT NULL,
   `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `data` blob NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `pine_knob`
 --
 
--- INSERT INTO `pine_knob` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+INSERT INTO `pine_knob` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+('67bhihk720liha9onjftgkr9t69j7v66', '::1', 1526579511, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363537393531313b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b4e3b733a343a226e616d65223b733a31313a227761726d206a61636b6574223b733a353a227072696365223b733a353a2239392e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d),
+('c0bnnpem9v4vo1hiv0f7d4gdvtlj3vhs', '::1', 1526578956, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363537383935363b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b4e3b733a343a226e616d65223b733a31313a227761726d206a61636b6574223b733a353a227072696365223b733a353a2239392e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d),
+('i69cet345i1heprki7r4ntr7fkerhnqf', '::1', 1526579883, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363537393838333b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b4e3b733a343a226e616d65223b733a31313a227761726d206a61636b6574223b733a353a227072696365223b733a353a2239392e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d),
+('ophl0l58rr4bognpotocv2cr8jvf023t', '::1', 1526575912, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363537353931323b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b4e3b733a343a226e616d65223b733a353a22706f6c6573223b733a353a227072696365223b733a353a2232342e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d),
+('qjevfs7m8ohpe586jcg0m39fd4jekj79', '::1', 1526581598, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363538313534353b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b733a313a2232223b733a343a226e616d65223b733a31313a227761726d206a61636b6574223b733a353a227072696365223b733a353a2239392e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d),
+('t574bc5rhch5ibb6omit9qnoegud8ov1', '::1', 1526578211, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363537383231313b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b4e3b733a343a226e616d65223b733a31313a227761726d206a61636b6574223b733a353a227072696365223b733a353a2239392e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `price` decimal(10,2) NOT NULL
+);
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `image`, `price`) VALUES
+(1, 'poles', 'poles.jpg', '24.99'),
+(2, 'warm jacket', 'warm_jacket.jpg', '99.99'),
+(3, 'socks', 'socks.jpg', '18.99'),
+(4, 'beenie', 'beenie.jpg', '14.99');
 
 -- --------------------------------------------------------
 
@@ -404,7 +448,7 @@ CREATE TABLE `schedule` (
   `employee_id` int(11) NOT NULL,
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ;
+);
 
 -- --------------------------------------------------------
 
@@ -418,7 +462,7 @@ CREATE TABLE `service` (
   `duration` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `description` varchar(350) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `service`
@@ -437,7 +481,7 @@ INSERT INTO `service` (`id`, `service_name`, `duration`, `price`, `description`)
 CREATE TABLE `skill` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `skill`
@@ -458,7 +502,7 @@ INSERT INTO `skill` (`id`, `name`) VALUES
 CREATE TABLE `slot` (
   `id` int(11) NOT NULL,
   `time_slot` time NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `slot`
@@ -486,7 +530,7 @@ INSERT INTO `slot` (`id`, `time_slot`) VALUES
 CREATE TABLE `slug` (
   `id` int(11) NOT NULL,
   `slug` varchar(100) NOT NULL
-) ;
+);
 
 -- --------------------------------------------------------
 
@@ -497,7 +541,7 @@ CREATE TABLE `slug` (
 CREATE TABLE `sport` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `sport`
@@ -517,7 +561,7 @@ CREATE TABLE `template` (
   `id` int(11) NOT NULL,
   `slug` varchar(100) NOT NULL,
   `pattern` int(11) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `template`
@@ -537,14 +581,14 @@ CREATE TABLE `temp_content` (
   `tag_1` varchar(250) NOT NULL,
   `tag_2` varchar(250) NOT NULL,
   `tag_3` varchar(500) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `temp_content`
 --
 
 INSERT INTO `temp_content` (`1`, `tag_1`, `tag_2`, `tag_3`) VALUES
-(1, 'Pine Knob Ski School', 'EXPERIENCE A MOUNTAIN LIKE NO OTHER', 'Learn a new sport, improve your technique, or explore new possibilities. At Vail, you don\'t just experience a mountain like no other, you learn how to truly explore it.');
+(1, 'Pine Knob Ski School', 'EXPERIENCE A MOUNTAIN LIKE NO OTHER', 'Learn a new sport, improve your technique, or explore new possibilities. At Vail, you don''t just experience a mountain like no other, you learn how to truly explore it.');
 
 -- --------------------------------------------------------
 
@@ -558,7 +602,7 @@ CREATE TABLE `title` (
   `content` varchar(200) NOT NULL,
   `deploy` tinyint(1) NOT NULL,
   `version` int(100) NOT NULL
-) ;
+);
 
 --
 -- Dumping data for table `title`
@@ -706,6 +750,12 @@ ALTER TABLE `pine_knob`
   ADD KEY `ci_sessions_timestamp` (`timestamp`);
 
 --
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `schedule`
 --
 ALTER TABLE `schedule`
@@ -768,7 +818,7 @@ ALTER TABLE `age`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 --
 -- AUTO_INCREMENT for table `appointment_booked`
 --
@@ -819,6 +869,11 @@ ALTER TABLE `lesson`
 --
 ALTER TABLE `meta`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `skill`
 --
@@ -874,3 +929,7 @@ ALTER TABLE `employee_time_slot`
   ADD CONSTRAINT `ets_date_id_fk` FOREIGN KEY (`date_id`) REFERENCES `date` (`id`),
   ADD CONSTRAINT `ets_employee_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`employee_id`),
   ADD CONSTRAINT `ets_slot_id_fk` FOREIGN KEY (`slot_id`) REFERENCES `slot` (`id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
