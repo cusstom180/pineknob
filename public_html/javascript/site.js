@@ -1,5 +1,5 @@
 $(document).ready(function() {	
-	$('.btn-group-vertical').on('click', '.btn', function() {
+	$('.btn-group').on('click', '.btn', function() {
 		  $(this).addClass('active').siblings().removeClass('active');
 		  var $change = $(this).attr('value');
 	// 	  console.log($change);
@@ -43,19 +43,19 @@ $(document).ready(function() {
 		    len = dataArray.length,
 		    dataObj = {};
 		
-//		for (i=0; i<len; i++) {
-//		  dataObj[dataArray[i].name] = dataArray[i].value;
-//		  if (dataArray[i].value == "") {
-////				console.log(dataArray[i].name);
-////				console.log('it is null')
-//				$('.' + dataArray[i].name + '.error').removeClass('hide');
-//				error++;
-//	//			console.log(error);
-//				evt.preventDefault();
-//			  } else {
-//		 			$('.' + dataArray[i].name  + '.error').addClass('hide');
-//		 			}
-//		}
+		for (i=0; i<len; i++) {
+		  dataObj[dataArray[i].name] = dataArray[i].value;
+		  if (dataArray[i].value == "") {
+				console.log(dataArray[i].name);
+				console.log('it is null')
+				$('.' + dataArray[i].name + '.error').removeClass('hide');
+				error++;
+				console.log(error);
+				evt.preventDefault();
+			  } else {
+		 			$('.' + dataArray[i].name  + '.error').addClass('hide');
+	 			}
+		}
 	});
 	//
 	//check type value of button

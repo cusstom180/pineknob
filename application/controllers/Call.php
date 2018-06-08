@@ -79,9 +79,15 @@ class Call extends MY_Controller {
 		}
 	}
 	
-	public function guestuser() {
+	public function guestuser() {		// only using this one
 		echo "guest user is zero";
 		$this->session->set_userdata('client', TRUE);
+	}
+	
+	public function destroy() {		// only using this one
+		echo "destroy session data";
+		session_unset();
+		redirect(base_url('front/thunderbolt'));
 	}
 	
 	function callForm() {

@@ -1,5 +1,5 @@
 <div class="container">
-	<?php if (!isset($_SESSION['login'])) { require 'loginModal.php'; } ?>
+	<?php if (!isset($_SESSION['login'])) { require_once 'loginModal.php'; } ?>
 	<table id="cart" class="table table-hover table-condensed">
 		<thead>
 			<tr>
@@ -49,7 +49,7 @@
 				<td class="hidden-xs text-center"><strong>Total</strong></td>
 				<td class="total hidden-xs text-center"><?= $description['price']?>.00</td>
 				<td><button type="button" class="btn btn-primary btn-lg"
-						data-toggle="modal" data-target="#payModal">Launch demo modal</button>
+						data-toggle="modal" data-target="#payModal">Launch pay modal</button>
 
 					<!-- Modal -->
 					<div class="modal fade" id="payModal" tabindex="-1" role="dialog"
@@ -73,6 +73,9 @@
 									<form action="<?= base_url('front/checkout');?>">
 										<input type="hidden" name="pay" value="1"> 
 										<input type="hidden" name="success" value="1">
+										<input type="hidden" name="price" value="65">
+										<input type="hidden" name="quantity" value="1">
+										<input type="hidden" name="total" value="65">
 										<button type="submit" class="btn primary">pay</button>
 									</form>
 								</div>
@@ -101,6 +104,8 @@
 		var total = $('.total').val(subtotal);
 		$('#subtotal').text(subtotalF);
 		total.text(subtotalF);
+		$('input[name="price"]').val(price);
+		$('input[name="quantity"]').val(quantity);
+		$('input[name="total"]').val(subtotal);
 	});
-
 </script>
