@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2018 at 10:02 PM
+-- Generation Time: Jun 08, 2018 at 08:54 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.4
 
@@ -58,6 +58,8 @@ CREATE TABLE `appointment` (
   `date` date NOT NULL,
   `time` time NOT NULL,
   `price` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   `discount_cde` varchar(10) NOT NULL,
   `net_price` int(11) NOT NULL,
@@ -71,18 +73,25 @@ CREATE TABLE `appointment` (
 -- Dumping data for table `appointment`
 --
 
-INSERT INTO `appointment` (`id`, `session_id`, `sport_id`, `lesson_id`, `age_id`, `employee_id`, `duration_id`, `skill_id`, `date`, `time`, `price`, `client_id`, `discount_cde`, `net_price`, `cancel`, `cancel_reason`, `add_date`, `add_user`) VALUES
-(57, '1525722076', 2, 1, 3, 0, 1, 4, '2018-05-31', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-07 19:41:36', ''),
-(80, '1525828264', 1, 1, 1, 0, 1, 2, '2018-05-30', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-09 01:14:06', ''),
-(81, '1526063513', 1, 1, 2, 0, 1, 1, '2018-05-08', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-11 18:31:53', ''),
-(82, '1526067829', 1, 1, 1, 0, 1, 1, '2018-05-01', '00:00:00', 0, 0, '', 0, 0, '', '2018-05-11 19:44:27', ''),
-(84, '1526406804', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-15 17:54:41', ''),
-(85, '1526406804', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-15 17:55:41', ''),
-(86, '1526406804', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-15 17:56:51', ''),
-(87, '1526407117', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 69, '', 0, 0, '', '2018-05-15 17:58:37', ''),
-(88, '', 1, 1, 2, 0, 1, 2, '2018-05-15', '00:00:00', 0, 1, '', 0, 0, '', '2018-05-16 14:54:22', ''),
-(89, '', 1, 1, 1, 0, 1, 3, '2018-05-11', '00:00:00', 0, 2, '', 0, 0, '', '2018-05-16 15:47:14', ''),
-(90, '', 1, 1, 3, 0, 1, 3, '2018-05-02', '00:00:00', 0, 2, '', 0, 0, '', '2018-05-16 17:03:51', '');
+INSERT INTO `appointment` (`id`, `session_id`, `sport_id`, `lesson_id`, `age_id`, `employee_id`, `duration_id`, `skill_id`, `date`, `time`, `price`, `quantity`, `total`, `client_id`, `discount_cde`, `net_price`, `cancel`, `cancel_reason`, `add_date`, `add_user`) VALUES
+(57, '1525722076', 2, 1, 3, 0, 1, 4, '2018-05-31', '00:00:00', 0, 0, 0, 0, '', 0, 0, '', '2018-05-07 19:41:36', ''),
+(80, '1525828264', 1, 1, 1, 0, 1, 2, '2018-05-30', '00:00:00', 0, 0, 0, 69, '', 0, 0, '', '2018-05-09 01:14:06', ''),
+(81, '1526063513', 1, 1, 2, 0, 1, 1, '2018-05-08', '00:00:00', 0, 0, 0, 69, '', 0, 0, '', '2018-05-11 18:31:53', ''),
+(82, '1526067829', 1, 1, 1, 0, 1, 1, '2018-05-01', '00:00:00', 0, 0, 0, 0, '', 0, 0, '', '2018-05-11 19:44:27', ''),
+(84, '1526406804', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 0, 0, 69, '', 0, 0, '', '2018-05-15 17:54:41', ''),
+(85, '1526406804', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 0, 0, 69, '', 0, 0, '', '2018-05-15 17:55:41', ''),
+(86, '1526406804', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 0, 0, 69, '', 0, 0, '', '2018-05-15 17:56:51', ''),
+(87, '1526407117', 1, 1, 2, 0, 1, 4, '2018-05-31', '00:00:00', 0, 0, 0, 69, '', 0, 0, '', '2018-05-15 17:58:37', ''),
+(88, '', 1, 1, 2, 0, 1, 2, '2018-05-15', '00:00:00', 0, 0, 0, 1, '', 0, 0, '', '2018-05-16 14:54:22', ''),
+(89, '', 1, 1, 1, 0, 1, 3, '2018-05-11', '00:00:00', 0, 0, 0, 2, '', 0, 0, '', '2018-05-16 15:47:14', ''),
+(90, '', 1, 1, 3, 0, 1, 3, '2018-05-02', '00:00:00', 0, 0, 0, 2, '', 0, 0, '', '2018-05-16 17:03:51', ''),
+(91, '', 1, 1, 1, 0, 1, 1, '2018-06-28', '00:00:00', 0, 0, 0, 2, '', 0, 0, '', '2018-06-08 14:39:59', ''),
+(92, '', 1, 1, 2, 0, 1, 2, '2018-05-01', '00:00:00', 65, 2, 130, 1, '', 0, 0, '', '2018-06-08 16:53:09', ''),
+(93, '', 1, 1, 2, 0, 1, 2, '2018-05-15', '00:00:00', 65, 1, 65, 1, '', 0, 0, '', '2018-06-08 17:01:04', ''),
+(94, '', 2, 1, 1, 0, 1, 2, '2018-05-31', '00:00:00', 65, 1, 65, 1, '', 0, 0, '', '2018-06-08 17:04:50', ''),
+(95, '', 2, 1, 1, 0, 1, 4, '2018-05-01', '00:00:00', 65, 1, 65, 1, '', 0, 0, '', '2018-06-08 17:20:30', ''),
+(96, '', 1, 1, 1, 0, 1, 1, '2018-04-30', '00:00:00', 65, 1, 65, 1, '', 0, 0, '', '2018-06-08 17:22:01', ''),
+(97, '', 2, 1, 1, 0, 1, 1, '2018-05-01', '00:00:00', 65, 1, 65, 1, '', 0, 0, '', '2018-06-08 17:27:08', '');
 
 -- --------------------------------------------------------
 
@@ -301,9 +310,9 @@ CREATE TABLE `jumbotron` (
 --
 
 INSERT INTO `jumbotron` (`id`, `slug`, `pattern_id`, `tag_1`, `tag_2`, `tag_3`, `deploy`, `version`) VALUES
-(1, 'index', 2, 'It is snowing. Enjoy the snow', 'jim bob is back', '', 0, 1),
+(1, 'index', 1, '', '', '', 0, 1),
 (2, 'index', 1, 'It is snowing. Enjoy the snow', '', '', 0, 1),
-(3, 'index', 6, 'let it snow', 'I want to ski', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet tempor turpis. Donec vestibulum felis non facilisis blandit. Proin porttitor faucibus dignissim. Curabitur volutpat augue metus.', 1, 1);
+(3, 'index', 6, 'let it snow', 'I want to ski', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet tempor turpis. Donec vestibulum felis non facilisis blandit. Proin porttitor faucibus dignissim. Curabitur volutpat augue metus.', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -351,25 +360,6 @@ INSERT INTO `meta` (`id`, `slug`, `name`, `content`, `version`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `page`
---
-
-CREATE TABLE `page` (
-  `page_id` int(100) NOT NULL,
-  `slug_id` int(11) NOT NULL,
-  `deploy` tinyint(1) NOT NULL,
-  `title_id` int(11) NOT NULL,
-  `jumbotron_id` int(11) NOT NULL,
-  `meta_id` int(100) NOT NULL,
-  `banner_id` int(100) NOT NULL,
-  `call_to_action` int(100) NOT NULL,
-  `body_id` int(100) NOT NULL,
-  `version` int(100) NOT NULL
-);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `pattern`
 --
 
@@ -407,12 +397,7 @@ CREATE TABLE `pine_knob` (
 --
 
 INSERT INTO `pine_knob` (`id`, `ip_address`, `timestamp`, `data`) VALUES
-('67bhihk720liha9onjftgkr9t69j7v66', '::1', 1526579511, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363537393531313b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b4e3b733a343a226e616d65223b733a31313a227761726d206a61636b6574223b733a353a227072696365223b733a353a2239392e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d),
-('c0bnnpem9v4vo1hiv0f7d4gdvtlj3vhs', '::1', 1526578956, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363537383935363b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b4e3b733a343a226e616d65223b733a31313a227761726d206a61636b6574223b733a353a227072696365223b733a353a2239392e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d),
-('i69cet345i1heprki7r4ntr7fkerhnqf', '::1', 1526579883, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363537393838333b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b4e3b733a343a226e616d65223b733a31313a227761726d206a61636b6574223b733a353a227072696365223b733a353a2239392e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d),
-('ophl0l58rr4bognpotocv2cr8jvf023t', '::1', 1526575912, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363537353931323b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b4e3b733a343a226e616d65223b733a353a22706f6c6573223b733a353a227072696365223b733a353a2232342e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d),
-('qjevfs7m8ohpe586jcg0m39fd4jekj79', '::1', 1526581598, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363538313534353b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b733a313a2232223b733a343a226e616d65223b733a31313a227761726d206a61636b6574223b733a353a227072696365223b733a353a2239392e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d),
-('t574bc5rhch5ibb6omit9qnoegud8ov1', '::1', 1526578211, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532363537383231313b73686f7070696e675f636172747c613a313a7b693a303b613a343a7b733a323a226964223b4e3b733a343a226e616d65223b733a31313a227761726d206a61636b6574223b733a353a227072696365223b733a353a2239392e3939223b733a383a227175616e74697479223b733a313a2231223b7d7d);
+('0hk2luik01n70om638hspn8qt6b4b3l9', '::1', 1528466745, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383436363734353b),
 
 -- --------------------------------------------------------
 
@@ -609,7 +594,10 @@ CREATE TABLE `title` (
 --
 
 INSERT INTO `title` (`id`, `slug`, `content`, `deploy`, `version`) VALUES
-(1, 'index', 'Pine Knob Ski School', 1, 1);
+(1, 'index', 'Pine Knob Ski School', 1, 1),
+(2, 'checkout', 'Checkout | Pine Knob Ski School', 1, 1),
+(3, 'shoppingcart', 'Shopping cart | Pine Knob Ski School', 1, 1),
+(4, 'thunderbolt', 'thunderbird racing', 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -724,19 +712,6 @@ ALTER TABLE `meta`
   ADD KEY `mta_slug` (`slug`);
 
 --
--- Indexes for table `page`
---
-ALTER TABLE `page`
-  ADD PRIMARY KEY (`page_id`) USING BTREE,
-  ADD KEY `pag_slug_idx` (`slug_id`),
-  ADD KEY `pag_meta_idx` (`meta_id`),
-  ADD KEY `pag_banner_idx` (`banner_id`),
-  ADD KEY `pag_call_to_action_idx` (`call_to_action`),
-  ADD KEY `pag_body_idx` (`body_id`),
-  ADD KEY `pag_title_id_idx` (`title_id`),
-  ADD KEY `pag_jumbotron_id_idx` (`jumbotron_id`) USING BTREE;
-
---
 -- Indexes for table `pattern`
 --
 ALTER TABLE `pattern`
@@ -818,7 +793,7 @@ ALTER TABLE `age`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 --
 -- AUTO_INCREMENT for table `appointment_booked`
 --
@@ -903,7 +878,7 @@ ALTER TABLE `template`
 -- AUTO_INCREMENT for table `title`
 --
 ALTER TABLE `title`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
