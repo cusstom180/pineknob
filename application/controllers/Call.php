@@ -81,7 +81,7 @@ class Call extends MY_Controller {
 	
 	public function guestuser() {
 		echo "guest user is zero";
-		$this->session->set_userdata('guest', TRUE);
+		$this->session->set_userdata('client', TRUE);
 	}
 	
 	function callForm() {

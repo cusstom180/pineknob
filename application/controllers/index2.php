@@ -28,6 +28,7 @@ class Front extends MY_Controller {
 				$jumbotronTag[] = $value;
 			}
 		}
+		
 		# get pattern template
 		$pattern = $this->Front_model->getRow('pattern','pattern_id', $jumbotron['pattern_id']);
 // 		var_dump($pattern);
@@ -49,7 +50,7 @@ class Front extends MY_Controller {
 		$this->data['form'] = 1;
 		
 		// see session data
-		print_r($this->session->userdata);
+		print_r($this->session);
 		//load the page view
 		$this->data['subview'] = 'front/Index';
 		$this->load->view('front/_mainlayout', $this->data);
@@ -63,9 +64,9 @@ class Front extends MY_Controller {
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
-		//check what last page was
+		
 		if (isset($_SERVER['HTTP_REFERER'])) {
-// 		    echo "session is " . $_SERVER['HTTP_REFERER'];
+		    echo "session is " . $_SERVER['HTTP_REFERER'];
 		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
 		}
 // 		var_dump($_SERVER);
@@ -74,41 +75,50 @@ class Front extends MY_Controller {
 		$this->data['form'] = array();
 		echo "post array = ";
 		var_dump($_POST);
-		$requiredFields = array('sport', 'age', 'skill', 'date');
-		$check = 0;
-		if ($_POST) {
-			echo "in if post check";
+		if ($_POST !== NULL) {
 			foreach ($this->input->post(null, TRUE) as $key => $value) {
 				$this->data['form'][$key] = $value;
-				if (in_array($key, $requiredFields) && $value !== '') {
-					// 				echo $key;
-					$check++;
-					
-				}
-// 				$this->session->set_userdata($this->data['form']);
+	// 			
 			}
 			$this->session->set_userdata($this->data['form']);
 		}
 		
+// 		var_dump($this->data['form']);
+		// check for required fields by comparing arrays
+		$requiredFields = array('sport', 'age', 'skill', 'date');
+		$check = 0;
+		foreach ($this->data['form'] as $key => $value) { 
+// 			echo "$key ";
+			if (in_array($key, $requiredFields) && $value !== '') {
+// 				echo $key;
+				$check++;
+			}
+		}
+		
+		// check if client just tried to logon
+		if (isset($_SESSION['login']) && $_SESSION['referer'] == base_url()) {
+			$this->data['form'] = $this->session->form;
+			echo " login is set";
+		}
+		
 		// if check variable is less then the required array redirect back to index
-		if ($check === count($requiredFields) || $_SESSION['login']) {
+		if ($check === count($requiredFields) || $_SESSION['form']) {
 			//get product details
-// 			var_dump($_SESSION['lesson']);
-// 			$this->session->form = $this->data['form'];
+			var_dump($_SESSION['lesson']);
+			$this->session->form = $this->data['form'];
 			$this->data['description'] = $this->Front_model->getRow('lesson', 'lesson_id', $_SESSION['lesson']);
 // 			var_dump($this->data['form']);
 // 			$_SESSION['form'] = $this->data['form'];
 			
 			
-			print_r($this->session->userdata);
+			print_r($this->session);
 			//load the page view
 			$this->data['subview'] = 'front/components/shoppingcart';
 			$this->load->view('front/_mainlayout', $this->data);
 		} 
-		else {
-			$this->session->set_flashdata('form', 'didnt work');
-			print_r($this->session->userdata);
-// 			redirect(base_url(), 'index');
+		 else {
+			$this->session->set_flashdata('form', $this->data['form']);
+			redirect(base_url(), 'index');
 		}
 // 		if ($check) {
 // 			$this->session->set_flashdata('form', $this->data['form']);
@@ -133,79 +143,38 @@ class Front extends MY_Controller {
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
 		
-		foreach ($this->input->get(null, TRUE) as $key => $value) {
-			$this->data[$key] = $value;
+		if (isset($_SERVER['HTTP_REFERER'])) {
+		    echo "session is empty";
+		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
 		}
-		var_dump($this->data);
-		print_r($this->session->userdata);
 		
-		if ($this->data['success']) {
-			$appointArray = array(
-					'sport_id' => $_SESSION['sport'],
-					'age_id' => $_SESSION['age'],
-					'skill_id' => $_SESSION['skill'],
-					'date' => $_SESSION['date'],
-					'lesson_id' => $_SESSION['lesson'],
-					'client_id' => $_SESSION['client_id'],
-						
-			);
-			$insertSuccess = $this->db->insert('appointment', $appointArray);
-				
+		// check for submitted values for empty, if empty redirect back to index
+		//create array from post
+		$this->data['form'] = array();
+		foreach ($this->input->post(null, TRUE) as $key => $value) {
+			$this->data['form'][$key] = $value;
+		}
+		var_dump($this->data['form']);
+		// check for required fields by comparing arrays
+		$requiredFields = array('sport', 'age', 'skill', 'date');
+		$check = 0;
+		foreach ($this->data['form'] as $key => $value) {
+			// 			echo "$key ";
+			if (in_array($key, $requiredFields) && $value !== '') {
+				echo $key;
+				$check++;
+			}
+		}
+		// if check variable is less then the required array redirect back to index
+		if ($check === count($requiredFields)) {
 			//load the page view
-			$this->data['subview'] = 'front/components/successcart';
+			$this->data['subview'] = 'front/components/formAjax';
 			$this->load->view('front/_mainlayout', $this->data);
 		} else {
-			echo "something failed";
-			redirect(base_url(), 'front/shoppingcart');
+			$this->session->set_flashdata('form', $this->data['form']);
+			redirect(base_url(), 'index');
 		}
 		
-	}
-	
-	function thunderbolt() {
-		function pre_r($array) {
-			echo "<pre>";
-			print_r($array);
-			echo "</pre>";
-		}
-		//get page meta data
-		$this->data['page'] = $this->Front_model->callingBack();
-		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
-		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
-		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
-		$this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
-		
-// 		session_destroy();
-		
-		//get all products from db
-		$this->data['products'] = $this->Front_model->getAll('products');
-		
-		$product_ids = array();
-		if (filter_input(INPUT_POST, 'add_to_cart', FILTER_SANITIZE_STRING)) {
-			if (isset($_SESSION['shopping_cart'])) {
-				echo "in if statement";
-				$count = count($_SESSION['shopping_cart']);
-				// create sequential array for matching array keys to product id's
-				$product_ids = array_column($_SESSION['shopping_cart'], 'id');
-				
-				pre_r($product_ids);
-			}
-			else { // if shopping cart doesn't exist create first product with array key 0
-				//create a array using submitted from data, start form key 0 and fill it with values
-				$_SESSION['shopping_cart'][0] = array (
-					'id' => $_GET['id'],
-// 					'id' =>   filter_input(INPUT_GET, 'id'),
-					'name' => filter_input(INPUT_POST, 'name'),
-					'price' => filter_input(INPUT_POST, 'price'),
-					'quantity' => filter_input(INPUT_POST, 'quantity')
-				);
-				
-			}
-		}
-		pre_r($_SESSION['shopping_cart']);
-		
-		//load the page view
-		$this->data['subview'] = 'front/thunderbolt/cart';
-		$this->load->view('front/_mainlayout', $this->data);
 	}
 	
 	function schedule2() {

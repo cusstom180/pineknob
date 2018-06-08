@@ -58,7 +58,7 @@
 						<div class="lesson error <?php if ($this->session->form['lesson'] !== "") echo 'hide';?>"><p>wait, what is a skill?</p></div>
 						<label>lesson</label>
 				  		<div class="btn-group-vertical btn-group-sm" role="group">
-					  		<div type="button" class="btn btn-default btn-1 lesson <?php if ($this->session->form['lesson'] === '1') echo 'active';?>" value="1">private</div>
+					  		<div type="button" class="btn btn-default btn-1 lesson <?php if ($this->session->form['lesson'] === '1' || !isset($_SESSION['lesson'])) echo 'active';?>" value="1">private</div>
 					  		<div type="button" class="btn btn-default btn-2 lesson <?php if ($this->session->form['lesson'] === '2') echo 'active';?>" value="2">semi private</div>
 					  		<input id="lesson" type="hidden" name="lesson" value="<?php if ($this->session->form['lesson']) echo $this->session->form['lesson']; else echo '1';?>">
 						</div>
