@@ -42,9 +42,6 @@
 	 		<label>date</label>
 	  		<div class="input-group date" data-provide="datepicker">
 			<input type="text" id="datepicker">
-			    <div class="input-group-addon">
-			        <span class="glyphicon glyphicon-th"></span>
-			    </div>
 			</div>
 			<input id="date" type="hidden" name="date" value="">
 		</div>
