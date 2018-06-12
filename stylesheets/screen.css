@@ -7,19 +7,3 @@
 
 .error {
   color: red; }
-.jumbotronbg {
-	background-image: url("../public_html/images/jumbotronbg.jpg");
-	min-height: 500px;
-	background-size: cover;
-	background-position: center;
-}
-.mar-top-50 {
-	margin-top: 50px;
-}
-.mar-bot-50 {
-	margin-bottom: 50px;
-}
-.jumbotron {
-	background-color: #edf4f8;
-	
-}

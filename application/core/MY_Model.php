@@ -24,7 +24,7 @@ class MY_Model extends CI_Model {
     }
     
     public function callingBack(){
-    
+//         print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
     	$call = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2);
     	foreach ($call as $array) {
     		foreach ($array as $key=>$value) {
