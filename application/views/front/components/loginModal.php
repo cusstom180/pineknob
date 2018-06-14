@@ -40,7 +40,7 @@
 						</form>
 						<center>
 							<b>Not registered ?</b> <br>
-							</b><a href="<?php echo base_url('front/registar'); ?>">Register here</a>
+							</b><a href="<?php echo base_url('front/register'); ?>">Register here</a>
 						</center>
 						<!--for centered text-->
 					</div>

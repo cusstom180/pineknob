@@ -16,11 +16,11 @@ class User extends MY_Controller {
 	public function register_user(){
 	
 		$user=array(
-				'user_name'=>$this->input->post('user_name'),
-				'email'=>$this->input->post('email'),
-				'password'=>md5($this->input->post('password')),
-				'age'=>$this->input->post('age'),
-				'mobile'=>$this->input->post('mobile')
+				'first_name'=>$this->input->post('first_name', TRUE),
+				'last_name'=>$this->input->post('last_name', TRUE),
+				'email'=>$this->input->post('email', TRUE),
+				'password'=>md5($this->input->post('password', TRUE)),
+				'mobile'=>$this->input->post('mobile', TRUE)
 		);
 		print_r($user);
 		
@@ -30,12 +30,14 @@ class User extends MY_Controller {
 			$this->user_model->register_user($user);
 			$this->session->set_flashdata('success_msg', 'Registered successfully.Now login to your account.');
 			redirect('user/login_view');
+			echo "$email_check in if ";
 	
 		}
-		else{
+		else {
 	
-			$this->session->set_flashdata('error_msg', 'Error occured,Try again.');
-			redirect('user');
+			$this->session->set_flashdata('error_msg', 'Someone has registered with that email address. Please try another one');
+			redirect(base_url('front/register'));
+			echo "$email_check in else ";
 	
 		}
 	

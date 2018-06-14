@@ -11,7 +11,7 @@
 	<span style="background-color: red;">
 		<div class="container">
 			<!-- container class is used to centered  the body of the browser with some decent width-->
-			<div class="row">
+			<div class="row mar-top-50">
 				<!-- row class is used for grid system in Bootstrap-->
 				<div class="col-md-4 col-md-offset-4">
 					<!--col-md-4 is used to create the no of colums in the grid also use for medimum and large devices-->
@@ -32,10 +32,13 @@
 								action="<?php echo base_url('user/register_user'); ?>">
 								<fieldset>
 									<div class="form-group">
-										<input class="form-control" placeholder="Name"
-											name="user_name" type="text" autofocus>
+										<input class="form-control" placeholder="First Name"
+											name="first_name" type="text" autofocus>
 									</div>
-
+									<div class="form-group">
+										<input class="form-control" placeholder="Last Name"
+											name="last_name" type="text" autofocus>
+									</div>
 									<div class="form-group">
 										<input class="form-control" placeholder="E-mail" name="email"
 											type="email" autofocus>
@@ -45,10 +48,9 @@
 											name="password" type="password" value="">
 									</div>
 									<div class="form-group">
-										<input class="form-control" placeholder="Mobile No"
+										<input class="form-control" placeholder="Mobile Number"
 											name="mobile" type="number" value="">
 									</div>
-
 									<input class="btn btn-lg btn-success btn-block" type="submit"
 										value="Register" name="register">
 
