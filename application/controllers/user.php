@@ -14,52 +14,38 @@ class User extends MY_Controller {
 	}
 	
 	public function register_user(){
-	   
+		if ($this->input->post('first_name')) {
+			echo 'ture ';}
 	    var_dump($_SESSION);
 	    
 		$user=array(
-<<<<<<< HEAD
-				'first_name'=>$this->input->post('first_name'),
-		        'last_name'=>$this->input->post('last_name'),
-				'email'=>$this->input->post('email'),
-				'password'=>md5($this->input->post('password')),
-				'mobile'=>$this->input->post('mobile')
-=======
-				'first_name'=>$this->input->post('first_name', TRUE),
-				'last_name'=>$this->input->post('last_name', TRUE),
-				'email'=>$this->input->post('email', TRUE),
-				'password'=>md5($this->input->post('password', TRUE)),
-				'mobile'=>$this->input->post('mobile', TRUE)
->>>>>>> 4853bdbf95156db4e60aeacbe5736bf3bc1900c3
+				'first_name'	=> $this->input->post('first_name'),
+		        'last_name'		=> $this->input->post('last_name'),
+				'email'			=> $this->input->post('email'),
+				'password'		=> md5($this->input->post('password')),
+				'mobile'		=> $this->input->post('mobile')
 		);
-// 		print_r($user);  //caused header to fail
+		var_dump($user);  //caused header to fail
 
 		$email_check=$this->user_model->email_check($user['email']);
 	
 		if($email_check){
-			$this->user_model->register_user($user);
+			$insert = $this->user_model->register_user($user);
 			$this->session->set_flashdata('success_msg', 'Registered successfully.Now login to your account.');
-<<<<<<< HEAD
 // 			redirect('user/user_profile', 'auto');
-            echo 'success';
-=======
-			redirect('user/login_view');
-			echo "$email_check in if ";
+// 			redirect('user/login_view');
+			echo "<script>$('#registarModal').modal('hide')</script>";
 	
->>>>>>> 4853bdbf95156db4e60aeacbe5736bf3bc1900c3
 		}
 		else {
 	
-<<<<<<< HEAD
 			$this->session->set_flashdata('error_msg', 'Error occured,Try again.');
 // 			redirect('user');
 			echo 'failed';
-=======
 			$this->session->set_flashdata('error_msg', 'Someone has registered with that email address. Please try another one');
-			redirect(base_url('front/register'));
+// 			redirect(base_url('front/register'));
 			echo "$email_check in else ";
 	
->>>>>>> 4853bdbf95156db4e60aeacbe5736bf3bc1900c3
 		}
 	
 	}
@@ -78,22 +64,15 @@ class User extends MY_Controller {
 	
 		);
 		
-// 		var_dump($_SERVER);
-		$this->data = $this->user_model->login_user($user_login['email'],$user_login['password']);
+		$login = $this->user_model->login_user($user_login['email'],$user_login['password']);
 // 		var_dump($this->data);
 		if (isset($_SERVER['HTTP_REFERER'])) {
 // 		    echo "session is empty";
 		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
 		}
 // 		var_dump($_SESSION['referer']);
-		if($this->data) {
-// 			$this->load->view('user_profile.php');
-// 			header('Location: ' . $_SERVER['HTTP_REFERER']);
-// 			var_dump($_SESSION['referer']);
-//          echo 'data is true';
-// 			$this->data['subview'] = 'front/thunderbolt/cart';
-//             var_dump($this->data);
-// 			$this->load->view('user/user_profile', $this->data);
+		if($login) {
+			$_SESSION['login'] = TRUE;
 		    redirect($_SESSION['referer']);
 		}
 		else{
@@ -115,7 +94,8 @@ class User extends MY_Controller {
 	}
 	
 	public function user_logout(){
-	
+		
+		unset($_SESSION['login']);
 		$this->session->sess_destroy();
 		redirect('', 'refresh');
 	}

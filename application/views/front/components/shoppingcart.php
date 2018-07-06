@@ -1,5 +1,5 @@
 <div class="container">
-	<?php if (!isset($_SESSION['login'])) { require_once 'loginModal.php'; } ?>
+	<?php  require 'loginModal.php'; ?>
 	<table id="cart" class="table table-hover table-condensed">
 		<thead>
 			<tr>

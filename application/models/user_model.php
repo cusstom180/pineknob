@@ -9,8 +9,9 @@ class user_model extends MY_Model {
 	public function register_user($user){
 	
 	
-		$this->db->insert('client', $user);
-	
+		$check = $this->db->insert('user', $user);
+// 		echo $this->db->last_query();
+		return $check;
 	}
 	
 	public function login_user($email,$pass){
@@ -23,6 +24,7 @@ class user_model extends MY_Model {
 		if($query=$this->db->get())
 		{
 			return $query->row_array();
+			echo $this->db->last_query();
 		}
 		else{
 			return false;
@@ -32,11 +34,7 @@ class user_model extends MY_Model {
 	public function email_check($email){
 	
 		$this->db->select('*');
-<<<<<<< HEAD
 		$this->db->from('user');
-=======
-		$this->db->from('client');
->>>>>>> 4853bdbf95156db4e60aeacbe5736bf3bc1900c3
 		$this->db->where('email',$email);
 		$query=$this->db->get();
 	
