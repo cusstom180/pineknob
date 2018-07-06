@@ -40,10 +40,14 @@
 						</form>
 						<center>
 							<b>Not registered ?</b> <br>
+<<<<<<< HEAD
 							<!-- Button trigger registar modal -->
                             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#registarModal">
                               Registar here
                             </button>
+=======
+							</b><a href="<?php echo base_url('front/register'); ?>">Register here</a>
+>>>>>>> 4853bdbf95156db4e60aeacbe5736bf3bc1900c3
 						</center>
 						<!--for centered text-->
 					</div>

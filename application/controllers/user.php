@@ -18,11 +18,19 @@ class User extends MY_Controller {
 	    var_dump($_SESSION);
 	    
 		$user=array(
+<<<<<<< HEAD
 				'first_name'=>$this->input->post('first_name'),
 		        'last_name'=>$this->input->post('last_name'),
 				'email'=>$this->input->post('email'),
 				'password'=>md5($this->input->post('password')),
 				'mobile'=>$this->input->post('mobile')
+=======
+				'first_name'=>$this->input->post('first_name', TRUE),
+				'last_name'=>$this->input->post('last_name', TRUE),
+				'email'=>$this->input->post('email', TRUE),
+				'password'=>md5($this->input->post('password', TRUE)),
+				'mobile'=>$this->input->post('mobile', TRUE)
+>>>>>>> 4853bdbf95156db4e60aeacbe5736bf3bc1900c3
 		);
 // 		print_r($user);  //caused header to fail
 
@@ -31,14 +39,27 @@ class User extends MY_Controller {
 		if($email_check){
 			$this->user_model->register_user($user);
 			$this->session->set_flashdata('success_msg', 'Registered successfully.Now login to your account.');
+<<<<<<< HEAD
 // 			redirect('user/user_profile', 'auto');
             echo 'success';
-		}
-		else{
+=======
+			redirect('user/login_view');
+			echo "$email_check in if ";
 	
+>>>>>>> 4853bdbf95156db4e60aeacbe5736bf3bc1900c3
+		}
+		else {
+	
+<<<<<<< HEAD
 			$this->session->set_flashdata('error_msg', 'Error occured,Try again.');
 // 			redirect('user');
 			echo 'failed';
+=======
+			$this->session->set_flashdata('error_msg', 'Someone has registered with that email address. Please try another one');
+			redirect(base_url('front/register'));
+			echo "$email_check in else ";
+	
+>>>>>>> 4853bdbf95156db4e60aeacbe5736bf3bc1900c3
 		}
 	
 	}

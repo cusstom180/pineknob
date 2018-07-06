@@ -9,7 +9,7 @@ class user_model extends MY_Model {
 	public function register_user($user){
 	
 	
-		$this->db->insert('user', $user);
+		$this->db->insert('client', $user);
 	
 	}
 	
@@ -32,7 +32,11 @@ class user_model extends MY_Model {
 	public function email_check($email){
 	
 		$this->db->select('*');
+<<<<<<< HEAD
 		$this->db->from('user');
+=======
+		$this->db->from('client');
+>>>>>>> 4853bdbf95156db4e60aeacbe5736bf3bc1900c3
 		$this->db->where('email',$email);
 		$query=$this->db->get();
 	

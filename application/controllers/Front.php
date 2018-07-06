@@ -239,7 +239,7 @@ class Front extends MY_Controller {
 	}
 	  
 	    
-	function registar() {
+	function register() {
 	    
 	    //get page meta data
 	    $this->data['page'] = $this->Front_model->callingBack();
