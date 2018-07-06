@@ -16,7 +16,7 @@ class user_model extends MY_Model {
 	public function login_user($email,$pass){
 	
 		$this->db->select('*');
-		$this->db->from('client');
+		$this->db->from('user');
 		$this->db->where('email',$email);
 		$this->db->where('password',$pass);
 	
@@ -33,7 +33,7 @@ class user_model extends MY_Model {
 	
 		$this->db->select('*');
 		$this->db->from('user');
-		$this->db->where('user_email',$email);
+		$this->db->where('email',$email);
 		$query=$this->db->get();
 	
 		if($query->num_rows()>0){

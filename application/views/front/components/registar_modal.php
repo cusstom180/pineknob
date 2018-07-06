@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Registration-CI Login Registration</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	media="screen" title="no title">
-</head>
-<body>
-	<span style="background-color: red;">
-		<div class="container">
-			<!-- container class is used to centered  the body of the browser with some decent width-->
-			<div class="row">
-				<!-- row class is used for grid system in Bootstrap-->
-				<div class="col-md-4 col-md-offset-4">
-					<!--col-md-4 is used to create the no of colums in the grid also use for medimum and large devices-->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#registarModal">
+  Registar here
+</button>
+
+<!-- Registar Modal -->
+<div class="modal fade" id="registarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      	<span style="background-color: red;">
 					<div class="login-panel panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">Registration</h3>
@@ -65,18 +63,12 @@
 							<!--for centered text-->
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-
-
-
-
-
 	</span>
-
-
-
-
-</body>
-</html>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

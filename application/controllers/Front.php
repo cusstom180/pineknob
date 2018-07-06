@@ -115,7 +115,7 @@ class Front extends MY_Controller {
 		} 
 		else {
 			$this->session->set_flashdata('form', 'didnt work');
-			print_r($this->session->userdata);
+// 			print_r($this->session->userdata);
 			redirect(base_url(), 'index');
 		}
 	}
@@ -137,7 +137,7 @@ class Front extends MY_Controller {
 			$this->data[$key] = $value;
 		}
 		print_r($this->data);
-		print_r($this->session->userdata);
+// 		print_r($this->session->userdata);
 		
 		if ($this->data['success']) {
 			$appointArray = array(
@@ -247,6 +247,12 @@ class Front extends MY_Controller {
 	    $this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 	    $whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
 	    $this->data['alert'] = $this->Front_model->getRow('banner', $whereArray);
+	    //check what last page was
+	    if (isset($_SERVER['HTTP_REFERER'])) {
+	        echo "session is " . $_SERVER['HTTP_REFERER'];
+	        $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
+	    }
+	    var_dump($_SESSION);
 	    //load view
 	    $this->load->view("register.php");
 	}

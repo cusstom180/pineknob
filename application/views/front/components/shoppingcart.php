@@ -25,8 +25,7 @@
 					</div>
 				</td>
 				<td id="price" data-price="<?= $description['price']?>"><?= $description['price']?>.00</td>
-				<td data-th="Quantity"><input name="quanity" type="number"
-					class="form-control text-center" min="0" value="1"></td>
+				<td data-th="Quantity"><input name="quanity" type="number" class="form-control text-center" min="0" value="1"></td>
 				<td id="subtotal" data-th="Subtotal" class="text-center"></td>
 				<td class="actions" data-th="">
 					<button class="btn btn-info btn-sm">
@@ -64,6 +63,7 @@
 									<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 								</div>
 								<div class="modal-body">time to pay</div>
+								<div id="payamount"></div>
 								<div class="modal-footer">
 									<form>
 										<input type="hidden" name="success" value="0">
@@ -71,6 +71,7 @@
 											data-dismiss="modal">cancel</button>
 									</form>
 									<form action="<?= base_url('front/checkout');?>">
+										
 										<input type="hidden" name="pay" value="1"> 
 										<input type="hidden" name="success" value="1">
 										<input type="hidden" name="price" value="65">
@@ -82,6 +83,7 @@
 							</div>
 						</div>
 					</div></td>
+					
 			</tr>
 		</tfoot>
 	</table>
@@ -92,6 +94,7 @@
 	var subtotal = price * quantity;
 	var subtotalF = subtotal.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 	var total = price;
+	var labl = $('#label').val();
 	console.log(quantity, subtotal);
 
 	$('#subtotal').text(subtotalF);
@@ -107,5 +110,7 @@
 		$('input[name="price"]').val(price);
 		$('input[name="quantity"]').val(quantity);
 		$('input[name="total"]').val(subtotal);
+		$('#payamount').append('<p>' + subtotalF + '</p>');
+		console.log(quantity, subtotal);
 	});
 </script>

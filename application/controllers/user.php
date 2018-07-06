@@ -14,29 +14,31 @@ class User extends MY_Controller {
 	}
 	
 	public function register_user(){
-	
+	   
+	    var_dump($_SESSION);
+	    
 		$user=array(
-				'user_name'=>$this->input->post('user_name'),
+				'first_name'=>$this->input->post('first_name'),
+		        'last_name'=>$this->input->post('last_name'),
 				'email'=>$this->input->post('email'),
 				'password'=>md5($this->input->post('password')),
-				'age'=>$this->input->post('age'),
 				'mobile'=>$this->input->post('mobile')
 		);
-		print_r($user);
-		
+// 		print_r($user);  //caused header to fail
+
 		$email_check=$this->user_model->email_check($user['email']);
 	
 		if($email_check){
 			$this->user_model->register_user($user);
 			$this->session->set_flashdata('success_msg', 'Registered successfully.Now login to your account.');
-			redirect('user/login_view');
-	
+// 			redirect('user/user_profile', 'auto');
+            echo 'success';
 		}
 		else{
 	
 			$this->session->set_flashdata('error_msg', 'Error occured,Try again.');
-			redirect('user');
-	
+// 			redirect('user');
+			echo 'failed';
 		}
 	
 	}
@@ -56,37 +58,39 @@ class User extends MY_Controller {
 		);
 		
 // 		var_dump($_SERVER);
-		$data=$this->user_model->login_user($user_login['email'],$user_login['password']);
-// 		var_dump(current_url());
+		$this->data = $this->user_model->login_user($user_login['email'],$user_login['password']);
+// 		var_dump($this->data);
 		if (isset($_SERVER['HTTP_REFERER'])) {
 // 		    echo "session is empty";
 		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
 		}
 // 		var_dump($_SESSION['referer']);
-		if($data) {
-			$this->session->set_userdata('client_id',$data['client_id']);
-			$this->session->set_userdata('email',$data['email']);
-			$this->session->set_userdata('user_name',$data['user_name']);
-// 			$this->session->set_userdata('mobile',$data['mobile']);
-			$this->session->set_userdata('login', TRUE);
-			// NEED TO LOOK AT THIS---------------------------------------------------------------
-			
+		if($this->data) {
 // 			$this->load->view('user_profile.php');
 // 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 // 			var_dump($_SESSION['referer']);
-			redirect($_SESSION['referer']);
+//          echo 'data is true';
+// 			$this->data['subview'] = 'front/thunderbolt/cart';
+//             var_dump($this->data);
+// 			$this->load->view('user/user_profile', $this->data);
+		    redirect($_SESSION['referer']);
 		}
 		else{
-			$this->session->set_flashdata('error_msg', 'Error occured,Try again.');
-			$this->load->view("login.php");
+		    $this->session->set_flashdata('error_msg', 'Error occured,Try again.');
+		    $this->load->view("login.php");
 		}
 	
 	}
 	
 	function user_profile(){
 	
-		$this->load->view('user_profile.php');
+		$this->load->view('user/user_profile.php');
 	
+	}
+	
+	function schedule_private() {
+	    
+	    $this->load->view('user/user_profile.php');
 	}
 	
 	public function user_logout(){

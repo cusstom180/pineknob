@@ -1,6 +1,6 @@
 <div class="container mar-top-50 mar-bot-50">
 	<form id="firstform" method="post" action="<?= base_url('front/shoppingcart')?>">
-		<h1>schedule your lesson</h1>
+		<h1>schedule your private lesson</h1>
 		<?php if($this->session->form) { ?>
 		<div class="form-group">
 	  		<div class="error ">
