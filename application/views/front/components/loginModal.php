@@ -26,16 +26,16 @@
                     </div>
                     <?php } ?>
                 <div class="panel-body">
-						<form role="form" method="post"
+						<form id="loginForm" role="form" method="post"
 							action="<?php echo base_url('user/login_user'); ?>">
 							<fieldset>
 								<div class="form-group">
-									<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+									<input class="form-control" placeholder="email" name="email" type="email" autofocus>
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Password" name="password" type="password" value="">
 								</div>
-								<input class="btn btn-lg btn-success btn-block" type="submit" value="login" name="login">
+								<input class="btn btn-lg btn-success btn-block" type="button" value="login" name="login">
 							</fieldset>
 						</form>
 						<center>
@@ -71,6 +71,18 @@
 				success: function(result) {
 					console.log(result);
 					}	
+			});
+		});
+
+		$('input[name="login"]').on('click', function (e) {
+			console.log("boop");
+			$.ajax({
+				type: "POST",
+				url: "<?= base_url('user/login_user')?>",
+				data: $('#loginForm').serialize(),	
+				success: function(event) {
+					console.log(event)
+				}
 			});
 		});
 		</script>

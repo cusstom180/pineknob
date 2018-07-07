@@ -16,18 +16,18 @@ class user_model extends MY_Model {
 	
 	public function login_user($email,$pass){
 	
-		$this->db->select('*');
+		$this->db->select('first_name', 'last_name');
 		$this->db->from('user');
 		$this->db->where('email',$email);
 		$this->db->where('password',$pass);
-	
-		if($query=$this->db->get())
+// 		var_dump($query=$this->db->get());
+		if($query = $this->db->get())
 		{
 			return $query->row_array();
-			echo $this->db->last_query();
 		}
 		else{
 			return false;
+			
 		}
 	}
 	
