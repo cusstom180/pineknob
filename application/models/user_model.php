@@ -14,12 +14,12 @@ class user_model extends MY_Model {
 		return $check;
 	}
 	
-	public function login_user($email,$pass){
+	public function login_user($array){
 	
-		$this->db->select('first_name', 'last_name');
+		$this->db->select('id, first_name, last_name');
 		$this->db->from('user');
-		$this->db->where('email',$email);
-		$this->db->where('password',$pass);
+		$this->db->where($array);
+		
 // 		var_dump($query=$this->db->get());
 		if($query = $this->db->get())
 		{

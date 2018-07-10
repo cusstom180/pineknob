@@ -1,5 +1,5 @@
 <div class="container">
-	<?php  require 'loginModal.php'; ?>
+	<?php  include_once 'loginModal.php'; ?>
 	<table id="cart" class="table table-hover table-condensed">
 		<thead>
 			<tr>
@@ -90,7 +90,7 @@
 </div>
 <script>
 	var price = $('#price').attr('data-price');
-	var quantity = $('input[type="number"]').val();
+	var quantity = $('input[name="quanity"]').val();
 	var subtotal = price * quantity;
 	var subtotalF = subtotal.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 	var total = price;
@@ -101,7 +101,7 @@
 
 	$('input[type="number"]').bind('keyup input', function() {
 		var price = $('#price').attr('data-price');
-		var quantity = $('input[type="number"]').val();
+		var quantity = $('input[name="quanity"]').val();
 		var subtotal = price * quantity;
 		var subtotalF = subtotal.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 		var total = $('.total').val(subtotal);
@@ -110,7 +110,7 @@
 		$('input[name="price"]').val(price);
 		$('input[name="quantity"]').val(quantity);
 		$('input[name="total"]').val(subtotal);
-		$('#payamount').append('<p>' + subtotalF + '</p>');
+		$('#payamount').text(subtotalF);
 		console.log(quantity, subtotal);
 	});
 </script>

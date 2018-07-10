@@ -108,7 +108,7 @@ class Front extends MY_Controller {
 // 			$_SESSION['form'] = $this->data['form'];
 			
 			unset($_SESSION['from']);
-			print_r($this->session->userdata);
+			print_r($_SESSION);
 			//load the page view
 			$this->data['subview'] = 'front/components/shoppingcart';
 			$this->load->view('front/_mainlayout', $this->data);
@@ -136,8 +136,8 @@ class Front extends MY_Controller {
 		foreach ($this->input->get(null, TRUE) as $key => $value) {
 			$this->data[$key] = $value;
 		}
-		print_r($this->data);
-// 		print_r($this->session->userdata);
+// 		print_r($this->data);
+		print_r($this->session->userdata);
 		
 		if ($this->data['success']) {
 			$appointArray = array(
@@ -146,7 +146,7 @@ class Front extends MY_Controller {
 					'skill_id' => $_SESSION['skill'],
 					'date' => $_SESSION['date'],
 					'lesson_id' => $_SESSION['lesson'],
-					'client_id' => $_SESSION['client'],
+					'user_id' => $_SESSION['user_id'],
 					'price' => $this->data['price'],
 					'quantity' => $this->data['quantity'],
 					'total' => $this->data['total']

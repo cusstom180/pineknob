@@ -66,18 +66,16 @@ class User extends MY_Controller {
 		);
 		var_dump($_POST);
 		echo "email = " . $user_login['email'];
-		$login = $this->user_model->login_user($user_login['email'],$user_login['password']);
-		var_dump($login);
-// 		if (isset($_SERVER['HTTP_REFERER'])) {
-// // 		    echo "session is empty";
-// 		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
-// 		}
-// 		var_dump($_SESSION['referer']);
+		$login = $this->user_model->login_user($user_login);
+// 		var_dump($login);
 		if($login) {
 			$_SESSION['login'] = TRUE;
+			$_SESSION['first_name'] = $login['first_name'];
+			$_SESSION['last_name'] = $login['last_name'];
 // 		    redirect($_SESSION['referer']);
 			echo "success";
-			echo "<script>location.reload();</script>";
+			echo "<script>location.reload();
+                        $('#registarModal').modal('hide')</script>";
 		}
 		else{
 		    $this->session->set_flashdata('error_msg', 'Username or password is incorrect. Try again.');

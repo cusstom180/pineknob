@@ -55,6 +55,7 @@
 			</div>
 			<!-- /.modal-content -->
 		</div>
+		<div class="loginResult"></div>
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
@@ -81,7 +82,8 @@
 				url: "<?= base_url('user/login_user')?>",
 				data: $('#loginForm').serialize(),	
 				success: function(event) {
-					console.log(event)
+					console.log(event);
+					$('.loginResult').append(event);
 				}
 			});
 		});

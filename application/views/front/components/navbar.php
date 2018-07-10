@@ -40,7 +40,7 @@
       	<?php if (!isset($_SESSION['login'])) {
       		include 'loginModal.php';
       	}?>
-        <li><a data-toggle="modal" data-target="#loginModal"><?php echo (isset($_SESSION['user_name'])) ? 'hello ' . $_SESSION['user_name'] : 'login'?></a></li>
+        <li><a data-toggle="modal" data-target="#loginModal"><?php echo (isset($_SESSION['first_name'])) ? 'hello ' . $_SESSION['first_name'] : 'login'?></a></li>
         <?php if (isset($_SESSION['login'])) { ?>
         <li><a href="<?= base_url('user/user_logout')?>">logout</a></li>
         <?php } ?>
