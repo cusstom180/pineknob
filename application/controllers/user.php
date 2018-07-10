@@ -70,6 +70,7 @@ class User extends MY_Controller {
 // 		var_dump($login);
 		if($login) {
 			$_SESSION['login'] = TRUE;
+			$_SESSION['user_id'] = $login['user_id'];
 			$_SESSION['first_name'] = $login['first_name'];
 			$_SESSION['last_name'] = $login['last_name'];
 // 		    redirect($_SESSION['referer']);

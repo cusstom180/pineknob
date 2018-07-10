@@ -1,1 +1,98 @@
-change session login to user_id because not inserting into appoitnment table
+changes in Admin
+add login check to admin index and move all of code in home() to index()
+add when you use same email and it rediret back to register form, it mantaince the names
+make client register page and checks and logic 
+email client register info
+
+
+
+You could also use PHPMailer class at https://github.com/PHPMailer/PHPMailer .
+
+It allows you to use the mail function or use an smtp server transparently. It also handles HTML based emails and attachments so you don't have to write your own implementation.
+
+The class is stable and it is used by many other projects like Drupal, SugarCRM, Yii, and Joomla!
+
+Here is an example from the page above:
+
+<?php
+require 'PHPMailerAutoload.php';
+
+$mail = new PHPMailer;
+
+$mail->isSMTP();                                      // Set mailer to use SMTP
+$mail->Host = 'smtp1.example.com;smtp2.example.com';  // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+$mail->Username = 'user@example.com';                 // SMTP username
+$mail->Password = 'secret';                           // SMTP password
+$mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+
+$mail->From = 'from@example.com';
+$mail->FromName = 'Mailer';
+$mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+$mail->addAddress('ellen@example.com');               // Name is optional
+$mail->addReplyTo('info@example.com', 'Information');
+$mail->addCC('cc@example.com');
+$mail->addBCC('bcc@example.com');
+
+$mail->WordWrap = 50;                                 // Set word wrap to 50 characters
+$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+$mail->isHTML(true);                                  // Set email format to HTML
+
+$mail->Subject = 'Here is the subject';
+$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+if(!$mail->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+} else {
+    echo 'Message has been sent';
+}
+
+
+
+If you are interested in html formatted email, make sure to pass Content-type: text/html; in the header. Example:
+
+// multiple recipients
+$to  = 'aidan@example.com' . ', '; // note the comma
+$to .= 'wez@example.com';
+
+// subject
+$subject = 'Birthday Reminders for August';
+
+// message
+$message = '
+<html>
+<head>
+  <title>Birthday Reminders for August</title>
+</head>
+<body>
+  <p>Here are the birthdays upcoming in August!</p>
+  <table>
+    <tr>
+      <th>Person</th><th>Day</th><th>Month</th><th>Year</th>
+    </tr>
+    <tr>
+      <td>Joe</td><td>3rd</td><td>August</td><td>1970</td>
+    </tr>
+    <tr>
+      <td>Sally</td><td>17th</td><td>August</td><td>1973</td>
+    </tr>
+  </table>
+</body>
+</html>
+';
+
+// To send HTML mail, the Content-type header must be set
+$headers  = 'MIME-Version: 1.0' . "\r\n";
+$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+// Additional headers
+$headers .= 'To: Mary <mary@example.com>, Kelly <kelly@example.com>' . "\r\n";
+$headers .= 'From: Birthday Reminder <birthday@example.com>' . "\r\n";
+$headers .= 'Cc: birthdayarchive@example.com' . "\r\n";
+$headers .= 'Bcc: birthdaycheck@example.com' . "\r\n";
+
+// Mail it
+mail($to, $subject, $message, $headers);

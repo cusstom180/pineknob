@@ -10,7 +10,8 @@ class Admin extends MY_Controller {
 	
 	function index() {
 		// load view
-		$this->load->view("admin/login.php");
+		$this->data['subview'] = 'admin/subviews/login';
+		$this->load->view('admin/mainLayout.php', $this->data);
 	}
 	
 	function login_user(){
@@ -55,6 +56,36 @@ class Admin extends MY_Controller {
 			unset($_SESSION);
 			redirect(base_url('admin/login.php'));
 		}
+	}
+	
+	function addclient() {
+		
+		$post_array = array(
+				'first_name' => filter_input(INPUT_POST, 'first_name'),
+				'last_name' => filter_input(INPUT_POST, 'last_name'),
+				'email' => filter_input(INPUT_POST, 'email'),
+				'temp_password' => md5(filter_input(INPUT_POST, 'temp_password'))
+		);
+		
+		$email_check = $this->admin_model->check_email($post_array['email']);
+// 		var_dump($email_check);
+		if (!$email_check) {
+			echo "enter in another email";
+			$this->session->set_flashdata('error_msg', 'enter in another email.');
+			redirect('admin/home');
+		} else {
+			var_dump($post_array);
+			
+			$result = $this->admin_model->add_user($post_array);
+			if ($result) {
+				echo "it worked";
+			}
+		}
+		
+	}
+	
+	function registerclient() {
+		echo "hello from register";
 	}
 	
 }

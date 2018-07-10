@@ -22,4 +22,24 @@ class Admin_model extends MY_Model {
 		}
 	}
 	
+	public function add_user($array) {
+		
+		$check = $this->db->insert('client', $array);
+		// 		echo $this->db->last_query();
+		return $check;
+	}
+	
+	public function check_email($email) {
+		$this->db->select('*');
+		$this->db->from('client');
+		$this->db->where('email',$email);
+		$query=$this->db->get();
+		
+		if($query->num_rows()>0){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
 }

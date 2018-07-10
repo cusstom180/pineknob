@@ -1,3 +1,4 @@
+<?php if (!isset($_SESSION['error_msg'])) {?>
 <div class="container">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
@@ -37,3 +38,5 @@
 		</div>
 	</div>
 </div>
+<?php } ?>
+<?php include_once 'add_user.php';?>

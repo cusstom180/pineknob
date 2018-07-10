@@ -16,7 +16,7 @@ class user_model extends MY_Model {
 	
 	public function login_user($array){
 	
-		$this->db->select('id, first_name, last_name');
+		$this->db->select('user_id, first_name, last_name');
 		$this->db->from('user');
 		$this->db->where($array);
 		
