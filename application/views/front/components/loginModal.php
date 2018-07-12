@@ -27,7 +27,11 @@
                     <?php } ?>
                 <div class="panel-body">
 						<form id="loginForm" role="form" method="post"
-							action="<?php echo base_url('user/login_user'); ?>">
+							action="<?php if ($this->uri->segment(1) === 'admin') {
+								echo base_url('admin/login_user');
+							} else {
+								echo base_url('user/login_user');
+							} ?>">
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" placeholder="email" name="email" type="email" autofocus>

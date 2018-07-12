@@ -38,7 +38,11 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
       	<?php if (!isset($_SESSION['login'])) {
-      		include 'loginModal.php';
+      		if ($this->uri->segment(1) === 'admin') {
+      			include_once 'front/components/loginModal.php';
+      		} else {
+      			include 'loginModal.php';
+      		}
       	}?>
         <li><a data-toggle="modal" data-target="#loginModal"><?php echo (isset($_SESSION['user_name'])) ? 'hello ' . $_SESSION['user_name'] : 'login'?></a></li>
         <?php if (isset($_SESSION['login'])) { ?>
