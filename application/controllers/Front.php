@@ -11,6 +11,7 @@ class Front extends MY_Controller {
 	function index() {
 		
 		$this->data['page'] = $this->Front_model->callingBack();
+		var_dump(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)); echo " is the page";
 		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);
@@ -67,6 +68,7 @@ class Front extends MY_Controller {
 		unset($_SESSION['appoint']);
 		//get page meta data
 		$this->data['page'] = $this->Front_model->callingBack();
+		var_dump(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)); echo " is the page";
 		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
 		$this->data['meta'] = $this->Front_model->getAllRows('meta', 'slug', $this->data['page']);
 		$whereArray = array('deploy' => '1', 'slug' => $this->data['page']);

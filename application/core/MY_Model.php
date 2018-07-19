@@ -24,7 +24,9 @@ class MY_Model extends CI_Model {
     }
     
     public function callingBack(){
-//         print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
+    	echo "call from model";
+        print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1));
+        print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
     	$call = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2);
     	foreach ($call as $array) {
     		foreach ($array as $key=>$value) {
@@ -34,6 +36,27 @@ class MY_Model extends CI_Model {
     		}
     	}
     	return $func;
+    }
+    
+    public function callbackPage(){
+    	$returnArray = array();
+    	$func; $class;
+    	
+    	$call = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2);
+    	var_dump($call);
+    	foreach ($call as $array) {
+    		foreach ($array as $key=>$value) {
+    		if($key === 'function') {
+    			$func = $value;
+    			
+    		}
+    		if($key === 'class') {
+    			$class = $value;
+    		}
+    		$returnArray['$func'] = $value;
+    		}
+    	}
+    	return $returnArray;
     }
     
     public function getRow($tableName, $where = NULL, $str = NULL) {
