@@ -23,10 +23,8 @@ class MY_Model extends CI_Model {
     	return $result;
     }
     
-    public function callingBack(){
+    public function callingBack(){          // old call back method
     	echo "call from model";
-        print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1));
-        print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
     	$call = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2);
     	foreach ($call as $array) {
     		foreach ($array as $key=>$value) {
@@ -38,41 +36,48 @@ class MY_Model extends CI_Model {
     	return $func;
     }
     
-    public function callbackPage(){
-    	$returnArray = array();
-    	$func; $class;
+    public function callbackPage(){         // new callback method with checking for controller and slug
+    	$func = 'bob'; 
+    	$class = 'billy';
     	
     	$call = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2);
-    	var_dump($call);
+    	var_dump($call[1]);
     	foreach ($call as $array) {
-    		foreach ($array as $key=>$value) {
-    		if($key === 'function') {
+    	foreach ($array as $key => $value) {
+    		if($key == 'function') {
     			$func = $value;
     			
     		}
     		if($key === 'class') {
     			$class = $value;
+    			echo "key is $key and value is $value";
     		}
-    		$returnArray['$func'] = $value;
+    		
     		}
     	}
+    	$returnArray = array(
+    	    'controller'   => $func,
+    	    'slug'         => $class
+    	);
     	return $returnArray;
     }
     
     public function getRow($tableName, $where = NULL, $str = NULL) {
-    	 
+    	 echo "where is array " ; echo is_array($where);
     	if ($where === NULL) {
     		$result = $this->db->get($tableName)->row_array();
     	} else {
     		if (is_array($where)) {
     			$query = $this->db->where($where);
+    			echo "first  ";
     		} else {
+    		    echo "third  ";
     			$query = $this->db->where($where, $str);
     		}
     
     		$result = $query->get($tableName)->row_array();
     	}
-    	 
+    	echo $this->db->last_query();
     	return $result;
     }
     

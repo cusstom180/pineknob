@@ -10,12 +10,10 @@ class Admin extends MY_Controller {
 	
 	function index() {
 		$this->data['page'] = $this->admin_model->callbackPage();
-		print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1));
-		print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
-		print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3));
-// 		var_dump($this->data['page']);
-// 		var_dump(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)); echo " is the page";
-		$this->data['title'] = $this->admin_model->getRow('title', 'slug', $this->data['page']);
+// 		print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
+		var_dump($this->data['page']);
+		$this->data['title'] = $this->admin_model->getRow('title', $this->data['page'], NULL);
+		var_dump($this->data['title']);
 		// load view
 		$this->data['subview'] = 'admin/subviews/login';
 		$this->load->view('admin/mainLayout.php', $this->data);
