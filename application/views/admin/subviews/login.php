@@ -35,14 +35,13 @@
                                 <input class="form-control" placeholder="Password" name="password" type="password" value="">
                             </div>
 
-
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="login" name="login" >
 
                         </fieldset>
                     </form>
-                    <p>Not registered ?</p> <br>
+                    <p>First time logging in?</p> <br>
 							<!-- Button trigger registar modal -->
-                            <a href="<?= base_url('admin/registerclient')?>"><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#registarModal">
+                            <a href="<?= base_url('admin/registarclient')?>"><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#registarModal">
                               Registar here
                             </button></a>
                 </div>

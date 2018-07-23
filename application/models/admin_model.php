@@ -42,4 +42,20 @@ class Admin_model extends MY_Model {
 		}
 	}
 	
+	public function check_temp_password($array) {
+		$this->db->select('*');
+		$this->db->from('client');
+		$this->db->where($array);
+		$query=$this->db->get();
+		
+		if($query->num_rows()>0){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	public function check_passwords($string1, $string2) {
+		return $check = strcasecmp($string1, $string2);
+	}
 }

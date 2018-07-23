@@ -4,6 +4,9 @@ add when you use same email and it rediret back to register form, it mantaince t
 make client register page and checks and logic 
 email client register info
 
+changes in Front 
+change title and page callingback to same as admin
+
 
 
 You could also use PHPMailer class at https://github.com/PHPMailer/PHPMailer .

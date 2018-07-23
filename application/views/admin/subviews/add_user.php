@@ -1,12 +1,19 @@
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="container mar-top-50 mar-bot-50">
-			<form id="addclientform" method="post" action="<?= base_url('admin/addclient')?>">
-				<h1>enter employee information</h1>
-				<?php if(isset($_SESSION['error_msg'])) { ?>
+		<?php if(isset($_SESSION['success_add_msg'])) { ?>
 				<div class="form-group">
 			  		<div class="error ">
-			  			<h1><?= $_SESSION['error_msg']?></h1>
+			  			<h1><?= $_SESSION['success_add_msg']?></h1>
+			  		</div>
+				</div>
+				<?php } ?>
+			<form id="addclientform" method="post" action="<?= base_url('admin/addclient')?>">
+				<h1>enter employee information</h1>
+				<?php if(isset($_SESSION['error_add_msg'])) { ?>
+				<div class="form-group">
+			  		<div class="error ">
+			  			<h1><?= $_SESSION['error_add_msg']?></h1>
 			  		</div>
 				</div>
 				<?php } ?>
@@ -27,9 +34,9 @@
 					<label>email</label>
 			  		<div class="input-group">
 					<input type="text" name="email">
-					</div>
-					<label>temporary password</label>
-			  		<div class="input-group">
+ 					</div>							
+ 					<label>temporary password</label>
+ 			  		<div class="input-group">
 					<input type="text" name="temp_password">
 					</div>
 				</div>

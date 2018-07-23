@@ -12,23 +12,29 @@ class Admin extends MY_Controller {
 		$this->data['page'] = $this->admin_model->callbackPage();
 // 		print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
 		var_dump($this->data['page']);
-		$this->data['title'] = $this->admin_model->getRow('title', $this->data['page'], NULL);
+		$this->data['title'] = $this->admin_model->getPageTitle('title', $this->data['page'], NULL);
 		var_dump($this->data['title']);
+		
+		if (isset($_SESSION['login']) && $_SESSION['login']) {
+			// load view
+			$this->data['subview'] = 'admin/subviews/index';
+			$this->load->view('admin/mainLayout.php', $this->data);
+		} else {
+		
 		// load view
 		$this->data['subview'] = 'admin/subviews/login';
 		$this->load->view('admin/mainLayout.php', $this->data);
+		}
 	}
 	
 	function login_user(){
 		$user_login=array(
-	
 				'email'=>$this->input->post('email', TRUE),
 				'password'=>md5($this->input->post('password', TRUE))
-	
 		);
 	
 		// 		var_dump($_SERVER);
-		$data=$this->admin_model->login_user($user_login['email'],$user_login['password']);
+		$data = $this->admin_model->login_user($user_login['email'],$user_login['password']);
 				var_dump($data);
 		
 		// 		var_dump($_SESSION['referer']);
@@ -47,8 +53,8 @@ class Admin extends MY_Controller {
 	}
 	
 	function home() {
-		$this->data['page'] = $this->Front_model->callingBack();
-		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
+		$this->data['page'] = $this->admin_model->callingBack();
+		$this->data['title'] = $this->admin_model->getRow('title', 'slug', $this->data['page']);
 		print_r($this->data['page']);
 		//check if login 
 		if ($_SESSION['login']) {
@@ -63,7 +69,7 @@ class Admin extends MY_Controller {
 		}
 	}
 	
-	function addclient() {
+	function addclient() {			// WORKING HERE TO ADD PASSWORD UPDATE
 		
 		$post_array = array(
 				'first_name' => filter_input(INPUT_POST, 'first_name'),
@@ -76,21 +82,44 @@ class Admin extends MY_Controller {
 // 		var_dump($email_check);
 		if (!$email_check) {
 			echo "enter in another email";
-			$this->session->set_flashdata('error_msg', 'enter in another email.');
-			redirect('admin/home');
+			$this->session->set_flashdata('error_add_msg', 'enter in another email.');
+			redirect('admin');
 		} else {
 			var_dump($post_array);
 			
 			$result = $this->admin_model->add_user($post_array);
 			if ($result) {
 				echo "it worked";
+				$this->session->set_flashdata('success_add_msg', 'client has been added to system');
+				redirect('admin');
 			}
 		}
 		
 	}
 	
-	function registerclient() {
-		echo "hello from register";
+	function registarclient() {
+		if (isset($_POST['login'])){
+			var_dump($_POST);
+			$temp_password = $this->admin_model->check_temp_password($array = array('email' => $_POST['email'],
+					'temp_password' => $_POST['temp_password']));
+			if ($temp_password) {
+				$password_confirm = $this->admin_model->check_passwords(md5(filter_input(INPUT_POST, 'new_password')), md5(filter_input(INPUT_POST, 'confirm_password')));
+				if ($password_confirm === 0) {
+					echo "passwords match";
+					$_SESSION['login'] = true;
+				} else {
+					$this->session->set_flashdata('reg_error_msg', "passwords don't match. Please try again");
+// 					redirect('admin/registarclient');
+					$this->data['subview'] = 'admin/subviews/registar';
+					$this->load->view('admin/mainLayout.php', $this->data);
+				}
+			}
+			
+		} else {
+		// load view
+			$this->data['subview'] = 'admin/subviews/registar';
+			$this->load->view('admin/mainLayout.php', $this->data);
+		}
 	}
 	
 }

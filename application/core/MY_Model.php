@@ -13,6 +13,7 @@ class MY_Model extends CI_Model {
     	} else {
     		if (is_array($where)) {
     			$query = $this->db->where($where);
+    			echo " in the array check";
     		} else {
     			$query = $this->db->where($where, $str);
     		}
@@ -41,7 +42,6 @@ class MY_Model extends CI_Model {
     	$class = 'billy';
     	
     	$call = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2);
-    	var_dump($call[1]);
     	foreach ($call as $array) {
     	foreach ($array as $key => $value) {
     		if($key == 'function') {
@@ -50,14 +50,14 @@ class MY_Model extends CI_Model {
     		}
     		if($key === 'class') {
     			$class = $value;
-    			echo "key is $key and value is $value";
+//     			echo "key is $key and value is $value";
     		}
     		
     		}
     	}
     	$returnArray = array(
-    	    'controller'   => $func,
-    	    'slug'         => $class
+    	    'controller'   => $class,
+    	    'slug'         => $func
     	);
     	return $returnArray;
     }
@@ -77,8 +77,12 @@ class MY_Model extends CI_Model {
     
     		$result = $query->get($tableName)->row_array();
     	}
-    	echo $this->db->last_query();
+//     	echo $this->db->last_query();
     	return $result;
     }
     
+    public function getPageTitle($tableName, $where) {
+    	$query = $this->db->where($where);
+    	return $result = $query->get($tableName)->row_array();
+    }
 }

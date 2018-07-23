@@ -1,3 +1,5 @@
+<?php if (!isset($_SESSION['login'])) { include_once 'admin/subviews/login.php'; } 
+	else { ?>
 <?php if (!isset($_SESSION['error_msg'])) {?>
 <div class="container">
 	<div class="row">
@@ -38,5 +40,7 @@
 		</div>
 	</div>
 </div>
+<?php } ?>
+<?php include_once 'add_user.php';?>
 <?php } ?>
 <?php include_once 'add_user.php';?>
