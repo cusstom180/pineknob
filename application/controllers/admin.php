@@ -5,7 +5,7 @@ class Admin extends MY_Controller {
 	
 		parent::__construct();
 		$this->load->model('admin_model');
-// 		$this->load->model('Front_model');
+// 		$this->load->library('email');
 	}
 	
 	function index() {
@@ -16,6 +16,9 @@ class Admin extends MY_Controller {
 		var_dump($this->data['title']);
 		
 		if (isset($_SESSION['login']) && $_SESSION['login']) {
+			
+			$this->load->library('calendar');
+			echo $this->calendar->generate();
 			// load view
 			$this->data['subview'] = 'admin/subviews/index';
 			$this->load->view('admin/mainLayout.php', $this->data);
@@ -29,13 +32,12 @@ class Admin extends MY_Controller {
 	
 	function login_user(){
 		$user_login=array(
-				'email'=>$this->input->post('email', TRUE),
-				'password'=>md5($this->input->post('password', TRUE))
+				'email'=> filter_input(INPUT_POST, 'email'),
+				'password'=> md5(filter_input(INPUT_POST, 'password'))
 		);
-	
-		// 		var_dump($_SERVER);
+// 				var_dump($user_login);
 		$data = $this->admin_model->login_user($user_login['email'],$user_login['password']);
-				var_dump($data);
+// 				var_dump($data);
 		
 		// 		var_dump($_SESSION['referer']);
 		if($data) {
@@ -69,7 +71,7 @@ class Admin extends MY_Controller {
 		}
 	}
 	
-	function addclient() {			// WORKING HERE TO ADD PASSWORD UPDATE
+	function addclient() {			
 		
 		$post_array = array(
 				'first_name' => filter_input(INPUT_POST, 'first_name'),
@@ -86,7 +88,6 @@ class Admin extends MY_Controller {
 			redirect('admin');
 		} else {
 			var_dump($post_array);
-			
 			$result = $this->admin_model->add_user($post_array);
 			if ($result) {
 				echo "it worked";
@@ -97,7 +98,7 @@ class Admin extends MY_Controller {
 		
 	}
 	
-	function registarclient() {
+	function registarclient() {				// WORKING HERE TO ADD PASSWORD UPDATE
 		if (isset($_POST['login'])){
 			var_dump($_POST);
 			$temp_password = $this->admin_model->check_temp_password($array = array('email' => $_POST['email'],
@@ -106,7 +107,8 @@ class Admin extends MY_Controller {
 				$password_confirm = $this->admin_model->check_passwords(md5(filter_input(INPUT_POST, 'new_password')), md5(filter_input(INPUT_POST, 'confirm_password')));
 				if ($password_confirm === 0) {
 					echo "passwords match";
-					$_SESSION['login'] = true;
+					$this->admin_model->sendEmail($_POST['email']);
+// 					mail($_POST['email'], 'test email', 'test email form controller', 'From: pineknobskischool@gamil.com');
 				} else {
 					$this->session->set_flashdata('reg_error_msg', "passwords don't match. Please try again");
 // 					redirect('admin/registarclient');
@@ -121,5 +123,7 @@ class Admin extends MY_Controller {
 			$this->load->view('admin/mainLayout.php', $this->data);
 		}
 	}
+	
+	
 	
 }

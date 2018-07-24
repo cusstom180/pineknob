@@ -4,6 +4,7 @@ class Admin_model extends MY_Model {
 	function __construct() {
 
 		parent::__construct();
+		$this->load->library('Email');
 	}
 	
 	public function login_user($email,$pass){
@@ -57,5 +58,36 @@ class Admin_model extends MY_Model {
 	
 	public function check_passwords($string1, $string2) {
 		return $check = strcasecmp($string1, $string2);
+	}
+	
+	public function sendEmail($address) {
+		
+		
+		// The mail sending protocol.
+		$config['protocol'] = 'smtp';
+		// SMTP Server Address for Gmail.
+		$config['smtp_host'] = 'ssl://smtp.gmail.com';
+		// SMTP Port - the port that you is required
+		$config['smtp_port'] = '465';
+		// SMTP Username like. (abc@gmail.com)
+		$config['smtp_user'] = 'pineknobskischooltest@gmail.com';
+		// SMTP Password like (abc***##)
+		$config['smtp_pass'] = 'itchyMoon10';
+		
+		$config['mailtype'] = 'html';
+		
+		$config['charset'] = 'utf-8';
+		
+		
+		$this->email->initialize($config);
+		
+		$this->email->from('pineknobskischooltest');
+		$this->email->to($address);
+		$this->email->subject('email test');
+		$this->email->message('testing the email function');
+	
+		$this->email->send();
+		
+// 		echo $this->email->print_debugger();
 	}
 }
