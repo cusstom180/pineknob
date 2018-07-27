@@ -148,7 +148,7 @@ class Front extends MY_Controller {
 					'skill_id' => $_SESSION['skill'],
 					'date' => $_SESSION['date'],
 					'lesson_id' => $_SESSION['lesson'],
-					'user_id' => $_SESSION['user_id'],
+					'customer_id' => $_SESSION['customer'],
 					'price' => $this->data['price'],
 					'quantity' => $this->data['quantity'],
 					'total' => $this->data['total']
@@ -259,5 +259,35 @@ class Front extends MY_Controller {
 	    $this->load->view("register.php");
 	}
 	
+	function login_user(){
+	
+		$user_login=array(
+	
+				'email' => $this->input->post('email', TRUE),
+				'password'=> md5($this->input->post('password', TRUE))
+	
+		);
+		var_dump($_POST);
+// 		echo "email = " . $user_login['email'];
+		$login = $this->Front_model->login_user($user_login);
+		// 		var_dump($login);
+		if($login) {
+			$_SESSION['login'] = TRUE;
+			$_SESSION['client_id'] = $login['client_id'];
+			$_SESSION['first_name'] = $login['first_name'];
+			$_SESSION['last_name'] = $login['last_name'];
+			// 		    redirect($_SESSION['referer']);
+			echo "success";
+			echo "<script>location.reload();
+                        $('#registarModal').modal('hide')</script>";
+		}
+		else{
+			$this->session->set_flashdata('error_msg', 'Username or password is incorrect. Try again.');
+			// 		    $this->load->view("login.php");
+			echo "Username or password is incorrect. Try again.";
+			echo "<script>location.reload();</script>";
+		}
+	
+	}
 	
 }

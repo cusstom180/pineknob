@@ -8,7 +8,7 @@
 			  		</div>
 				</div>
 				<?php } ?>
-			<form id="addclientform" method="post" action="<?= base_url('admin/addclient')?>">
+			<form id="addclientform" method="post" action="<?= base_url('admin/adduser')?>">
 				<h1>enter employee information</h1>
 				<?php if(isset($_SESSION['error_add_msg'])) { ?>
 				<div class="form-group">
@@ -35,9 +35,17 @@
 			  		<div class="input-group">
 					<input type="text" name="email">
  					</div>							
- 					<label>temporary password</label>
- 			  		<div class="input-group">
-					<input type="text" name="temp_password">
+					<label>instructor type</label>
+					<div class="form-group">
+	 			  		<label class="radio-inline">
+						 	<input type="radio" name="instructor_cde" id="inlineRadio1" value="1"> ski
+						</label>
+						<label class="radio-inline">
+						  	<input type="radio" name="instructor_cde" id="inlineRadio2" value="2"> snowboard
+						</label>
+						<label class="radio-inline">
+						  	<input type="radio" name="instructor_cde" id="inlineRadio3" value="3"> both
+						</label>
 					</div>
 				</div>
 			  	<div class="form-group">

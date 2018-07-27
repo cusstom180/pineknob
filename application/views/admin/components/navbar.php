@@ -38,15 +38,11 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
       	<?php if (!isset($_SESSION['login'])) {
-      		if ($this->uri->segment(1) === 'admin') {
-      			include_once 'front/components/loginModal.php';
-      		} else {
-      			include 'loginModal.php';
-      		}
-      	}?>
-        <li><a data-toggle="modal" data-target="#loginModal"><?php echo (isset($_SESSION['user_name'])) ? 'hello ' . $_SESSION['user_name'] : 'login'?></a></li>
+      		include 'front/components/loginModal.php';
+      		} ?>
+        <li><a data-toggle="modal" data-target="#loginModal"><?php echo (isset($_SESSION['first_name'])) ? 'hello ' . $_SESSION['last_name'] : 'login'?></a></li>
         <?php if (isset($_SESSION['login'])) { ?>
-        <li><a href="<?= base_url('user/user_logout')?>">logout</a></li>
+        <li><a href="<?=base_url('admin/logout'); ?>">logout</a></li>
         <?php } ?>
       </ul>
     </div><!-- /.navbar-collapse -->

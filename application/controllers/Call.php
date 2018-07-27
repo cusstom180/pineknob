@@ -81,7 +81,8 @@ class Call extends MY_Controller {
 	
 	public function guestuser() {		// only using this one
 		echo "guest user is zero";
-		$this->session->set_userdata('client', TRUE);
+		$this->session->set_userdata('customer', TRUE);
+// 		$this->session->set_userdata('user_id', TRUE);
 	}
 	
 	public function destroy() {		// only using this one

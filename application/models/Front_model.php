@@ -35,6 +35,23 @@ class Front_model extends MY_Model {
     	return $result;
     }
     
+    public function login_user($array){
+    
+    	$this->db->select('customer_id, first_name, last_name');
+    	$this->db->from('customer');
+    	$this->db->where($array);
+    
+    	// 		var_dump($query=$this->db->get());
+    	if($query = $this->db->get())
+    	{
+    		return $query->row_array();
+    	}
+    	else{
+    		return false;
+    			
+    	}
+    }
+    
     
 
 //     // search for working instructors

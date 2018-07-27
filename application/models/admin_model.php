@@ -10,7 +10,7 @@ class Admin_model extends MY_Model {
 	public function login_user($email,$pass){
 	
 		$this->db->select('*');
-		$this->db->from('client');
+		$this->db->from('user');
 		$this->db->where('email', $email);
 		$this->db->where('password', $pass);
 	
@@ -25,14 +25,14 @@ class Admin_model extends MY_Model {
 	
 	public function add_user($array) {
 		
-		$check = $this->db->insert('client', $array);
-		// 		echo $this->db->last_query();
+		$check = $this->db->insert('user', $array);
+// 				echo $this->db->last_query();
 		return $check;
 	}
 	
 	public function check_email($email) {
 		$this->db->select('*');
-		$this->db->from('client');
+		$this->db->from('user');
 		$this->db->where('email',$email);
 		$query=$this->db->get();
 		
@@ -45,7 +45,7 @@ class Admin_model extends MY_Model {
 	
 	public function check_temp_password($array) {
 		$this->db->select('*');
-		$this->db->from('client');
+		$this->db->from('user');
 		$this->db->where($array);
 		$query=$this->db->get();
 		
@@ -89,5 +89,35 @@ class Admin_model extends MY_Model {
 		$this->email->send();
 		
 // 		echo $this->email->print_debugger();
+	}
+	
+	public function getAppt($date) {
+		$this->db->select('*');
+		$this->db->from('appointment_view');
+		$this->db->where('date',$date);
+		$query=$this->db->get();
+		
+		if($query->num_rows()>0){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	public function getQuery($date){
+		return $query = $this->db->query("SELECT * FROM appointment_view where date = '$date'");
+	}
+	
+	public function getInstructor($wherein) {
+		$this->db->select('*');
+		$this->db->from('user');
+		$this->db->where_in('instructor_cde', $wherein);
+		$query=$this->db->get();
+		
+		if($query->num_rows()>0){
+			return $query->result_array();;
+		}else{
+			return FALSE;
+		}
 	}
 }

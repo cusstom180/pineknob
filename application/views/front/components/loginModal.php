@@ -30,7 +30,7 @@
 							action="<?php if ($this->uri->segment(1) === 'admin') {
 								echo base_url('admin/login_user');
 							} else {
-								echo base_url('user/login_user');
+								echo base_url('front/login_user');
 							} ?>">
 							<fieldset>
 								<div class="form-group">
@@ -83,7 +83,7 @@
 			console.log("boop");
 			$.ajax({
 				type: "POST",
-				url: "<?= base_url('user/login_user')?>",
+				url: "<?= base_url('front/login_user')?>",
 				data: $('#loginForm').serialize(),	
 				success: function(event) {
 					console.log(event);
