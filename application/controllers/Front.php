@@ -10,6 +10,11 @@ class Front extends MY_Controller {
 	
 	function index() {
 		
+		if (isset($_SESSION['login_instructor'])) {
+			echo 'logined in dfsf';
+			session_destroy();
+		}
+		
 		$this->data['page'] = $this->Front_model->callingBack();
 		var_dump(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)); echo " is the page";
 		$this->data['title'] = $this->Front_model->getRow('title', 'slug', $this->data['page']);
@@ -20,6 +25,8 @@ class Front extends MY_Controller {
 		    echo "session is empty" .$_SERVER['HTTP_REFERER'];
 		    $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
 		}
+		
+		
 		
 		#get jumbotron row
 		$jumbotron = $this->Front_model->getRow('jumbotron', $whereArray);
@@ -57,7 +64,7 @@ class Front extends MY_Controller {
 		
 		// see session data
 		print_r($this->session->userdata);
-		print_r($this->data);
+// 		print_r($this->data);
 		//load the page view
 		$this->data['subview'] = 'front/Index';
 		$this->load->view('front/_mainlayout', $this->data);
@@ -148,10 +155,11 @@ class Front extends MY_Controller {
 					'skill_id' => $_SESSION['skill'],
 					'date' => $_SESSION['date'],
 					'lesson_id' => $_SESSION['lesson'],
-					'customer_id' => $_SESSION['customer'],
+					'customer_id' => $_SESSION['customer_id'],
 					'price' => $this->data['price'],
 					'quantity' => $this->data['quantity'],
-					'total' => $this->data['total']
+					'total' => $this->data['total'],
+					'instructor_id' => '1'
 						
 			);
 			$insertSuccess = $this->db->insert('appointment', $appointArray);
@@ -270,10 +278,10 @@ class Front extends MY_Controller {
 		var_dump($_POST);
 // 		echo "email = " . $user_login['email'];
 		$login = $this->Front_model->login_user($user_login);
-		// 		var_dump($login);
+				var_dump($login);
 		if($login) {
 			$_SESSION['login'] = TRUE;
-			$_SESSION['client_id'] = $login['client_id'];
+			$_SESSION['customer_id'] = $login['customer_id'];
 			$_SESSION['first_name'] = $login['first_name'];
 			$_SESSION['last_name'] = $login['last_name'];
 			// 		    redirect($_SESSION['referer']);
@@ -288,6 +296,12 @@ class Front extends MY_Controller {
 			echo "<script>location.reload();</script>";
 		}
 	
+	}
+	
+	public function guestuser() {		// only using this one
+		echo "guest user is zero";
+		$this->session->set_userdata('customer_id', TRUE);
+		// 		$this->session->set_userdata('user_id', TRUE);
 	}
 	
 }

@@ -28,10 +28,6 @@
                                 <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
                             </div>
                             <div class="form-group">
-                            	<label>temporay password</label>
-                                <input class="form-control" placeholder="temporay password" name="temp_password" type="password" value="">
-                            </div>
-                            <div class="form-group">
                             	<label>new password</label>
                                 <input class="form-control" placeholder="new password" name="new_password" type="password" value="">
                             </div>
@@ -39,7 +35,7 @@
                             	<label>confirm password</label>
                                 <input class="form-control" placeholder="confirm password password" name="confirm_password" type="password" value="">
                             </div>
-                                <input class="btn btn-lg btn-success btn-block" type="submit" value="login" name="login" >
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="submit" name="submit" >
                         </fieldset>
                     </form>
                 </div>

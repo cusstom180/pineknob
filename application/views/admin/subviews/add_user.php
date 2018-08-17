@@ -47,7 +47,18 @@
 						  	<input type="radio" name="instructor_cde" id="inlineRadio3" value="3"> both
 						</label>
 					</div>
-				</div>
+					<div class="form-group">
+				  		<div class="skill error hide"><p>wait, what is a skill?</p></div>
+						<label>role</label>
+				  		<div class="dropdown">
+				  			<select name="role">
+				  				<option value="3">instructor</option>
+				  				<option value="1">super admin</option>
+				  				<option value="2" >admin</option>
+				  				<option value="4">helper</option>
+				  			</select>
+				  		</div>
+					</div>
 			  	<div class="form-group">
 			  		<button name="submit" value="1" type="submit" id="submit" class="btn btn-default">Submit</button>
 			  	</div>

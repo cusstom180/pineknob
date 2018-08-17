@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<?= base_url();?>">Home</a>
+      <a class="navbar-brand" href="<?= base_url('admin');?>">Home</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -41,7 +41,7 @@
       		include 'front/components/loginModal.php';
       		} ?>
         <li><a data-toggle="modal" data-target="#loginModal"><?php echo (isset($_SESSION['first_name'])) ? 'hello ' . $_SESSION['last_name'] : 'login'?></a></li>
-        <?php if (isset($_SESSION['login'])) { ?>
+        <?php if (isset($_SESSION['login_instructor'])) { ?>
         <li><a href="<?=base_url('admin/logout'); ?>">logout</a></li>
         <?php } ?>
       </ul>

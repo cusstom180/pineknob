@@ -4,10 +4,18 @@
 			<table class="table table-striped">
 				<thead>
 				<tr>
-				<th>appt ID</th><th>client first</th><th>client last</th><th>sport</th><th>lesson</th><th>age</th><th>skill level</th><th>instructor first</th><th>instructor last</th><th>date</th></tr>
+					<th>appt ID</th>
+					<th>client first</th>
+					<th>client last</th>
+					<th>sport</th>
+					<th>skill level</th>
+					<th>age</th>
+					<th>instructor first</th>
+					<th>instructor last</th>
+					<th>date</th></tr>
 				</thead>
 				<tbody>
-				<?php if (count($appt > 1)) {
+				<?php if ($appt) {
 					foreach ($appt as $array) { ?>
 						<tr>
 						<?php foreach ($array as $key => $value) { ?>

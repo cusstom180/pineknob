@@ -72,7 +72,7 @@
 		$('#close, #guest, #nope').on('click', function (e) {
 			  console.log("it hide the model");
 			  $.ajax({
-				url: "<?= base_url('call/guestuser')?>",
+				url: "<?= base_url('front/guestuser')?>",
 				success: function(result) {
 					console.log(result);
 					}	

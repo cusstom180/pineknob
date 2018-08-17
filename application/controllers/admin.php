@@ -17,7 +17,7 @@ class Admin extends MY_Controller {
 		$this->data['title'] = $this->admin_model->getPageTitle('title', $this->data['page'], NULL);
 		var_dump($this->data['title']);
 		
-		if (isset($_SESSION['login']) && $_SESSION['login']) {
+		if (isset($_SESSION['login_instructor']) && $_SESSION['login_instructor']) {
 			// calendar format
 			$prefs['template'] = '
 			
@@ -71,6 +71,12 @@ class Admin extends MY_Controller {
 			var_dump($this->session->userdata);
 			$this->load->library('calendar', $prefs);
 // 			echo $this->calendar->generate(2010,3);
+
+			// load calendarDayView table
+// 			$date = date('Y-m-d');
+			$date = '2018-08-31';
+			$this->data['appt'] = $this->admin_model->getApptDetails($date);
+			
 			// load view
 			$this->data['subview'] = 'admin/subviews/index';
 			$this->load->view('admin/mainLayout.php', $this->data);
@@ -93,13 +99,13 @@ class Admin extends MY_Controller {
 		
 		// 		var_dump($_SESSION['referer']);
 		if($data) {
-			$this->session->set_userdata('user_id',$data['user_id']);
+			$this->session->set_userdata('instructor_id',$data['instructor_id']);
 			$this->session->set_userdata('first_name',$data['first_name']);
 			$this->session->set_userdata('last_name',$data['last_name']);
 			$this->session->set_userdata('email',$data['email']);
 			$this->session->set_userdata('role',$data['role']);
 			// 			$this->session->set_userdata('mobile',$data['mobile']);
-			$this->session->set_userdata('login', TRUE);
+			$this->session->set_userdata('login_instructor', TRUE);
 			redirect(base_url('admin'));
 		}
 		else{
@@ -123,9 +129,11 @@ class Admin extends MY_Controller {
 				'first_name' => filter_input(INPUT_POST, 'first_name'),
 				'last_name' => filter_input(INPUT_POST, 'last_name'),
 				'email' => filter_input(INPUT_POST, 'email'),
-				'instructor_cde' => $filter_input(INPUT_POST, 'instructor_cde')
+				'role' => filter_input(INPUT_POST, 'role'),
+				'instructor_cde' => filter_input(INPUT_POST, 'instructor_cde'),
+				'active' => FALSE
 		);
-		
+// 		var_dump($post_array);
 		$email_check = $this->admin_model->check_email($post_array['email']);
 // 		var_dump($email_check);
 		if (!$email_check) {
@@ -138,30 +146,56 @@ class Admin extends MY_Controller {
 			if ($result) {
 				echo "it worked";
 				$this->session->set_flashdata('success_add_msg', 'client has been added to system');
-				redirect('admin');
+// 				redirect('admin');
 			}
 		}
 		
 	}
 	
 	function registarclient() {				// WORKING HERE TO ADD PASSWORD UPDATE
-		if (isset($_POST['login'])){
+		var_dump($_GET);
+		$id = $this->input->get_post('id');
+		var_dump($id);
+		if (filter_input(INPUT_POST, 'submit')) {
+// 			var_dump(filter_input(INPUT_POST, 'submit'));
+			echo 'in post test';
+			var_dump($_GET);
 			var_dump($_POST);
-			$temp_password = $this->admin_model->check_temp_password($array = array('email' => $_POST['email'],
-					'temp_password' => $_POST['temp_password']));
-			if ($temp_password) {
-				$password_confirm = $this->admin_model->check_passwords(md5(filter_input(INPUT_POST, 'new_password')), md5(filter_input(INPUT_POST, 'confirm_password')));
-				if ($password_confirm === 0) {
-					echo "passwords match";
-					$this->admin_model->sendEmail($_POST['email']);
-// 					mail($_POST['email'], 'test email', 'test email form controller', 'From: pineknobskischool@gamil.com');
-				} else {
-					$this->session->set_flashdata('reg_error_msg', "passwords don't match. Please try again");
-// 					redirect('admin/registarclient');
-					$this->data['subview'] = 'admin/subviews/registar';
-					$this->load->view('admin/mainLayout.php', $this->data);
+			$id = $this->input->get('id');
+			var_dump($id);
+			$emailCheck = $this->admin_model->checkEmailID($array = array('email' => $this->input->get('email', TRUE), 'instructor_id' => $id));
+			
+			if ($emailCheck) {
+				var_dump($emailCheck);
+				if ($emailCheck['password'] === $emailCheck['confirm']) {
+// 					$insertCheck = $this->admin_model->updateInstructorPassword();
 				}
+				
 			}
+		}
+		
+		if ($emailCheck['active']) {
+// 			var_dump($emailCheck);
+		
+		
+		
+// 		if (isset($_POST['login'])){
+// 			var_dump($_POST);
+// 			$temp_password = $this->admin_model->check_temp_password($array = array('email' => $_POST['email'],
+// 					'temp_password' => $_POST['temp_password']));
+// 			if ($temp_password) {
+// 				$password_confirm = $this->admin_model->check_passwords(md5(filter_input(INPUT_POST, 'new_password')), md5(filter_input(INPUT_POST, 'confirm_password')));
+// 				if ($password_confirm === 0) {
+// 					echo "passwords match";
+// 					$this->admin_model->sendEmail($_POST['email']);
+// // 					mail($_POST['email'], 'test email', 'test email form controller', 'From: pineknobskischool@gamil.com');
+// 				} else {
+// 					$this->session->set_flashdata('reg_error_msg', "passwords don't match. Please try again");
+// // 					redirect('admin/registarclient');
+// 					$this->data['subview'] = 'admin/subviews/registar';
+// 					$this->load->view('admin/mainLayout.php', $this->data);
+// 				}
+// 			}
 			
 		} else {
 		// load view
@@ -173,11 +207,12 @@ class Admin extends MY_Controller {
 	function calendardayview() {
 		
 // 		$this->data['appt'] = $this->admin_model->getAllRows('appointment', 'date', filter_input(INPUT_GET, 'date'));
-		$this->data['appt'] = $this->admin_model->getAllRows('appointment_view', 'date', $this->input->get('date'));
-		$this->data['header'] = $this->admin_model->getQuery($this->input->get('date'));
+		$this->data['appt'] = $this->admin_model->getApptDetails($this->input->get('date', true));
+// 		$this->data['header'] = $this->admin_model->getTitlecolumns($this->input->get('date'));
+// 		var_dump($this->data['appt']);
+// 		echo $this->db->last_query();
 		var_dump($this->data['appt']);
-		echo $this->db->last_query();
-// 		c
+// 		echo $this->db->last_query();
 		
 		// load view
 		$this->data['subview'] = 'admin/subviews/day_appointments';
@@ -186,8 +221,9 @@ class Admin extends MY_Controller {
 	
 	function dayview() {
 // 		var_dump($this->input->get('id', TRUE));
-		$this->data['day'] = $this->admin_model->getRow('appointment_view', 'appt_id', $this->input->get('id', TRUE));
+		$this->data['day'] = $this->admin_model->getDayViewDetails($this->input->get('id', TRUE));
 		var_dump($this->data['day']);
+				echo $this->db->last_query();
 		
 		// ***************************************************
 		$intructor_array = array();
@@ -215,18 +251,25 @@ class Admin extends MY_Controller {
 		}
 		
 		// write a query to get all the instructors with teh proper instructor cde 
-		$this->data['instructor'] = $this->admin_model->getInstructor($intructor_array);
+		$this->data['instructor'] = $this->admin_model->getAllInstructor($intructor_array);
 // 		var_dump($this->data['instructor']);
-		echo $this->db->last_query();
+// 		echo $this->db->last_query();
 		// load view
 		$this->data['subview'] = 'admin/subviews/day_view';
 		$this->load->view('admin/mainLayout.php', $this->data);
 	}
 	
-	function updateuser() {
+	function updateInstructor() {
 		var_dump($_POST);
 		if ($this->input->post('check1', TRUE)) {
-			$update = $this->admin_model->updateappt($this->input->post('appt', TRUE), $this->input->post('check1', TRUE));		
+			$update = $this->admin_model->updateInstructor($this->input->post('appt', TRUE), $this->input->post('instructor', TRUE));	
+// 			var_dump($update);
+
+			if($update) {
+				redirect(base_url('admin/calendardayview?date=' . $this->input->post('date', True)));
+			} else {
+				echo 'something went wrong';
+			}
 		}
 	}
 	
