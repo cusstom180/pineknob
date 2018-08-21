@@ -1,6 +1,6 @@
 <?php
 require 'calendar_template.php';
-
+ 
 class Admin extends MY_Controller {
 	
 	function __construct(){
@@ -13,11 +13,12 @@ class Admin extends MY_Controller {
 	function index() {
 		$this->data['page'] = $this->admin_model->callbackPage();
 // 		print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2));
-		var_dump($this->data['page']);
+// 		var_dump($this->data['page']);
 		$this->data['title'] = $this->admin_model->getPageTitle('title', $this->data['page'], NULL);
-		var_dump($this->data['title']);
+// 		var_dump($this->data['title']);
 		
 		if (isset($_SESSION['login_instructor']) && $_SESSION['login_instructor']) {
+			if ($_SESSION['role'] === ( '1' || '2')) {
 			// calendar format
 			$prefs['template'] = '
 			
@@ -80,6 +81,10 @@ class Admin extends MY_Controller {
 			// load view
 			$this->data['subview'] = 'admin/subviews/index';
 			$this->load->view('admin/mainLayout.php', $this->data);
+			}
+			elseif ($_SESSION === '3') {
+				echo 'instructor view';
+			}
 		} else {
 		
 		// load view
@@ -121,8 +126,31 @@ class Admin extends MY_Controller {
 		redirect('admin', 'refresh');
 	}
 	
-	function adduser() {			
-		var_dump($_POST);
+	public function send_email() {
+		$this->load->library('email');
+		$config['protocol']='smtp';
+		$config['smtp_host']='ssl://smtp.gmail.com';
+		$config['smtp_port']='465';
+// 		$config['mailpath'] = '/usr/sbin/sendmail';
+		$config['smtp_timeout']='30';
+		$config['smtp_user']='pineknobskischooltest@gmail.com';
+		$config['smtp_pass']='itchyMoon10';
+		$config['charset']='utf-8';
+		$config['newline']="\r\n";
+		$config['wordwrap'] = TRUE;
+		$config['mailtype'] = 'html';
+		$this->email->initialize($config);
+		$this->email->from('no-reply@your-site.com', 'Site name');
+		$this->email->to('to-address-mail-id');
+		$this->email->subject('Notification Mail');
+		$this->email->message('Your message');
+		$this->email->send();
+		echo $this->email->print_debugger();
+	}
+	
+	function adduser() {	
+		$this->load->helper('string');
+// 		var_dump($_POST);
 		$instuctor_cde = array();
 		
 		$post_array = array(
@@ -131,7 +159,8 @@ class Admin extends MY_Controller {
 				'email' => filter_input(INPUT_POST, 'email'),
 				'role' => filter_input(INPUT_POST, 'role'),
 				'instructor_cde' => filter_input(INPUT_POST, 'instructor_cde'),
-				'active' => FALSE
+				'active' => FALSE,
+				'register_cde' => md5(random_string('alpha', 12))
 		);
 // 		var_dump($post_array);
 		$email_check = $this->admin_model->check_email($post_array['email']);
@@ -141,10 +170,26 @@ class Admin extends MY_Controller {
 			$this->session->set_flashdata('error_add_msg', 'enter in another email.');
 			redirect('admin');
 		} else {
-			var_dump($post_array);
+// 			var_dump($post_array);
 			$result = $this->admin_model->add_user($post_array);
 			if ($result) {
 				echo "it worked";
+				// send link link
+// 				$sender_email = 'pineknobskischooltest@gmail.com';
+			
+				
+				
+// 				$this->email->from('your@example.com', 'Your Name');
+// 				$this->email->to('someone@example.com');
+				
+// 				$this->email->subject('Email Test');
+// 				$this->email->message('Testing the email class.');
+				
+// 				$this->send_email();
+				
+				$linkarray = $this->admin_model->getLinkAddress($post_array);
+				$link = base_url('admin/registarclient') . '/' . $linkarray['first_name'] . '/' . $linkarray['last_name'] . '/' . $linkarray['register_cde'];
+				var_dump($link);
 				$this->session->set_flashdata('success_add_msg', 'client has been added to system');
 // 				redirect('admin');
 			}
@@ -152,56 +197,33 @@ class Admin extends MY_Controller {
 		
 	}
 	
+	
+	
 	function registarclient() {				// WORKING HERE TO ADD PASSWORD UPDATE
-		var_dump($_GET);
-		$id = $this->input->get_post('id');
-		var_dump($id);
+		$first = $this->uri->segment(3);
+		$last = $this->uri->segment(4);
+		$reg_cde = $this->uri->segment(5);
+		echo "$first $first $reg_cde";
+		$data = $this->admin_model->getRow('instructor', $where = array('first_name' => $first, 'last_name' => $last, 'register_cde' => $reg_cde, 'active' => 0));
+		var_dump($data);
+		if($data) {
+			$this->data['instructor_form'] = TRUE;
+		}
 		if (filter_input(INPUT_POST, 'submit')) {
-// 			var_dump(filter_input(INPUT_POST, 'submit'));
-			echo 'in post test';
-			var_dump($_GET);
+			echo 'submit true';
 			var_dump($_POST);
-			$id = $this->input->get('id');
-			var_dump($id);
-			$emailCheck = $this->admin_model->checkEmailID($array = array('email' => $this->input->get('email', TRUE), 'instructor_id' => $id));
-			
-			if ($emailCheck) {
-				var_dump($emailCheck);
-				if ($emailCheck['password'] === $emailCheck['confirm']) {
-// 					$insertCheck = $this->admin_model->updateInstructorPassword();
+			if ($this->admin_model->getRow('instructor', $where2 = array('email' => filter_input(INPUT_POST, 'email'), 'active' => 0 ))) {
+				$result = $this->admin_model->setInstructorPassword(filter_input(INPUT_POST, 'new_password'), filter_input(INPUT_POST, 'email'));
+				if ($result) {
+					$this->data['set_pass'] = TRUE;
 				}
 				
 			}
 		}
-		
-		if ($emailCheck['active']) {
-// 			var_dump($emailCheck);
-		
-		
-		
-// 		if (isset($_POST['login'])){
-// 			var_dump($_POST);
-// 			$temp_password = $this->admin_model->check_temp_password($array = array('email' => $_POST['email'],
-// 					'temp_password' => $_POST['temp_password']));
-// 			if ($temp_password) {
-// 				$password_confirm = $this->admin_model->check_passwords(md5(filter_input(INPUT_POST, 'new_password')), md5(filter_input(INPUT_POST, 'confirm_password')));
-// 				if ($password_confirm === 0) {
-// 					echo "passwords match";
-// 					$this->admin_model->sendEmail($_POST['email']);
-// // 					mail($_POST['email'], 'test email', 'test email form controller', 'From: pineknobskischool@gamil.com');
-// 				} else {
-// 					$this->session->set_flashdata('reg_error_msg', "passwords don't match. Please try again");
-// // 					redirect('admin/registarclient');
-// 					$this->data['subview'] = 'admin/subviews/registar';
-// 					$this->load->view('admin/mainLayout.php', $this->data);
-// 				}
-// 			}
-			
-		} else {
 		// load view
 			$this->data['subview'] = 'admin/subviews/registar';
 			$this->load->view('admin/mainLayout.php', $this->data);
-		}
+	
 	}
 	
 	function calendardayview() {

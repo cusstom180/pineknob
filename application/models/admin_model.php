@@ -179,4 +179,25 @@ class Admin_model extends MY_Model {
 		$this->db->where('appt_id', $app_id);
 		return $result = $this->db->update('appointment');
 	}
+	
+	public function getLinkAddress($array) {
+		$this->db->select('*');
+		$this->db->from('instructor');
+		$this->db->where('active', 0);
+		$this->db->where('register_cde', $array['register_cde']);
+		$query=$this->db->get();
+		
+		if($query->num_rows()>0){
+			return $query->row_array();
+		}else{
+			return FALSE;
+		}
+	}
+	
+	public function setInstructorPassword($password, $email) {
+		$this->db->set('password', md5($password));
+		$this->db->set('active', TRUE);
+		$this->db->where('email', $email);
+		return $result = $this->db->update('instructor');
+	}
 }

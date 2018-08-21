@@ -1,3 +1,4 @@
+<?php if (isset($instructor_form) && $instructor_form) { ?>
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -43,3 +44,8 @@
         </div>
     </div>
 </div>
+<?php } else if (isset($set_pass) && $set_pass){ ?>
+password changed
+<?php } else { ?>
+something went wrong
+<?php }?>
